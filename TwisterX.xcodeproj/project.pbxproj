@@ -11,6 +11,8 @@
 		E9A9AA471B93537D005D312C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A9AA461B93537D005D312C /* ViewController.swift */; };
 		E9A9AA491B93537D005D312C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E9A9AA481B93537D005D312C /* Assets.xcassets */; };
 		E9A9AA4C1B93537D005D312C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9A9AA4A1B93537D005D312C /* Main.storyboard */; };
+		E9A9AA551B935897005D312C /* Twisterd.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A9AA541B935897005D312C /* Twisterd.swift */; settings = {ASSET_TAGS = (); }; };
+		E9A9AA5C1B935B0E005D312C /* twister in Resources */ = {isa = PBXBuildFile; fileRef = E9A9AA5B1B935B0E005D312C /* twister */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,6 +22,8 @@
 		E9A9AA481B93537D005D312C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E9A9AA4B1B93537D005D312C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		E9A9AA4D1B93537D005D312C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E9A9AA541B935897005D312C /* Twisterd.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Twisterd.swift; sourceTree = "<group>"; };
+		E9A9AA5B1B935B0E005D312C /* twister */ = {isa = PBXFileReference; lastKnownFileType = folder; path = twister; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,7 +60,9 @@
 				E9A9AA461B93537D005D312C /* ViewController.swift */,
 				E9A9AA481B93537D005D312C /* Assets.xcassets */,
 				E9A9AA4A1B93537D005D312C /* Main.storyboard */,
+				E9A9AA5B1B935B0E005D312C /* twister */,
 				E9A9AA4D1B93537D005D312C /* Info.plist */,
+				E9A9AA541B935897005D312C /* Twisterd.swift */,
 			);
 			path = TwisterX;
 			sourceTree = "<group>";
@@ -118,6 +124,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E9A9AA5C1B935B0E005D312C /* twister in Resources */,
 				E9A9AA491B93537D005D312C /* Assets.xcassets in Resources */,
 				E9A9AA4C1B93537D005D312C /* Main.storyboard in Resources */,
 			);
@@ -130,6 +137,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E9A9AA551B935897005D312C /* Twisterd.swift in Sources */,
 				E9A9AA471B93537D005D312C /* ViewController.swift in Sources */,
 				E9A9AA451B93537D005D312C /* AppDelegate.swift in Sources */,
 			);
