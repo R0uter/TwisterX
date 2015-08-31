@@ -31,20 +31,12 @@ struct Twisterd {
         return output
     }
     func killTwisterd() {
+      
         task.terminate()
     }
     
-    func restartTwisterd() -> String {
-        task.terminate()
-        while task.running { }
-        task.launch()
-        return "Restarted!"
-    }
-    
-    
-    
-    
-    
+  
+  
     
    
 }

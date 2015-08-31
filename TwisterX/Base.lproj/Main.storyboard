@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="8187.4"/>
+        <capability name="box content view" minToolsVersion="7.0"/>
     </dependencies>
     <scenes>
         <!--Application-->
@@ -19,6 +20,7 @@
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="orderFrontStandardAboutPanel:" target="Ady-hI-5gd" id="Exp-CZ-Vem"/>
+                                                <segue destination="TQ5-7g-Q3Z" kind="show" id="5ax-Za-N4G"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="VOq-y0-SEH"/>
@@ -651,8 +653,8 @@
         <scene sceneID="R2V-B0-nI4">
             <objects>
                 <windowController id="B8D-0N-5wS" sceneMemberID="viewController">
-                    <window key="window" title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="IQv-IB-iLA">
-                        <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
+                    <window key="window" title="TwisterX" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="IQv-IB-iLA">
+                        <windowStyleMask key="styleMask" titled="YES" closable="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
                         <rect key="contentRect" x="196" y="240" width="480" height="270"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
@@ -665,6 +667,155 @@
             </objects>
             <point key="canvasLocation" x="75" y="250"/>
         </scene>
+        <!--Window Controller-->
+        <scene sceneID="pMP-cv-9UD">
+            <objects>
+                <windowController id="TQ5-7g-Q3Z" sceneMemberID="viewController">
+                    <window key="window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="99D-Jt-y3g">
+                        <windowStyleMask key="styleMask" closable="YES"/>
+                        <rect key="contentRect" x="163" y="199" width="500" height="209"/>
+                        <rect key="screenRect" x="0.0" y="0.0" width="1280" height="777"/>
+                    </window>
+                    <connections>
+                        <segue destination="19M-fb-AXd" kind="relationship" relationship="window.shadowedContentViewController" id="Pj6-3c-dNW"/>
+                    </connections>
+                </windowController>
+                <customObject id="Zoi-r5-6tF" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="700" y="237.5"/>
+        </scene>
+        <!--About TwisterX-->
+        <scene sceneID="zYE-57-xd5">
+            <objects>
+                <viewController id="19M-fb-AXd" customClass="AboutTwisterX" customModule="TwisterX" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="nOK-My-T7S">
+                        <rect key="frame" x="0.0" y="0.0" width="500" height="209"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <box fixedFrame="YES" borderWidth="0.0" title="Box" boxType="custom" borderType="none" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="vbR-Yi-azD">
+                                <rect key="frame" x="0.0" y="0.0" width="500" height="209"/>
+                                <view key="contentView" ambiguous="YES" id="gKE-vT-Kgn">
+                                    <rect key="frame" x="0.0" y="0.0" width="500" height="209"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <animations/>
+                                </view>
+                                <animations/>
+                                <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
+                                <color key="fillColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                            </box>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Fmh-Uf-4su">
+                                <rect key="frame" x="0.0" y="1" width="500" height="207"/>
+                                <animations/>
+                                <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" imagePosition="overlaps" alignment="center" state="on" transparent="YES" inset="2" id="O8o-Wi-5JO">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="close:" target="19M-fb-AXd" id="T71-QC-y4J"/>
+                                </connections>
+                            </button>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="X7C-sv-4Ie">
+                                <rect key="frame" x="215" y="70" width="156" height="21"/>
+                                <animations/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="View TwisterX on Github:" id="w5x-oT-Qsh">
+                                    <font key="font" size="13" name="PingFangSC-Light"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hXr-cd-8A0">
+                                <rect key="frame" x="215" y="45" width="65" height="21"/>
+                                <animations/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Based on:" id="6Lc-Z5-rHV">
+                                    <font key="font" size="13" name="PingFangSC-Light"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="isf-m6-cDS">
+                                <rect key="frame" x="215" y="20" width="144" height="21"/>
+                                <animations/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Something gos south? " id="zTl-lp-49W">
+                                    <font key="font" size="13" name="PingFangSC-Light"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XYW-P9-bhs">
+                                <rect key="frame" x="377" y="69" width="62" height="17"/>
+                                <animations/>
+                                <buttonCell key="cell" type="inline" title="TwisterX" bezelStyle="inline" alignment="center" borderStyle="border" inset="2" id="9iR-2n-jXD">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="smallSystemBold"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="goTwisterX:" target="19M-fb-AXd" id="u7d-y2-3hP"/>
+                                </connections>
+                            </button>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hs1-3q-H05">
+                                <rect key="frame" x="286" y="44" width="82" height="17"/>
+                                <animations/>
+                                <buttonCell key="cell" type="inline" title="twister-core" bezelStyle="inline" alignment="center" borderStyle="border" inset="2" id="FgC-ML-ALK">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="smallSystemBold"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="goTwisterCore:" target="19M-fb-AXd" id="kbw-H8-phT"/>
+                                </connections>
+                            </button>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Wrg-rI-6lb">
+                                <rect key="frame" x="377" y="44" width="82" height="17"/>
+                                <animations/>
+                                <buttonCell key="cell" type="inline" title="twister-html" bezelStyle="inline" alignment="center" borderStyle="border" inset="2" id="zRu-vP-U9W">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="smallSystemBold"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="goTwisterHtml:" target="19M-fb-AXd" id="yf2-q9-xvu"/>
+                                </connections>
+                            </button>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hY6-js-wz9">
+                                <rect key="frame" x="365" y="19" width="81" height="17"/>
+                                <animations/>
+                                <buttonCell key="cell" type="inline" title="Issuse here!" bezelStyle="inline" alignment="center" borderStyle="border" inset="2" id="C5Y-ZD-I1j">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="smallSystemBold"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="goIssuse:" target="19M-fb-AXd" id="LVu-8j-xhf"/>
+                                </connections>
+                            </button>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gsf-ux-F4J">
+                                <rect key="frame" x="215" y="147" width="189" height="50"/>
+                                <animations/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="TwisterX" id="sjk-A5-fKR">
+                                    <font key="font" size="36" name="PingFangSC-Ultralight"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="na8-nz-RZk">
+                                <rect key="frame" x="42" y="54" width="128" height="135"/>
+                                <animations/>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="256" id="2uo-JP-Xe1"/>
+                            </imageView>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JCZ-0v-xf8">
+                                <rect key="frame" x="215" y="116" width="155" height="23"/>
+                                <animations/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Version 0.0 alpha 2" id="1jh-E7-1qK">
+                                    <font key="font" size="13" name="PingFangSC-Thin"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                        </subviews>
+                        <animations/>
+                    </view>
+                </viewController>
+                <customObject id="ugx-Q4-bSL" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="700" y="624.5"/>
+        </scene>
         <!--View Controller-->
         <scene sceneID="hIz-AP-VOD">
             <objects>
@@ -673,35 +824,97 @@
                         <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <button horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xwD-ZM-xlM">
-                                <rect key="frame" x="77" y="164" width="93" height="65"/>
+                            <box fixedFrame="YES" title="Box" boxType="custom" borderType="none" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="WyO-fd-9A4">
+                                <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
+                                <view key="contentView" ambiguous="YES" id="0UK-lW-pN7">
+                                    <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XFf-Dv-FCy">
+                                            <rect key="frame" x="18" y="234" width="119" height="24"/>
+                                            <animations/>
+                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Twisterd state:" id="TPM-fw-0Gg">
+                                                <font key="font" size="16" name="PingFangSC-Light"/>
+                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <button horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eIN-jb-cET">
+                                            <rect key="frame" x="20" y="19" width="95" height="19"/>
+                                            <animations/>
+                                            <buttonCell key="cell" type="roundRect" title="test button!" bezelStyle="roundedRect" imagePosition="above" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="I6i-WE-m5E">
+                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                <font key="font" metaFont="cellTitle"/>
+                                            </buttonCell>
+                                            <connections>
+                                                <action selector="stop:" target="XfG-lQ-9wD" id="XHb-kw-CMg"/>
+                                            </connections>
+                                        </button>
+                                        <button horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xwD-ZM-xlM">
+                                            <rect key="frame" x="20" y="197" width="95" height="19"/>
+                                            <animations/>
+                                            <buttonCell key="cell" type="roundRect" title="Run Twisterd" bezelStyle="roundedRect" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="0Zj-PG-g1y">
+                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                <font key="font" metaFont="cellTitle"/>
+                                            </buttonCell>
+                                            <connections>
+                                                <action selector="toggle:" target="XfG-lQ-9wD" id="2So-JC-Bas"/>
+                                            </connections>
+                                        </button>
+                                        <box verticalHuggingPriority="750" fixedFrame="YES" title="Box" boxType="separator" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="c3f-Wy-vAn">
+                                            <rect key="frame" x="10" y="222" width="450" height="5"/>
+                                            <animations/>
+                                            <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
+                                            <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                            <font key="titleFont" metaFont="system"/>
+                                        </box>
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GIz-z3-a7Y">
+                                            <rect key="frame" x="131" y="234" width="21" height="23"/>
+                                            <animations/>
+                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="🔴" id="zjw-85-ORB">
+                                                <font key="font" size="13" name="AppleColorEmoji"/>
+                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mGD-rb-3er">
+                                            <rect key="frame" x="167" y="233" width="293" height="19"/>
+                                            <animations/>
+                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" state="on" alignment="right" placeholderString="Here is Twisterd's Version!" drawsBackground="YES" id="TwS-DX-UAn">
+                                                <font key="font" metaFont="system" size="14"/>
+                                                <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1Of-zs-F77">
+                                            <rect key="frame" x="145" y="20" width="315" height="196"/>
+                                            <animations/>
+                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="Hsv-Yd-4yh">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                    </subviews>
+                                    <animations/>
+                                </view>
                                 <animations/>
-                                <buttonCell key="cell" type="smallSquare" title="run" bezelStyle="smallSquare" imagePosition="above" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="0Zj-PG-g1y">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <action selector="run:" target="XfG-lQ-9wD" id="oAx-2g-LZi"/>
-                                </connections>
-                            </button>
-                            <button horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eIN-jb-cET">
-                                <rect key="frame" x="151" y="46" width="160" height="71"/>
-                                <animations/>
-                                <buttonCell key="cell" type="smallSquare" title="stop" bezelStyle="smallSquare" imagePosition="above" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="I6i-WE-m5E">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <action selector="stop:" target="XfG-lQ-9wD" id="XHb-kw-CMg"/>
-                                </connections>
-                            </button>
+                                <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
+                                <color key="fillColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                            </box>
                         </subviews>
                         <animations/>
                     </view>
+                    <connections>
+                        <outlet property="versionField" destination="mGD-rb-3er" id="eil-98-O5V"/>
+                    </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="75" y="655"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="256" width="128" height="128"/>
+    </resources>
 </document>
