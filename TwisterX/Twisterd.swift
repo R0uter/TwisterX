@@ -16,19 +16,19 @@ struct Twisterd {
     private let task = NSTask()
     private let pipe = NSPipe()
     
-    
     init(launchPath path:String, arguments args:[String]) {
         task.arguments = args
         task.launchPath = path
         task.standardOutput = pipe
     }
     
-    func runTwisterd()->String {
+    func runTwisterd() -> String {
         task.launch()
-        let data = pipe.fileHandleForReading.readDataToEndOfFile()
-        let output: String = NSString(data: data, encoding: NSUTF8StringEncoding) as! String
-        guard output != "" else { return "Twisterd is started!" }
+        let debugData = pipe.fileHandleForReading.readDataToEndOfFile()
+        let output = NSString(data: debugData, encoding: NSUTF8StringEncoding) as! String
+        guard output != "" else { return "Twisterd stoped." }
         return output
+       
     }
     func killTwisterd() {
       

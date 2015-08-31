@@ -11,6 +11,9 @@
 
 import Cocoa
 
+
+
+
 class ViewController: NSViewController {
     var twisterd:Twisterd!
     var backgroundQueue = NSOperationQueue()
@@ -23,16 +26,27 @@ class ViewController: NSViewController {
     var rpcpassword = String()
     var rpcallowip = String()
     var args:[String] = []
+    
+    var shell = String() {
+        didSet {
+            shellField.stringValue += shell
+        }
+    }
 
     
     @IBOutlet weak var versionField: NSTextField!
+    @IBOutlet weak var shellField: NSTextField!
     @IBAction func toggle (sender: NSButton) {
         if sender.title == "Run Twisterd" {
-        go()
-        backgroundQueue.addOperationWithBlock { twisterd.runTwisterd() }
-        sender.title = "Stop Twisterd"
+            shellField.stringValue = "Starting Twisterd...\n"
+            go()
+            backgroundQueue.addOperationWithBlock{self.shell = self.twisterd.runTwisterd()}
+            
+            sender.title = "Stop Twisterd"
         } else  {
+            shellField.stringValue += "Stoping Twisterd...\n"
             twisterd.killTwisterd()
+            
             sender.title = "Run Twisterd"
         }
         
@@ -75,11 +89,14 @@ class ViewController: NSViewController {
     
     func getTwisterdVersion()->String {
         let version = Twisterd(launchPath: twisterdDir, arguments: ["--help"])
-        let a =  version.runTwisterd()
+        let a = version.runTwisterd()
         let ver = a.characters.split(){$0 == "\n"}.map{String($0)}
         return ver[0]
 
     }
-
+    
+   
+    
+  
 }
 

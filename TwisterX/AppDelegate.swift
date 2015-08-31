@@ -10,6 +10,18 @@ import Cocoa
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
+    func applicationShouldHandleReopen(sender: NSApplication, hasVisibleWindows
+        flag: Bool) -> Bool {
+            if !flag{
+                for window in sender.windows{
+                    if let w = window as? NSWindow{
+                        w.makeKeyAndOrderFront(self)
+                    }
+                }
+            }
+            return true
+    }
+
 
 
 
