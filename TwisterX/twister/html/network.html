@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <title>Network status</title>
+    <link id="stylecss" rel="stylesheet" href="css/style.css" type="text/css"/>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/jQueryPlugins.js"></script>
+    <script src="js/jquery.json-2.4.js"></script>
+    <script src="js/jquery.jsonrpcclient.js"></script>
+    <script src="js/jquery.storageapi.js"></script>
+    <script src="js/options.js"></script>
+    <script src="js/franc.js"></script>
+    <script src="js/notify.js"></script>
+    <script src="js/mobile_abstract.js"></script>
+    <script src="js/twister_io.js"></script>
+    <script src="js/twister_user.js"></script>
+    <script src="js/twister_formatpost.js"></script>
+    <script src="js/twister_following.js"></script>
+    <script src="js/twister_newmsgs.js"></script>
+    <script src="js/polyglot.min.js"></script>
+    <script src="js/interface_localization.js"></script>
+    <script src="js/twister_network.js"></script>
+    <script src="js/interface_common.js"></script>
+
+    <link rel="icon" type="image/png" href="img/twister_mini.png" />
+  </head>
+
+  <body>
+
+  <!-- MENU SUPERIOR INIT -->
+  <nav class="userMenu">
+    <ul>
+        <li class="userMenu-home"><a href="home.html"><span class="selectable_theme theme_original label">Home</span></a></li>
+        <li class="userMenu-network current selectable_theme theme_original theme_nin"><a class="label" href="network.html">Network</a></li>
+        <li class="userMenu-profile selectable_theme theme_original theme_nin"><a class="label" href="profile-edit.html">Profile</a></li>
+        <li class="userMenu-config">
+          <a class="userMenu-config-dropdown" href="#">
+            <div class="config-menu dialog-modal">
+              <div class="mini-profile-info selectable_theme theme_original">
+                <div class="mini-profile-photo"><img src="img/grayed_avatar_placeholder_24.png" alt="user-photo"/></div>
+                <a href="#" class="mini-profile-name">Fulano da Silva</a>
+                <span class="mini-profile-view">View</span>
+              </div>
+              <a class="dropdown-menu-item" href="options.html">Options</a>
+              <a class="dropdown-menu-item" href="profile-edit.html">Setup account</a>
+              <a class="dropdown-menu-item" href="following.html">Following users</a>
+              <a class="dropdown-menu-item" href="network.html">Network config</a>
+              <a class="dropdown-menu-item" href="login.html">Change user</a>
+           </div>
+          </a>
+        </li>
+        <li class="userMenu-dhtindicator selectable_theme theme_calm"><a href="network.html"></a></li>
+    </ul>
+  </nav>
+  <!-- MENU SUPERIOR END -->
+
+  <div class="wrapper">
+
+    <div class="network singleBlock">
+      <h2 class="selectable_theme theme_original theme_calm"> Network status </h2>
+      <div class="module">
+        <h2 class="selectable_theme theme_nin"> Network status </h2>
+        <h3> General information</h3>
+        <ul>
+          <li>
+              <span class="network-status highlight connection-status">Updating status...</span>
+          </li>
+          <li>
+            <label>Client Version: </label>
+            <span class="version">00.00.00.00</label>
+          </li>
+          <li>
+            <label>Terminate Daemon:</label>
+            <button class="terminate-daemon">Exit</button>
+          </li>
+        </ul>
+
+        <h3> Detailed information </h3>
+        <ul>
+          <li class="connections">
+              <label>Connections: </label>
+              <span class="connection-count">0</span>
+          </li>
+          <li>
+              <label>Known peers: </label>
+              <span class="known-peers">0</span>
+          </li>
+          <li>
+              <label>Active DHT nodes: </label>
+              <span class="dht-nodes">0</span>
+          </li>
+          <li>
+              <label>Force connection to peer:</label>
+              <input class="new-peer-addr" type="textbox" placeholder="peer address" size="20"/>
+              <button class="add-peer disabled" disable="true">Add peer</button>
+          </li>
+          <li>
+              <label>DNS to obtain list of peers:</label>
+              <input class="new-dns-addr" type="textbox" placeholder="dns address" size="20"/>
+              <button class="add-dns disabled" disable="true">Add DNS</button>
+          </li>
+        </ul>
+
+        <h3> Block chain information </h3>
+        <ul>
+          <li>
+              <label>Number of blocks in block chain:</label>
+              <span class="blocks">2813</span>
+          </li>
+          <li>
+              <label>Time of the last block:</label>
+              <span class="last-block-time">Fri Nov 08 2013 08:32:48 </span>
+          </li>
+          <li>
+            <label> Mining difficulty: </label>
+            <span class="mining-difficulty">0.0</span>
+          </li>
+        </ul>
+
+        <h3> Traffic information </h3>
+        <ul>
+          <li>
+              <label>DHT Torrents:</label>
+              <span class="dht-torrents">0</span>
+          </li>
+          <li>
+              <label>Peers:</label>
+              <span class="num-peers">0</span>
+          </li>
+          <li>
+              <label>Peer List Size:</label>
+              <span class="peerlist-size">0</span>
+          </li>
+          <li>
+              <label>Active Requests:</label>
+              <span class="num-active-requests">0</span>
+          </li>
+          <li>
+              <label>Download:</label>
+              <span class="download-rate">0 b @ 0 b/s</span>
+          </li>
+          <li>
+              <label>Upload:</label>
+              <span class="upload-rate">0 b @ 0 b/s</span>
+          </li>
+          <li>
+              <label>DHT Download:</label>
+              <span class="dht-download-rate">0 b @ 0 b/s</span>
+          </li>
+          <li>
+              <label>DHT Upload:</label>
+              <span class="dht-upload-rate">0 b @ 0 b/s</span>
+          </li>
+          <li>
+              <label>IP Overhead Download:</label>
+              <span class="ip-overhead-download-rate">0 b @ 0 b/s</span>
+          </li>
+          <li>
+              <label>IP Overhead Upload:</label>
+              <span class="ip-overhead-upload-rate">0 b @ 0 b/s</span>
+          </li>
+          <li>
+              <label>Payload Download:</label>
+              <span class="payload-download-rate">0 b @ 0 b/s</span>
+          </li>
+          <li>
+              <label>Payload Upload:</label>
+              <span class="payload-upload-rate">0 b @ 0 b/s</span>
+          </li>
+        </ul>
+
+      </div>
+
+      <h2 class="selectable_theme theme_original theme_calm">Configure block generation</h2>
+
+      <div class="module">
+        <h2 class="selectable_theme theme_nin">Configure block generation</h2>
+        <h3> Generate blocks (send promoted messages)</h3>
+        <ul>
+          <li>
+              <label> Block generation </label>
+              <select class="genblock">
+                  <option value="disable">Disable</option>
+                  <option value="enable">Enable</option>
+              </select>
+          </li>
+          <li>
+              <label> Number of CPUs to use </label>
+              <input class="genproclimit" type="textbox" value="1" size="3"/>
+          </li>
+          <li>
+              <label> Post to promote: </label>
+            <div class="post-area">
+              <form class="post-area-new open">
+                <textarea class="spam-msg" placeholder="Type message here"></textarea>
+                <div class="post-area-extras">
+                  <span class="post-area-remaining">140</span>
+                  <button class="undo-unicode disabled" disabled="true">undo</button>
+                  <button class="post-submit update-spam-msg disabled" disabled="true">Update</button>
+                </div>
+              </form>
+            </div>
+          </li>
+          <li>
+              <label> Send post with username </label>
+              <select class="local-usernames spam-user">
+                  <option value="nobody">nobody</option>
+              </select>
+          </li>
+        </ul>
+
+        <h3> Block generation status</h3>
+        <ul>
+          <li>
+            <label> Current hash rate: </label>
+            <span class="mining-hashrate">0</span>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div id="templates" style="display:none;">
+    <div id="post-preview-template">
+        <div id="post-preview" class="post-text">
+        </div>
+    </div>
+
+    <!-- template for user links in message (open profile modal) -->
+    <a id="msg-user-link-template" class="open-profile-modal"></a>
+    <!-- template for user links in message (open profile modal) -->
+    <a id="external-page-link-template" rel="nofollow" target="_blank"></a>
+    <!-- template for user links in message (open profile modal) -->
+    <a id="hashtag-link-template" class="open-hashtag-modal"></a>
+  </div>
+
+  <audio id="player"></audio>
+  <audio id="playerSec"></audio>
+  </body>
+</html>

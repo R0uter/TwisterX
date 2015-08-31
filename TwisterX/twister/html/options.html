@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <title>Options</title>
+    <link id="stylecss" rel="stylesheet" href="css/style.css" type="text/css"/>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/jQueryPlugins.js"></script>
+    <script src="js/jquery.json-2.4.js"></script>
+    <script src="js/jquery.jsonrpcclient.js"></script>
+    <script src="js/jquery.storageapi.js"></script>
+    <script src="js/options.js"></script>
+    <script src="js/franc.js"></script>
+    <script src="js/notify.js"></script>
+    <script src="js/mobile_abstract.js"></script>
+    <script src="js/twister_io.js"></script>
+    <script src="js/twister_network.js"></script>
+    <script src="js/twister_user.js"></script>
+    <script src="js/twister_formatpost.js"></script>
+    <script src="js/interface_common.js"></script>
+    <script src="js/interface_login.js"></script>
+    <script src="js/polyglot.min.js"></script>
+    <script src="js/interface_localization.js"></script>
+  </head>
+
+  <body>
+
+  <!-- MENU SUPERIOR INIT -->
+  <nav class="userMenu">
+    <ul>
+    <li class="userMenu-home"><a href="home.html"><span class="selectable_theme theme_original label">Home</span></a></li>
+    <li class="userMenu-options current"><a class="label" href="options.html">Options</a></li>
+      <li class="userMenu-config">
+        <a class="userMenu-config-dropdown" href="#">
+          <div class="config-menu dialog-modal">
+            <a class="dropdown-menu-item" href="options.html">Options</a>
+            <a class="dropdown-menu-item" href="network.html">Network config</a>
+            <a class="dropdown-menu-item" href="profile-edit.html">Setup account</a>
+            <a class="dropdown-menu-item" href="following.html">Following users</a>
+            <a class="dropdown-menu-item" href="login.html">Change user</a>
+          </div>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div class="wrapper">
+    <div class="options">
+
+      <input id="tab_language" name="option_tab" type="radio" checked="checked" class="selectable_theme theme_nin"/>
+      <label for="tab_language" class="tabs selectable_theme theme_nin">Language</label>
+      <input id="t-2" name="option_tab" type="radio"  class="selectable_theme theme_nin"/>
+      <label for="t-2" class="tabs selectable_theme theme_nin">Theme</label>
+      <input id="t-3" name="option_tab" type="radio"  class="selectable_theme theme_nin"/>
+      <label for="t-3" class="tabs selectable_theme theme_nin">Notifications</label>
+      <input id="t-4" name="option_tab" type="radio"  class="selectable_theme theme_nin"/>
+      <label for="t-4" class="tabs selectable_theme theme_nin">Keys</label>
+      <input id="t-5" name="option_tab" type="radio"  class="selectable_theme theme_nin"/>
+      <label for="t-5" class="tabs selectable_theme theme_nin">Appearance</label>
+      <input id="t-6" name="option_tab" type="radio" class="selectable_theme theme_nin" />
+      <label for="t-6" class="tabs selectable_theme theme_nin">Users</label>
+
+      <div class="tab-content">
+
+        <div class="language">
+          <div class="module">
+            <p class="label label-h"> Use language </p>
+            <div class="container">
+              <form action="" id="selectLanguage">
+                <select name="" id="language">
+                  <option value="auto">Auto</option>
+                  <option value="pt-BR">Brazilian Portuguese</option>
+                  <option value="zh-CN">Chinese Simplified</option>
+                  <option value="cs">Czech</option>
+                  <option value="nl">Dutch</option>
+                  <option value="en">English</option>
+                  <option value="fr">French</option>
+                  <option value="de">German</option>
+                  <option value="it">Italian</option>
+                  <option value="ja">Japanese</option>
+                  <option value="ru">Russian</option>
+                  <option value="es">Spanish</option>
+                  <option value="tr">Turkish</option>
+                  <option value="uk">Ukrainian</option>
+                </select>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <div class="theme">
+          <div class="module">
+            <p class="label label-h"> Theme </p>
+            <div class="container">
+              <form action="" id="selectTheme">
+                <select name="" id="theme">
+                  <option value="original">Original</option>
+                  <option value="calm">Calm</option>
+                  <option value="nin">Nin</option>
+                </select>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <div class="notifications">
+          <div class="module">
+            <p class="label label-h"> Sound notifications </p>
+            <div class="container">
+              <form action="" id="notifyForm">
+                <div>
+                  <p class="label">Mentions</p>
+                  <select name="" id="sndMention" class="sndOpt container">
+                    <option value="false">none</option>
+                    <option value="1">beat</option>
+                    <option value="2">pip</option>
+                    <option value="3">vibro</option>
+                    <option value="4">flip</option>
+                    <option value="5">click</option>
+                  </select>
+                </div>
+                <div>
+                  <p class="label">Direct Messages</p>
+                  <select name="" id="sndDM" class="sndOpt container">
+                    <option value="false">none</option>
+                    <option value="1">beat</option>
+                    <option value="2">pip</option>
+                    <option value="3">vibro</option>
+                    <option value="4">flip</option>
+                    <option value="5">click</option>
+                  </select>
+                </div>
+                <div>
+                  <p class="label">Volume</p>
+                <input type="range" name="playerVol" id="playerVol" class="container" min="0" max="1" step="0.01"><span class="volValue container">0</span>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div class="module">
+            <p class="label label-h"> Desktop notifications </p>
+            <div class="container">
+              <form action="" id="optionsShowDesktopNotif">
+                <div>
+                  <p class="label">Mentions</p>
+                  <select id="showDesktopNotifMentions" class="container">
+                      <option value="enable">Enable</option>
+                      <option value="disable">Disable</option>
+                  </select>
+                  <div id="showDesktopNotifMentionsDesc" class="container">
+                    <input name="" id="showDesktopNotifMentionsTimer" maxlength="3" size="1"/> <span class="label">second(s)</span>
+                  </div>
+                </div>
+                <div>
+                  <p class="label">Direct Messages</p>
+                  <select id="showDesktopNotifDMs" class="container">
+                      <option value="enable">Enable</option>
+                      <option value="disable">Disable</option>
+                  </select>
+                  <div id="showDesktopNotifDMsDesc" class="container">
+                    <input name="" id="showDesktopNotifDMsTimer" maxlength="3" size="1"/> <span class="label">second(s)</span>
+                  </div>
+                </div>
+                <div>
+                  <p class="label">Posts</p>
+                  <div class="container">
+                    <span class="label">in postboard</span>
+                    <select id="showDesktopNotifPosts">
+                        <option value="enable">Enable</option>
+                        <option value="disable">Disable</option>
+                    </select>
+                    <div id="showDesktopNotifPostsDesc" class="container">
+                      <input name="" id="showDesktopNotifPostsTimer" maxlength="3" size="1"/> <span class="label">second(s)</span>
+                    </div>
+                  </div>
+                  <div class="container">
+                    <span class="label">in search result</span>
+                    <select id="showDesktopNotifPostsModal">
+                        <option value="enable">Enable</option>
+                        <option value="disable">Disable</option>
+                    </select>
+                    <div id="showDesktopNotifPostsModalDesc" class="container">
+                      <input name="" id="showDesktopNotifPostsModalTimer" maxlength="3" size="1"/> <span class="label">second(s)</span>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <div class="container">
+                <p class="label">Test</p>
+                <button id="testDesktopNotif" class="container">notify_desktop_title</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="keys">
+          <div class="module">
+            <p class="label label-h"> Keys </p>
+            <div class="container">
+              <form action="" id="keysOpt">
+                <p class="label">Send key</p>
+                <select name="" id="keysSend" class="container">
+                  <option value="enter">Enter</option>
+                  <option value="ctrlenter">Ctrl/Cmd+Enter</option>
+                </select>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <div class="appearance">
+          <div class="module">
+            <p class="label label-h"> Postboard displays </p>
+            <div class="container">
+              <form action="" id="hideRepliesOpt">
+                <p class="label">Posts that begin with mention</p>
+                <select name="" id="hideReplies" class="container">
+                  <option value="disable">Show all</option>
+                  <option value="only-me">Show only if I am in</option>
+                  <option value="following">Show if it's between users I follow</option>
+                </select>
+              </form>
+            </div>
+            <div class="container">
+              <form action="" id="hideCloseRTsOpt">
+                <p class="label">RTs those are close to original twist</p>
+                <select name="" id="hideCloseRTs" class="container">
+                  <option value="disable">Show all</option>
+                  <option value="show-if">Show if the original is older than</option>
+                </select>
+                <p id="hideCloseRTsDesc">
+                  <input name="" id="hideCloseRtsHour" class="container" maxlength="2" size="1"/> <span class="label">hour(s)</span>
+                </p>
+              </form>
+            </div>
+          </div>
+          <div class="module">
+            <p class="label label-h">Language filtering</p>
+            <div class="container">
+              <form action="" id="filterLangOpt">
+                <p>
+                  <select name="" id="filterLang">
+                    <option value="disable">Disable</option>
+                    <option value="blacklist">By blacklist</option>
+                    <option value="whitelist">By whitelist</option>
+                  </select>
+                </p>
+                <div id="filterLangListCont" class="container">
+                  <p class="label">Comma separated ISO 639-3 language codes</p>
+                  <p><input type="text" id="filterLangList" class="container" /></p>
+                  <p class="label">Accuracy</p>
+                  <p><input type="range" id="filterLangAccuracy" class="container" min="0" max="1" step="0.005"><span id="filterLangAccuracyVal" class="container"></span></p>
+                  <p><span class="label">Scope of usage</span></p>
+                  <div class="container">
+                    <p><span class="label">in postboard</span> <input type="checkbox" id="filterLangForPostboard" /></p>
+                    <p><span class="label">in search result</span> <input type="checkbox" id="filterLangForSearching" /></p>
+                    <p><span class="label">in top trends</span> <input type="checkbox" id="filterLangForTopTrends" /></p>
+                  </div>
+                  <p><span class="label">Simulation mode</span> <input type="checkbox" id="filterLangSimulate" /></p>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div id="opt-mod-posts-display" class="module">
+            <p class="label label-h"> Posts display </p>
+            <div id="opt-form-post-preview" class="container">
+              <p><span class="label">Post preview</span></p>
+              <div id="post-preview" class="post-text">
+                <div></div>
+                <div class="preview-container"></div>
+              </div>
+            </div>
+            <div class="container">
+              <form action="" id="lineFeedsOpt">
+                <p class="label">Line feeds</p>
+                <select name="" id="displayLineFeeds" class="container">
+                  <option value="disable">Ignore</option>
+                  <option value="enable">Display</option>
+                </select>
+              </form>
+            </div>
+            <div class="container">
+              <form action="">
+                <p class="label">Markout</p>
+                <select name="" id="optPostsMarkout" class="container">
+                  <option value="apply">Apply</option>
+                  <option value="ignore">Ignore</option>
+                  <option value="clear">Ignore and clear out</option>
+                </select>
+              </form>
+            </div>
+            <div class="container">
+              <form action="" id="showPreviewOpt">
+                <p class="label">Inline image preview</p>
+                <select name="" id="displayPreview" class="container">
+                  <option value="disable">Ignore</option>
+                  <option value="enable">Display</option>
+                </select>
+              </form>
+            </div>
+            <div class="container">
+              <form action="" id="useProxyOpt">
+                <p class="label">Use external links behind a proxy</p>
+                <select name="" id="useProxy" class="container">
+                  <option value="disable">none</option>
+                  <option value="ssl-proxy-my-addr">ssl-proxy.my-addr.org</option>
+                  <option value="anonymouse">anonymouse.org</option>
+                </select>
+                <input name="" id="useProxyForImgOnly" class="container" type="checkbox" /> <span class="label">Use proxy for image preview only</span>
+              </form>
+            </div>
+          </div>
+          <div class="module">
+            <p class="label label-h"> Top Trends </p>
+            <div class="container">
+              <form>
+                <p>
+                  <select id="TopTrends">
+                    <option value="enable">Enable</option>
+                    <option value="disable">Disable</option>
+                  </select>
+                </p>
+                <div id="TopTrendsCont" class="container">
+                  <p class="label">Auto updating</p>
+                  <select id="TopTrendsAutoUpdate" class="container">
+                    <option value="enable">Enable</option>
+                    <option value="disable">Disable</option>
+                  </select>
+                  <div id="TopTrendsAutoUpdateOpt" class="container">
+                    <input type="text" id="TopTrendsAutoUpdateTimer" maxlength="6" size="6"/> <span class="label">second(s)</span>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div class="module">
+            <p class="label label-h"> Who to Follow </p>
+            <div class="container">
+              <form>
+                <select id="WhoToFollow">
+                  <option value="enable">Enable</option>
+                  <option value="disable">Disable</option>
+                </select>
+              </form>
+            </div>
+          </div>
+          <div class="module">
+            <p class="label label-h"> Twistday Reminder </p>
+            <div class="container">
+              <form>
+                <p>
+                  <select id="TwistdayReminder">
+                    <option value="enable">Enable</option>
+                    <option value="disable">Disable</option>
+                  </select>
+                </p>
+                <div id="TwistdayReminderCont" class="container">
+                  <p class="label">Auto updating</p>
+                  <select id="TwistdayReminderAutoUpdate" class="container">
+                    <option value="enable">Enable</option>
+                    <option value="disable">Disable</option>
+                  </select>
+                  <div id="TwistdayReminderAutoUpdateOpt" class="container">
+                    <input type="text" id="TwistdayReminderAutoUpdateTimer" maxlength="6" size="6"/> <span class="label">second(s)</span>
+                  </div>
+                  <p class="label">Show upcoming in near future</p>
+                  <select id="TwistdayReminderShowUpcoming" class="container">
+                    <option value="enable">Enable</option>
+                    <option value="disable">Disable</option>
+                  </select>
+                  <div id="TwistdayReminderShowUpcomingOpt" class="container">
+                    <input type="text" id="TwistdayReminderShowUpcomingTimer" maxlength="4" size="6"/> <span class="label">hour(s)</span>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+
+        <div class="post-editor">
+          <div class="module">
+            <p class="label label-h"> Post editor </p>
+            <div class="container">
+                <p><span class="label">Post preview</span> <input type="checkbox" id="optPostPreview" /></p>
+            </div>
+            <div class="container">
+              <form action="" id="unicodeConversionOpt">
+                <p class="label">Automatic unicode conversion options</p>
+                <select name="" id="unicodeConversion" class="container">
+                  <option value="disable">Ignore</option>
+                  <option value="enable">Convert all</option>
+                  <option value="custom">Custom</option>
+                </select>
+                <div class="suboptions unicode-suboptions">
+                  <input name="" id="convertPunctuationsOpt" type="checkbox" /> <span class="label">Convert punctuations to unicode</span><br/>
+                  <div class="container">
+                    <label>Supported punctuations: </label>
+                    <span>‥ … ⁇ ⁈ ⁉ ‼ — ⁓</span>
+                  </div>
+                  <input name="" id="convertEmotionsOpt" type="checkbox" /> <span class="label">Convert emotions codes to unicode symbols</span>
+                  <div class="container">
+                    <label>Supported emotions: </label>
+                    <span>😃 😇 🍺 😈 ❤ 😕 😢 😞 😎 😊 😊 😗 😆 😛 😉 😉 😮 😱 😐</span>
+                  </div>
+                  <input name="" id="convertSignsOpt" type="checkbox" /> <span class="label">Convert common signs to unicode</span><br/>
+                  <div class="container">
+                    <label>Supported signs:</label>
+                    <span>℡ ℻</span>
+                  </div>
+                  <input name="" id="convertFractionsOpt" type="checkbox" /> <span class="label">Convert fractions to unicode</span><br/>
+                  <div class="container">
+                    <label>Supported fractions:</label>
+                    <span>½ ⅓ ⅔ ¼ ¾ ⅕ ⅖ ⅗ ⅘ ⅙ ⅚ ⅐ ⅛ ⅜ ⅝ ⅞ ⅑ ⅒</span>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <div class="container">
+              <form action="" id="splitPostsOpt">
+                <p class="label">Split long posts</p>
+                <select name="" id="splitPosts" class="container">
+                  <option value="disable">Don't split</option>
+                  <option value="enable">Split all</option>
+                  <option value="only-new">Split only new post</option>
+                </select>
+              </form>
+            </div>
+            <div class="container">
+              <form action="" id="dmCopySelfOpt">
+                <p class="label">Direct Message's copy to self</p>
+                <select name="" id="dmCopySelf" class="container">
+                  <option value="disable">Disable</option>
+                  <option value="enable">Enable</option>
+                </select>
+              </form>
+            </div>
+          </div>
+        </div>
+        </div>
+
+        <div class="users">
+          <div class="module">
+            <form action="" id="isFollowingMeOpt">
+              <p class="label label-h">Show if a user follows me</p>
+              <select name="" id="isFollowingMe" class="container">
+                <option value="in-profile">Show at profile modal only</option>
+                <option value="everywhere">Show with every user name</option>
+              </select>
+            </form>
+          </div>
+        </div>
+
+      </div><!-- /tab-content -->
+    </div><!-- /options -->
+  </div><!-- /options -->
+
+  <div id="templates" style="display:none;">
+    <!-- template for user links in message (open profile modal) -->
+    <a id="msg-user-link-template" class="open-profile-modal"></a>
+    <!-- template for user links in message (open profile modal) -->
+    <a id="external-page-link-template" rel="nofollow" target="_blank"></a>
+    <!-- template for user links in message (open profile modal) -->
+    <a id="hashtag-link-template" class="open-hashtag-modal"></a>
+  </div>
+
+  <audio id="player"></audio>
+  <audio id="playerSec"></audio>
+</body>
+</html>
