@@ -24,6 +24,7 @@ struct Twisterd {
     
     func runTwisterd() -> String {
         task.launch()
+        task.waitUntilExit()
         let debugData = pipe.fileHandleForReading.readDataToEndOfFile()
         let output = NSString(data: debugData, encoding: NSUTF8StringEncoding) as! String
         guard output != "" else { return "Twisterd stoped." }

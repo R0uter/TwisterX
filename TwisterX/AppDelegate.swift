@@ -31,6 +31,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationWillTerminate(aNotification: NSNotification) {
         // Insert code here to tear down your application
+        let killTwisterd = Twisterd(launchPath: "/usr/bin/killall", arguments: ["twisterd"])
+        killTwisterd.runTwisterd()
     }
 
 
