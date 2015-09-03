@@ -1,5 +1,5 @@
 #TwisterX
-![Alt text](https://github.com/R0uter/TwisterX/tree/master/TwisterX/twister/twisterx.png)
+![Alt text](https://github.com/R0uter/TwisterX/row/master/TwisterX/twister/twisterx.png)
 
 TwisterX is a twister configure manager use to one-key config twister.
 
