@@ -7,13 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		E99077E91B949CE000861102 /* AboutTwisterX.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99077E71B949CE000861102 /* AboutTwisterX.swift */; settings = {ASSET_TAGS = (); }; };
+		E99077E91B949CE000861102 /* AboutTwisterX.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99077E71B949CE000861102 /* AboutTwisterX.swift */; };
 		E9A9AA451B93537D005D312C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A9AA441B93537D005D312C /* AppDelegate.swift */; };
 		E9A9AA471B93537D005D312C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A9AA461B93537D005D312C /* ViewController.swift */; };
 		E9A9AA491B93537D005D312C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E9A9AA481B93537D005D312C /* Assets.xcassets */; };
 		E9A9AA4C1B93537D005D312C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9A9AA4A1B93537D005D312C /* Main.storyboard */; };
-		E9A9AA551B935897005D312C /* Twisterd.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A9AA541B935897005D312C /* Twisterd.swift */; settings = {ASSET_TAGS = (); }; };
-		E9A9AA5C1B935B0E005D312C /* twister in Resources */ = {isa = PBXBuildFile; fileRef = E9A9AA5B1B935B0E005D312C /* twister */; settings = {ASSET_TAGS = (); }; };
+		E9A9AA551B935897005D312C /* Twisterd.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A9AA541B935897005D312C /* Twisterd.swift */; };
+		E9A9AA5C1B935B0E005D312C /* twister in Resources */ = {isa = PBXBuildFile; fileRef = E9A9AA5B1B935B0E005D312C /* twister */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */

@@ -18,18 +18,19 @@ class ViewController: NSViewController {
     var twisterd:Twisterd!
     var backgroundQueue = NSOperationQueue()
     
-    let a:String = NSBundle.mainBundle().bundlePath
+    let twisterDir:String = NSBundle.mainBundle().bundlePath + "/Contents/Resources/twister"  //Dir for twister
     var twisterdDir = String()
     var htmldir = String()
+    var configPath = String() //config file path for args
+    var configFilePath = String() //config file path
     var proxy = String()
-    var rpcuser = String()
-    var rpcpassword = String()
-    var rpcport = String()
+    var configDict = Dictionary<String,String>()
     var args:[String] = []
     
     var shell = String() {
         didSet {
             shellField.stringValue += shell
+            lockStatTo(.off)
         }
     }
 
@@ -43,6 +44,8 @@ class ViewController: NSViewController {
     @IBAction func toggle (sender: NSButton) {
         if sender.title == "Twister Server: 🔴" {
             shellField.stringValue = "Starting Twisterd...\n"
+            
+            setConfig()
             go()
             backgroundQueue.addOperationWithBlock{self.shell = self.twisterd.runTwisterd()}
             shellField.stringValue += "Twisterd started!\n"
@@ -51,7 +54,7 @@ class ViewController: NSViewController {
         } else  {
             shellField.stringValue += "Stoping Twisterd...\n"
             twisterd.killTwisterd()
-            lockStatTo(.off)
+            
             sender.title = "Twister Server: 🔴"
         }
         
@@ -65,11 +68,38 @@ class ViewController: NSViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        twisterdDir = a + "/Contents/Resources/twister/twisterd"
-        htmldir = "-htmldir=" + a + "/Contents/Resources/twister/html"
-
+        //-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0
+        //init this dir
+        twisterdDir = twisterDir + "/twisterd"
+        htmldir = "-htmldir=" + twisterDir + "/html"
+        configPath = "-conf=" + twisterDir + "/twister.conf"
+        configFilePath = twisterDir + "/twister.conf"
+        //-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0
+        let rowConfigFile = try! String(contentsOfFile: configFilePath)
+        let config = rowConfigFile.characters.split { (char) -> Bool in
+            if char == "\n" {
+                return true
+            }
+            return false
+        }
+        for str in config {
+            let result = str.split(isSeparator: { (char) -> Bool in
+                if char == "=" {
+                    return true
+                }
+                return false
+            })
+            let cmd = String(result[0])
+            let value = String(result[1])
+            configDict.updateValue(value, forKey: cmd)
+        }
         
         versionField.stringValue = getTwisterdVersion()
+        
+        usernameField.stringValue = configDict["rpcuser"] ?? ""
+        passwordField.stringValue = configDict["rpcpassword"] ?? ""
+        rpcPortField.stringValue = configDict["rpcport"] ?? ""
+        
         
         // Do any additional setup after loading the view.
       
@@ -84,12 +114,30 @@ class ViewController: NSViewController {
     
     
     func go () {
-        
-        rpcuser = "-rpcuser=" + usernameField.stringValue
-        rpcpassword = "-rpcpassword=" + passwordField.stringValue
-        rpcport = "-rpcport=" + rpcPortField.stringValue
-        args = [htmldir,rpcuser,rpcpassword,rpcport]
+
+        args = [htmldir,configPath]
         twisterd = Twisterd(launchPath: twisterdDir, arguments: args )
+    }
+    
+    func setConfig() {
+        
+        configDict.updateValue(usernameField.stringValue, forKey: "rpcuser")
+        configDict.updateValue(passwordField.stringValue, forKey: "rpcpassword")
+        configDict.updateValue(rpcPortField.stringValue, forKey: "rpcport")
+        var str = ""
+        var content:[String] = []
+        for (cmd,value) in configDict {
+            let row = cmd + "=" + value
+            content.append(row)
+        }
+        str = content.joinWithSeparator("\n")
+        
+        do {
+            try str.writeToFile(configFilePath, atomically: true, encoding: NSUTF8StringEncoding)
+        } catch {
+            NSLog("save error~")
+        }
+        
     }
     
     func getTwisterdVersion()->String {
@@ -115,14 +163,8 @@ class ViewController: NSViewController {
             rpcPortField.enabled = true
             usernameField.enabled = true
             passwordField.enabled = true
-        
-
-        
-    
-        
-    }
    
-    
+    }
     enum LockStat {
         case on,off
     }

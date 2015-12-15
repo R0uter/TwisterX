@@ -34,6 +34,7 @@ struct Twisterd {
     func killTwisterd() {
       
         task.terminate()
+        task.interrupt()
     }
     
   

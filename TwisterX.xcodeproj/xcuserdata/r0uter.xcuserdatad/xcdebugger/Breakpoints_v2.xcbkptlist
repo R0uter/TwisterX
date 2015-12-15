@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TwisterX/ViewController.swift"
-            timestampString = "462809642.898011"
+            timestampString = "471882857.190205"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "49"
-            endingLineNumber = "49"
+            startingLineNumber = "52"
+            endingLineNumber = "52"
             landmarkName = "toggle(_:)"
             landmarkType = "5">
          </BreakpointContent>
