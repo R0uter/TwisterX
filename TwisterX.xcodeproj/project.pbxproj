@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E91F75761C2A81690061EB7D /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91F75751C2A81690061EB7D /* SwiftyJSON.swift */; };
 		E99077E91B949CE000861102 /* AboutTwisterX.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99077E71B949CE000861102 /* AboutTwisterX.swift */; };
 		E9A9AA451B93537D005D312C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A9AA441B93537D005D312C /* AppDelegate.swift */; };
 		E9A9AA471B93537D005D312C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A9AA461B93537D005D312C /* ViewController.swift */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E91F75751C2A81690061EB7D /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
 		E99077E11B94529B00861102 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		E99077E71B949CE000861102 /* AboutTwisterX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutTwisterX.swift; sourceTree = "<group>"; };
 		E9A9AA411B93537D005D312C /* TwisterX.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TwisterX.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -67,6 +69,7 @@
 				E9A9AA4A1B93537D005D312C /* Main.storyboard */,
 				E9A9AA5B1B935B0E005D312C /* twister */,
 				E9A9AA4D1B93537D005D312C /* Info.plist */,
+				E91F75751C2A81690061EB7D /* SwiftyJSON.swift */,
 				E9A9AA541B935897005D312C /* Twisterd.swift */,
 			);
 			path = TwisterX;
@@ -103,6 +106,7 @@
 				TargetAttributes = {
 					E9A9AA401B93537D005D312C = {
 						CreatedOnToolsVersion = 7.0;
+						DevelopmentTeam = ARUX36J77A;
 					};
 				};
 			};
@@ -145,6 +149,7 @@
 				E9A9AA551B935897005D312C /* Twisterd.swift in Sources */,
 				E9A9AA471B93537D005D312C /* ViewController.swift in Sources */,
 				E9A9AA451B93537D005D312C /* AppDelegate.swift in Sources */,
+				E91F75761C2A81690061EB7D /* SwiftyJSON.swift in Sources */,
 				E99077E91B949CE000861102 /* AboutTwisterX.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -247,12 +252,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = TwisterX/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_BUNDLE_IDENTIFIER = com.logcg.TwisterX;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -260,12 +268,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = TwisterX/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_BUNDLE_IDENTIFIER = com.logcg.TwisterX;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};

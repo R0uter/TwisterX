@@ -16,6 +16,7 @@ import Cocoa
 
 class ViewController: NSViewController {
     var twisterd:Twisterd!
+    var twisterRpc:Twisterd!
     var backgroundQueue = NSOperationQueue()
     
     let twisterDir:String = NSBundle.mainBundle().bundlePath + "/Contents/Resources/twister"  //Dir for twister
@@ -23,38 +24,42 @@ class ViewController: NSViewController {
     var htmldir = String()
     var configPath = String() //config file path for args
     var configFilePath = String() //config file path
-    var proxy = String()
     var configDict = Dictionary<String,String>()
     var args:[String] = []
     
     var shell = String() {
-        didSet {
+        didSet { //there is a lockdown for twisterd thread.
             shellField.stringValue += shell
             lockStatTo(.off)
         }
     }
 
     
+    @IBOutlet weak var spinning: NSProgressIndicator!
+    @IBOutlet weak var proxyIP: NSTextField!
     @IBOutlet weak var openTwister: NSButton!
     @IBOutlet weak var rpcPortField: NSTextField!
     @IBOutlet weak var usernameField: NSTextField!
     @IBOutlet weak var passwordField: NSTextField!
     @IBOutlet weak var versionField: NSTextField!
     @IBOutlet weak var shellField: NSTextField!
+
     @IBAction func toggle (sender: NSButton) {
         if sender.title == "Twister Server: 🔴" {
+            spinning.startAnimation(self)
             shellField.stringValue = "Starting Twisterd...\n"
-            
             setConfig()
             go()
             backgroundQueue.addOperationWithBlock{self.shell = self.twisterd.runTwisterd()}
             shellField.stringValue += "Twisterd started!\n"
             lockStatTo(.on)
+            spinning.stopAnimation(self)
             sender.title = "Twister Server: 🌍"
         } else  {
+            spinning.startAnimation(self)
             shellField.stringValue += "Stoping Twisterd...\n"
             twisterd.killTwisterd()
-            
+            spinning.stopAnimation(self)
             sender.title = "Twister Server: 🔴"
         }
         
@@ -66,6 +71,19 @@ class ViewController: NSViewController {
        
            }
 
+    @IBAction func test(sender: NSButton) {
+        twisterRpc = Twisterd(launchPath: twisterdDir)
+        var data = NSData()
+        
+        backgroundQueue.addOperationWithBlock {
+        
+        data = self.twisterRpc.getJson(arguments: ["dhtget","adm1n","profile","s"])
+            let json = JSON(data:data)
+            let str = json[0,"p","target","n"].string
+            NSLog(str!)
+        }
+        
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         //-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0
@@ -75,34 +93,25 @@ class ViewController: NSViewController {
         configPath = "-conf=" + twisterDir + "/twister.conf"
         configFilePath = twisterDir + "/twister.conf"
         //-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0
-        let rowConfigFile = try! String(contentsOfFile: configFilePath)
-        let config = rowConfigFile.characters.split { (char) -> Bool in
-            if char == "\n" {
-                return true
-            }
-            return false
-        }
-        for str in config {
-            let result = str.split(isSeparator: { (char) -> Bool in
-                if char == "=" {
-                    return true
-                }
-                return false
-            })
-            let cmd = String(result[0])
-            let value = String(result[1])
-            configDict.updateValue(value, forKey: cmd)
-        }
+        
         
         versionField.stringValue = getTwisterdVersion()
+        do {
+            try getConfig()
+        } catch {
+            let alert = NSAlert()
+            alert.addButtonWithTitle("ok")
+            alert.runModal()
+        }
+
         
-        usernameField.stringValue = configDict["rpcuser"] ?? ""
-        passwordField.stringValue = configDict["rpcpassword"] ?? ""
-        rpcPortField.stringValue = configDict["rpcport"] ?? ""
-        
+        usernameField.stringValue = configDict["rpcuser"] ?? "error!"
+        passwordField.stringValue = configDict["rpcpassword"] ?? "error!"
+        rpcPortField.stringValue = configDict["rpcport"] ?? "error!"
+        proxyIP.stringValue = configDict["proxy"] ?? ""
         
         // Do any additional setup after loading the view.
-      
+        
         
     }
 
@@ -119,11 +128,16 @@ class ViewController: NSViewController {
         twisterd = Twisterd(launchPath: twisterdDir, arguments: args )
     }
     
-    func setConfig() {
+     func setConfig() {
         
         configDict.updateValue(usernameField.stringValue, forKey: "rpcuser")
         configDict.updateValue(passwordField.stringValue, forKey: "rpcpassword")
         configDict.updateValue(rpcPortField.stringValue, forKey: "rpcport")
+        if proxyIP.stringValue.isEmpty {
+            configDict["proxy"] = nil
+        } else {
+        configDict.updateValue(proxyIP.stringValue, forKey: "proxy")
+        }
         var str = ""
         var content:[String] = []
         for (cmd,value) in configDict {
@@ -154,7 +168,7 @@ class ViewController: NSViewController {
             rpcPortField.enabled = false
             usernameField.enabled = false
             passwordField.enabled = false
-           
+            proxyIP.enabled = false
             
             return
         }
@@ -163,7 +177,27 @@ class ViewController: NSViewController {
             rpcPortField.enabled = true
             usernameField.enabled = true
             passwordField.enabled = true
+            proxyIP.enabled = true
    
+    }
+    
+    func getConfig() throws {
+        let rowConfigFile = try String(contentsOfFile: configFilePath)
+        let config = rowConfigFile.characters.split { (char) -> Bool in
+            if char == "\n" {
+                return true
+            }
+            return false
+        }
+        for str in config {
+            let result = str.split{$0 == "="}
+            
+            let cmd = String(result[0])
+            
+            let value = String(result[1])
+            
+            configDict.updateValue(value, forKey: cmd)
+        }
     }
     enum LockStat {
         case on,off
