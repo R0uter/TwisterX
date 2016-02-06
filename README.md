@@ -1,6 +1,8 @@
 #TwisterX
 ![Alt text](https://github.com/R0uter/TwisterX/raw/master/TwisterX/twister/twisterx.png)
 
+>DO NOT touch the `test` button!
+
 TwisterX is a twister configure manager use to one-key config twister.
 
 Based on twister-core twister-html.It already have twisterd&twister-html inside.
