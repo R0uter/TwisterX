@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "CFC2420BC4315502C77C06714234140AFD4AA9E7",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "CFC2420BC4315502C77C06714234140AFD4AA9E7" : 0,
+    "B0A62C168672D8F995A522029D351156E36649BA" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "F9D6B231-3654-4513-BFA2-4D8977608046",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "CFC2420BC4315502C77C06714234140AFD4AA9E7" : "TwisterX\/",
+    "B0A62C168672D8F995A522029D351156E36649BA" : "TwisterX\/TwisterX\/twister\/twister-html\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "TwisterX",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "TwisterX.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/miguelfreitas\/twister-html",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "B0A62C168672D8F995A522029D351156E36649BA"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/R0uter\/TwisterX.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "CFC2420BC4315502C77C06714234140AFD4AA9E7"
+    }
+  ]
+}
