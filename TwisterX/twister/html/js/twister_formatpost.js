@@ -3,8 +3,8 @@
 //
 // Format JSON posts and DMs to HTML.
 
-var _templatePostRtReference
-var _templatePostRtBy
+var _templatePostRtReference;
+var _templatePostRtBy;
 var _htmlFormatMsgLinkTemplateExternal;
 var _htmlFormatMsgLinkTemplateUser;
 var _htmlFormatMsgLinkTemplateHashtag;
@@ -14,7 +14,7 @@ $(document).ready(function() {
     _templatePostRtReference = $('#post-rt-reference-template').children().clone(true);
     _templatePostRtReference.find('.post-text')
         .on('click', {feeder: '.post-rt-reference'}, openConversationClick);
-    _templatePostRtBy = $('#post-retransmited-by-template').children().clone(true);
+    _templatePostRtBy = $('#post-rt-by-template').children().clone(true);
     _htmlFormatMsgLinkTemplateExternal = $('#external-page-link-template')
     if (_htmlFormatMsgLinkTemplateExternal.length) {
         _htmlFormatMsgLinkTemplateExternal = _htmlFormatMsgLinkTemplateExternal[0].cloneNode();
@@ -35,22 +35,6 @@ $(document).ready(function() {
 // format "userpost" to html element
 // kind = "original"/"ancestor"/"descendant"
 function postToElem(post, kind, promoted) {
-
-    function setPostCommon(elem, username, time) {
-        var postInfoName = elem.find('.post-info-name')
-            .text(username).attr('href', $.MAL.userUrl(username));
-
-        getFullname(username, postInfoName);
-        //elem.find('.post-info-tag').text("@" + username);  // FIXME
-        getAvatar(username, elem.find('.avatar'));
-
-        elem.find('.post-info-time')
-            .attr('title', timeSincePost(time))
-            .find('span:last')
-                .text(timeGmtToText(time))
-        ;
-    }
-
     /*
     "userpost" :
     {
@@ -170,19 +154,25 @@ function postToElem(post, kind, promoted) {
     if (typeof retweeted_by !== 'undefined') {
         var postContext = elem.find('.post-context');
         if (userpost.msg) {
-            postContext.append(_templatePostRtReference.clone(true))
-                .find('.post-rt-reference')
-                    .attr('data-screen-name', rt.n)
-                    .attr('data-id', rt.k)
-                    .attr('data-userpost', $.toJSON({userpost: rt, sig_userpost: userpost.sig_rt}))
-                    .find('.post-text').html(htmlFormatMsg(rt.msg).html)
-            ;
-            setPostCommon(postContext, rt.n, rt.time);
+            setPostReference(postContext, rt, userpost.sig_rt);
         } else {
-            postContext.append(_templatePostRtBy.clone(true))
-                .find('.post-retransmited-by')
+            postContext.append(_templatePostRtBy.clone(true)).addClass('post-rt-by')
+                .find('.post-rt-sign .prep').text(polyglot.t('post_rt_sign_prep'))
+                .siblings('.open-profile-modal')
                     .attr('href', $.MAL.userUrl(retweeted_by)).text('@' + retweeted_by)
             ;
+            postContext.find('.post-rt-time .prep').text(polyglot.t('post_rt_time_prep'))
+                .siblings('.time').text(timeGmtToText(post.userpost.time));
+            // let's check original post and grab some possible RT
+            dhtget(username, 'post' + k, 's',
+                function(args, post) {
+                    if (post && post.userpost.msg && post.userpost.rt) {
+                        var postContext = $('<div class="post-context"></div>');
+                        setPostReference(postContext, post.userpost.rt, post.userpost.sig_rt);
+                        args.elem.find('.post-text').after(postContext);
+                    }
+                }, {elem: elem}
+            );
         }
         postContext.show();
     }
@@ -226,6 +216,32 @@ function postToElem(post, kind, promoted) {
     return elem;
 }
 
+function setPostCommon(elem, username, time) {
+    var postInfoName = elem.find('.post-info-name')
+        .text(username).attr('href', $.MAL.userUrl(username));
+
+    getFullname(username, postInfoName);
+    //elem.find('.post-info-tag').text("@" + username);  // FIXME
+    getAvatar(username, elem.find('.avatar'));
+
+    elem.find('.post-info-time')
+        .attr('title', timeSincePost(time))
+        .find('span:last')
+            .text(timeGmtToText(time))
+    ;
+}
+
+function setPostReference(elem, rt, sig_rt) {
+    elem.append(_templatePostRtReference.clone(true))
+        .find('.post-rt-reference')
+            .attr('data-screen-name', rt.n)
+            .attr('data-id', rt.k)
+            .attr('data-userpost', $.toJSON({userpost: rt, sig_userpost: sig_rt}))
+            .find('.post-text').html(htmlFormatMsg(rt.msg).html)
+    ;
+    setPostCommon(elem, rt.n, rt.time);
+}
+
 function setPostInfoSent(n, k, item) {
     if( n === defaultScreenName && k >= 0 ) {
         getPostMaxAvailability(n,k,
@@ -244,7 +260,7 @@ function setPostInfoSent(n, k, item) {
 function dmDataToSnippetItem(dmData, remoteUser) {
     var dmItem = $("#dm-snippet-template").clone(true);
     dmItem.removeAttr('id');
-    dmItem.attr("data-dm-screen-name",remoteUser);
+    dmItem.attr('data-screen-name', remoteUser);
     dmItem.attr("data-last_id", dmData.id);
     dmItem.attr("data-time", dmData.time);
 
@@ -267,30 +283,36 @@ function dmDataToSnippetItem(dmData, remoteUser) {
 }
 
 // format dmdata (returned by getdirectmsgs) to display in conversation thread
-function dmDataToConversationItem(dmData, localUser, remoteUser) {
-    var from = (dmData.from && dmData.from.length && dmData.from.charCodeAt(0))
-               ? dmData.from
-               : (dmData.fromMe ? localUser : remoteUser);
-    var classDm = dmData.fromMe ? "sent" : "received";
-    var dmItem = $("#dm-chat-template").clone(true);
-    dmItem.removeAttr('id');
-    dmItem.addClass(classDm);
-    getAvatar(from, dmItem.find(".post-photo").find("img") );
-    dmItem.find('.post-info-time')
+function postToElemDM(dmData, localUser, remoteUser) {
+    var senderAlias = (dmData.from && dmData.from.length && dmData.from.charCodeAt(0))
+        ? dmData.from : (dmData.fromMe ? localUser : remoteUser);
+    var elem = $('#dm-chat-template').clone(true)
+        .removeAttr('id')
+        .addClass(dmData.fromMe ? 'sent' : 'received')
+    ;
+
+    var elemName = elem.find('.post-info-name')
+        .attr('href', $.MAL.userUrl(senderAlias));
+    if (senderAlias[0] === '*' )
+        getGroupChatName(senderAlias, elemName);
+    else
+        getFullname(senderAlias, elemName);
+
+    getAvatar(senderAlias, elem.find('.post-photo').find('img'));
+    elem.find('.post-info-time')
         .attr('title', timeSincePost(dmData.time))
         .find('span:last')
             .text(timeGmtToText(dmData.time))
     ;
-    setPostInfoSent(from,dmData.k,dmItem.find('.post-info-sent'));
-    dmItem.find('.post-text').html(htmlFormatMsg(dmData.text).html);
+    setPostInfoSent(senderAlias, dmData.k, elem.find('.post-info-sent'));
+    elem.find('.post-text').html(htmlFormatMsg(dmData.text).html);
 
-    return dmItem;
+    return elem;
 }
 
 // convert message text to html, featuring @users and links formating.
-function htmlFormatMsg(msg) {
+function htmlFormatMsg(msg, opt) {
     // TODO: add options for emotions; msg = $.emotions(msg);
-    // TODO make markup optionally mutable ?
 
     function getSubStrStart(str, startPoint, stopChars, isStopCharMustExist, stopCharsTrailing) {
         for (var i = startPoint; i > -1; i--) {
@@ -326,8 +348,8 @@ function htmlFormatMsg(msg) {
         return i;
     }
 
-    function markout(msg, chr, tag) {
-        if ($.Options.postsMarkout.val === 'ignore')
+    function markout(msg, markoutOpt, chr, tag) {
+        if (markoutOpt === 'ignore')
             return msg;
 
         function isWhiteSpacesBetween(i, j) {
@@ -493,7 +515,7 @@ function htmlFormatMsg(msg) {
         }
 
         // changing the string
-        if (chr === '`' && $.Options.postsMarkout.val === 'apply') {  // if $.Options.postsMarkout.val === 'clear' then ` does not escapes anythyng so it needs to be handled like other tags
+        if (chr === '`' && markoutOpt === 'apply') {  // if markoutOpt === 'clear' then ` does not escape anythyng so it needs to be handled like other tags
             for (i = 0; i < p.length; i++) {
                 if (p[i].a > -1) {
                     if (p[i].t === -1 || (p[i].t === 0 && p[i].a > i)) {
@@ -517,10 +539,10 @@ function htmlFormatMsg(msg) {
                 }
             }
         } else {
-            if ($.Options.postsMarkout.val === 'apply') {
+            if (markoutOpt === 'apply') {
                 t = '</' + tag + '>';
                 tag = '<' + tag + '>';
-            } else {  // $.Options.postsMarkout.val === 'clear' so we're clearing markup
+            } else {  // markoutOpt === 'clear' so we're clearing markup
                 t = '';
                 tag = '';
             }
@@ -583,6 +605,16 @@ function htmlFormatMsg(msg) {
         return msg.str;
     }
 
+    if (!msg) {
+        console.warn('htmlFormatMsg() error: input string is empty');
+        return {html: '', mentions: []};
+    }
+
+    if (opt && opt.markout)
+        var markoutOpt = opt.markout;
+    else
+        var markoutOpt = $.Options.postsMarkout.val;
+
     var mentionsChars = 'abcdefghijklmnopqrstuvwxyz_0123456789';
     var stopCharsTrailing = '/\\*~_-`.,:;?!%\'"[](){}^|«»…\u201C\u201D\u2026\u2014\u4E00\u3002\uFF0C\uFF1A\uFF1F\uFF01\u3010\u3011\u2047\u2048\u2049';
     var stopCharsTrailingUrl = stopCharsTrailing.slice(1);
@@ -598,11 +630,11 @@ function htmlFormatMsg(msg) {
 
     msg = {str: escapeHtmlEntities(msg), htmlEntities: []};
 
-    msg = markout(msg, '`', 'samp');  // <samp> tag is kind of monospace, here sequence of chars inside it will be escaped from markup
+    msg = markout(msg, markoutOpt, '`', 'samp');  // <samp> tag is kind of monospace, here sequence of chars inside it will be escaped from markup
 
     // handling links
     for (i = 0; i < msg.str.length - 7; i++) {
-        if (msg.str.slice(i, i + 2) === '](' && $.Options.postsMarkout.val !== 'ignore') {
+        if (msg.str.slice(i, i + 2) === '](' && markoutOpt !== 'ignore') {
             // FIXME there can be text with [] inside [] or links with () we need to handle it too
             j = getSubStrStart(msg.str, i - 2, '[', true, '');
             if (j < i - 1) {
@@ -630,31 +662,31 @@ function htmlFormatMsg(msg) {
                         } else {
                             if (getSubStrEnd(msg.str, i + 1, whiteSpacesUrl, false, '') < k)  // use only first word as href target, others drop silently
                                 k = getSubStrEnd(msg.str, i + 1, whiteSpacesUrl, false, '');
-                            if ($.Options.postsMarkout.val === 'apply') {
+                            if (markoutOpt === 'apply') {
                                 msg = msgAddHtmlEntity(msg, j - 1, getSubStrEnd(msg.str, k + 1, ')', true, '') + 2,
                                     newHtmlEntityLink(_htmlFormatMsgLinkTemplateExternal,
                                         proxyURL(msg.str.slice(i, k + 1)),
                                         applyHtml(  // we're trying markup inside [] of []()
                                             markout(markout(markout(markout(
                                                 {str: linkName, htmlEntities: msg.htmlEntities},
-                                                    '*', 'b'),  // bold
-                                                    '~', 'i'),  // italic
-                                                    '_', 'u'),  // underlined
-                                                    '-', 's')  // striketrough
+                                                    markoutOpt, '*', 'b'),  // bold
+                                                    markoutOpt, '~', 'i'),  // italic
+                                                    markoutOpt, '_', 'u'),  // underlined
+                                                    markoutOpt, '-', 's')  // striketrough
                                         )
                                             .replace(/&(?!lt;|gt;)/g, '&amp;')
                                     )
                                 );
-                            } else {  // $.Options.postsMarkout.val === 'clear' so we're clearing markup
+                            } else {  // markoutOpt === 'clear' so we're clearing markup
                                 str = msg.str.slice(i, k + 1);
                                 msg = msgAddHtmlEntity(msg, j - 1, getSubStrEnd(msg.str, k + 1, ')', true, '') + 2,
                                     applyHtml(  // we're trying to clear markup inside [] of []()
                                         markout(markout(markout(markout(
                                             {str: linkName, htmlEntities: msg.htmlEntities},
-                                                '*', 'b'),  // bold
-                                                '~', 'i'),  // italic
-                                                '_', 'u'),  // underlined
-                                                '-', 's')  // striketrough
+                                                markoutOpt, '*', 'b'),  // bold
+                                                markoutOpt, '~', 'i'),  // italic
+                                                markoutOpt, '_', 'u'),  // underlined
+                                                markoutOpt, '-', 's')  // striketrough
                                     )
                                         .replace(/&(?!lt;|gt;)/g, '&amp;')
                                 );
@@ -750,10 +782,10 @@ function htmlFormatMsg(msg) {
 
     // handling text style markup
     msg = markout(markout(markout(markout(msg,
-            '*', 'b'),  // bold
-            '~', 'i'),  // italic
-            '_', 'u'),  // underlined
-            '-', 's')  // striketrough
+            markoutOpt, '*', 'b'),  // bold
+            markoutOpt, '~', 'i'),  // italic
+            markoutOpt, '_', 'u'),  // underlined
+            markoutOpt, '-', 's')  // striketrough
     ;
 
     // handling splitted posts numbering and escaping ampersands, qoutes and apostrophes
@@ -766,6 +798,7 @@ function htmlFormatMsg(msg) {
         .replace(/&(?!lt;|gt;)/g, '&amp;')  // FIXME in many cases there is no need to escape ampersand in HTML 5
         .replace(/"/g, '&quot;')
         .replace(/'/g, '&apos;')
+    ;
 
     // applying html entities to msg.str and converting msg to string back
     msg = applyHtml(msg);

@@ -249,9 +249,13 @@ function getFullname( username, item ){
     }
 }
 
-// get bio and store it in item.text
-function getBio( username, item ){
-    getProfileResource( username, "bio", item);
+// get bio, format it as post message and store result to elem
+function getBioToElem(peerAlias, elem) {
+    getProfileResource(peerAlias, 'bio', undefined,
+        function (req, ret) {
+            req.elem.html(htmlFormatMsg(ret).html);
+        }, {elem: elem}
+    );
 }
 
 // get tox address and store it in item.text
@@ -331,7 +335,11 @@ function _putResourceIntoStorage(locator, data) {
 }
 
 // get avatar and set it in img.attr("src")
+// TODO rename to getAvatarImgToELem(), move nin theme related stuff to nin's theme_option.js
 function getAvatar( username, img ){
+    if (!img.length)
+        return;
+
     if (username === 'nobody') {
         img.attr('src', ($.Options.theme.val === 'nin') ?
             'theme_nin/img/tornado_avatar.png' : 'img/tornado_avatar.png');

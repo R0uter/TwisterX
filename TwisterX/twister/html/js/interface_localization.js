@@ -43,7 +43,16 @@ if(preferredLanguage == "en"){
       "Block generation": "Block generation ",
       "busted_oh": "oh noes!",
       "busted_avowal": "I\'m busted trying inject this suspicious stuff here",
+      "btn_ok": "Okay",
       "Cancel": "Cancel",
+      "Confirm": "Confirm",
+      "сonfirm_group_leaving_header": "Confirm group leaving",
+      "сonfirm_group_leaving_body": "Are you sure want to leave %{alias} group?",
+      "confirm_switch_to_network":
+            "Local daemon is not connected to the network or block chain is outdated.\n" +
+            "If you stay in this page your actions may not work.\n" +
+            "Do you want to check [Network Status page](%{page}) instead?",
+      "confirm_terminate_daemon": "Are you sure you want to exit the daemon?\nThe Twister client will stop working.",
       "Change user": "Change user",
       "Checking...": "Checking...", // checking if username is available
       "Collapse": "Collapse", // smaller view of a post
@@ -54,6 +63,9 @@ if(preferredLanguage == "en"){
       "Detailed information": "Detailed information",
       "DHT network down.": "DHT network down.",
       "Direct Messages": "Direct Messages",
+      "Group Messages": "Group Messages",
+      "Group Messages — New Group Creation": "Group Messages — New Group Creation",
+      "Group Messages — Join Group": "Group Messages — Join Group",
       "direct_messages_with": "Direct messages with %{username}",
       "Disable": "Disable",
       "Display mentions to @": "Display mentions to @",
@@ -94,6 +106,16 @@ if(preferredLanguage == "en"){
       "Network status": "Network status",
       "New direct message...": "New direct message...",
       "New Post...": "New Post...",
+      "New group": "New group",
+      "Group description": "Group description",
+      "Peers to invite": "Peers to invite",
+      "Join group": "Join group",
+      "Select group(s)": "Select group(s)",
+      "Create": "Create",
+      "Join": "Join",
+      "Invite": "Invite",
+      "Invite peers": "Invite peers",
+      "Leave group": "Leave group",
       "You got": "You got",
       "in postboard": "in postboard",
       "in search result": "in search result",
@@ -101,6 +123,7 @@ if(preferredLanguage == "en"){
       "new_posts": "%{smart_count} new post |||| %{smart_count} new posts",
       "new_mentions": "%{smart_count} new mention |||| %{smart_count} new mentions",
       "new_direct_messages": "%{smart_count} new direct message |||| %{smart_count} new direct messages",
+      "new_group_messages": "%{smart_count} new group message |||| %{smart_count} new group messages",
       "nobody": "nobody", // used to promote a post without attaching the user
       "Not available": "Not available", // username is not available
       "notify_desktop_error": "Twister cannot perform desktop notification: unknown error occured.",
@@ -139,10 +162,6 @@ if(preferredLanguage == "en"){
       "Sent Direct Message": "Sent Direct Message",
       "Sent Post to @": "Sent Post to @",
       "Setup account": "Setup account",
-      "switch_to_network": "Local daemon is not connected to the network or\n" +
-                "block chain is outdated. If you stay in this page\n" +
-                "your actions may not work.\n" +
-                "Do you want to check Network Status page instead?",
       "The File APIs are not fully supported in this browser.": "The File APIs are not fully supported in this browser.",
       "time_ago": "%{time} ago", // 5 minutes ago
       "Time of the last block:": "Time of the last block: ",
@@ -186,6 +205,8 @@ if(preferredLanguage == "en"){
       "Terminate Daemon:": "Terminate Daemon:",
       "Exit": "Exit",
       "Save Changes": "Save Changes",
+      "profile_saved": "Profile data has been saved to DHT.",
+      "profile_not_saved": "Profile data has been not saved.",
       "Secret key:": "Secret key:",
       "You have to log in to post messages.": "You have to log in to post messages.",
       "You have to log in to post replies.": "You have to log in to post replies.",
@@ -291,9 +312,9 @@ if(preferredLanguage == "en"){
       "Who's celebrating Twistday": "Who's celebrating Twistday",
       "Today's luckies:": "Today's luckies:",
       "Upcoming ones:": "Upcoming ones:",
-      "twisted again by": "twisted again by",
+      "post_rt_sign_prep": "twisted again by",
+      "post_rt_time_prep": "at",
       "undo": "undo",
-      "Are you sure you want to exit the daemon?\nThe Twister client will stop working.": "Are you sure you want to exit the daemon?\nThe Twister client will stop working.",
       "Daemon exited...": "Daemon exited...",
       "Secret Key": "Secret Key",
       "Copy to clipboard": "Copy to clipboard",
@@ -343,7 +364,16 @@ if(preferredLanguage == "es"){
       "Block generation": "Generación de bloques ",
       "busted_oh": "oh noes!",
       "busted_avowal": "I\'m busted trying inject this suspicious stuff here",
+      "btn_ok": "Okay",
       "Cancel": "Cancelar",
+      "Confirm": "Confirm",
+      "сonfirm_group_leaving_header": "Confirm group leaving",
+      "сonfirm_group_leaving_body": "Are you sure want to leave %{alias} group?",
+      "confirm_switch_to_network":
+            "Demonio local no está conectado a la red o la cadena de bloques no está actualizada.\n" +
+            "Si te quedas en esta página tus acciones pueden no funcionar.\n" +
+            "¿Quieres comprobar la [página de estado de la red](%{page}) en su lugar?",
+      "confirm_terminate_daemon": "Are you sure you want to exit the daemon?\nThe Twister client will stop working.",
       "Change user": "Cambiar de usuario",
       "Checking...": "Comprobando ...", // checking if username is available
       "Collapse": "Colapsar", // smaller view of a post
@@ -354,6 +384,9 @@ if(preferredLanguage == "es"){
       "Detailed information": "Información detallada",
       "DHT network down.": "Red DHT caida.",
       "Direct Messages": "Mensajes directos",
+      "Group Messages": "Group Messages",
+      "Group Messages — New Group Creation": "Group Messages — New Group Creation",
+      "Group Messages — Join Group": "Group Messages — Join Group",
       "direct_messages_with": "Mensajes directos con %{username}",
       "Disable": "Inhabilitar",
       "Display mentions to @": "Visualización de menciones a @",
@@ -394,6 +427,16 @@ if(preferredLanguage == "es"){
       "Network status": "Estado de la red",
       "New direct message...": "Nuevo mensaje directo...",
       "New Post...": "Nuevo Post...",
+      "New group": "New group",
+      "Group description": "Group description",
+      "Peers to invite": "Peers to invite",
+      "Join group": "Join group",
+      "Select group(s)": "Select group(s)",
+      "Create": "Create",
+      "Join": "Join",
+      "Invite": "Invite",
+      "Invite peers": "Invite peers",
+      "Leave group": "Leave group",
       "You got": "You got",
       "in postboard": "in postboard",
       "in search result": "in search result",
@@ -401,6 +444,7 @@ if(preferredLanguage == "es"){
       "new_posts": "%{smart_count} nuevo post |||| %{smart_count} nuevos posts",
       "new_mentions": "%{smart_count} new mention |||| %{smart_count} new mentions",
       "new_direct_messages": "%{smart_count} new direct message |||| %{smart_count} new direct messages",
+      "new_group_messages": "%{smart_count} new group message |||| %{smart_count} new group messages",
       "nobody": "Nadie", // used to promote a post without attaching the user
       "Not available": "No disponible", // username is not available
       "notify_desktop_error": "Twister cannot perform desktop notification: unknown error occured.",
@@ -439,10 +483,6 @@ if(preferredLanguage == "es"){
       "Sent Direct Message": "Mensaje directo",
       "Sent Post to @": "El Post enviado a @",
       "Setup account": "Configuración de la cuenta",
-      "switch_to_network": "Demonio local no está conectado a la red o\n" +
-                "la cadena de bloques no está actualizada. Si te quedas en esta página\n" +
-                "tus acciones pueden no funcionar.\n" +
-                "¿Quieres comprobar la página de estado de la red en su lugar?",
       "The File APIs are not fully supported in this browser.": "Las API de archivos no son totalmente compatibles con este navegador.",
       "time_ago": "hace %{time}", // 5 minutes ago
       "Time of the last block:": "Hora del último bloque: ",
@@ -486,6 +526,8 @@ if(preferredLanguage == "es"){
       "Terminate Daemon:": "Terminar Demonio:",
       "Exit": "Salir",
       "Save Changes": "Guardar cambios",
+      "profile_saved": "Profile data has been saved to DHT.",
+      "profile_not_saved": "Profile data has been not saved.",
       "Secret key:": "Clave secreta:",
       "You have to log in to post messages.": "Debes estar logueado para escribir mensajes.",
       "You have to log in to post replies.": "Debes estar logueado para escribir respuestas.",
@@ -591,9 +633,9 @@ if(preferredLanguage == "es"){
       "Who's celebrating Twistday": "Who's celebrating Twistday",
       "Today's luckies:": "Today's luckies:",
       "Upcoming ones:": "Upcoming ones:",
-      "twisted again by": "twisted again by",
+      "post_rt_sign_prep": "twisted again by",
+      "post_rt_time_prep": "at",
       "undo": "deshacer",
-      "Are you sure you want to exit the daemon?\nThe Twister client will stop working.": "Are you sure you want to exit the daemon?\nThe Twister client will stop working.",
       "Daemon exited...": "Daemon exited...",
       "Secret Key": "Llave secreta",
       "Copy to clipboard": "Copiar al portapapeles",
@@ -627,7 +669,16 @@ if(preferredLanguage == "uk"){
       "Block generation": "Генерація блоку ",
       "busted_oh": "oh noes!",
       "busted_avowal": "I\'m busted trying inject this suspicious stuff here",
+      "btn_ok": "Okay",
       "Cancel": "Відміна",
+      "Confirm": "Confirm",
+      "сonfirm_group_leaving_header": "Confirm group leaving",
+      "сonfirm_group_leaving_body": "Are you sure want to leave %{alias} group?",
+      "confirm_switch_to_network":
+            "Локальний сервер не підєднаний до мережі або ланцюг блоків не актуальний.\n" +
+            "Якщо ви залишитесь на цій сторінці ваші дії можуть не спрацювати.\n" +
+            "Чи бажаєте ви перевірити [сторінку зі статусом мережі](%{page})?",
+      "confirm_terminate_daemon": "Ви впевнені, що бажаєте завершити роботу?\nКлієнт Twister буде зупинено допоки ви не запустите його знову.",
       "Change user": "Змінити користувача",
       "Checking...": "Перевірка...", // checking if username is available
       "Collapse": "Згорнути", // smaller view of a post
@@ -638,6 +689,9 @@ if(preferredLanguage == "uk"){
       "Detailed information": "Детальна інформація",
       "DHT network down.": "Мережа DHT недоступна.",
       "Direct Messages": "Особисті повідомлення",
+      "Group Messages": "Group Messages",
+      "Group Messages — New Group Creation": "Group Messages — New Group Creation",
+      "Group Messages — Join Group": "Group Messages — Join Group",
       "direct_messages_with": "Direct messages with %{username}",
       "Disable": "Вимкнено",
       "Display mentions to @": "Показати сповіщення @",
@@ -679,6 +733,16 @@ if(preferredLanguage == "uk"){
       "Network status": "Статус мережі",
       "New direct message...": "Нове повідомлення...",
       "New Post...": "Що нового?",
+      "New group": "New group",
+      "Group description": "Group description",
+      "Peers to invite": "Peers to invite",
+      "Join group": "Join group",
+      "Select group(s)": "Select group(s)",
+      "Create": "Create",
+      "Join": "Join",
+      "Invite": "Invite",
+      "Invite peers": "Invite peers",
+      "Leave group": "Leave group",
       "You got": "Ви отримали",
       "in postboard": "в стрічці",
       "in search result": "в пошуковому запиті",
@@ -686,6 +750,7 @@ if(preferredLanguage == "uk"){
       "new_posts": "%{smart_count} новий твіст |||| %{smart_count} нових твістів",
       "new_mentions": "%{smart_count} нове сповіщення |||| %{smart_count} нових сповіщень",
       "new_direct_messages": "%{smart_count} нове повідомлення |||| %{smart_count} нові повідомлення",
+      "new_group_messages": "%{smart_count} new group message |||| %{smart_count} new group messages",
       "nobody": "анонім", // used to promote a post without attaching the user
       "Not available": "Не доступне", // username is not available
       "notify_desktop_error": "Twister не може створити сповіщення: невідома помилка.",
@@ -724,10 +789,6 @@ if(preferredLanguage == "uk"){
       "Sent Direct Message": "Надіслати особисте повідомлення",
       "Sent Post to @": "Надіслати твіст @",
       "Setup account": "Обліковий запис",
-      "switch_to_network": "Локальний сервер не підєднаний до мережі або \n" +
-                "ланцюг блоків не актуальний. Якщо ви залишитесь на цій сторінці\n" +
-                "ваші дії можуть не спрацювати.\n" +
-                "Чи бажаєте ви перевірити сторінку зі статусом мережі?",
       "The File APIs are not fully supported in this browser.": "File APIs не повністю підтримується браузером.",
       "time_ago": "%{time} тому", // 5 minutes ago
       "Time of the last block:": "Час останнього блоку: ",
@@ -767,6 +828,8 @@ if(preferredLanguage == "uk"){
       "Terminate Daemon:": "Зупинити Twister:",
       "Exit": "Вихід",
       "Save Changes": "Зберегти зміни",
+      "profile_saved": "Profile data has been saved to DHT.",
+      "profile_not_saved": "Profile data has been not saved.",
       "Secret key:": "Секретний ключ:",
       "You have to log in to post messages.": "Ви повинні увійти для публікації повідомлень.",
       "You have to log in to post replies.": "Ви повинні увійти для публікації відповідей.",
@@ -872,9 +935,9 @@ if(preferredLanguage == "uk"){
       "Who's celebrating Twistday": "Річницю святкує",
       "Today's luckies:": "Сьогоднішні щасливчики:",
       "Upcoming ones:": "Найближчим часом:",
-      "twisted again by": "ретвіст від",
+      "post_rt_sign_prep": "ретвіст від",
+      "post_rt_time_prep": "at",
       "undo": "відмінити",
-      "Are you sure you want to exit the daemon?\nThe Twister client will stop working.": "Ви впевнені, що бажаєте завершити роботу? \n\nКлієнт Twister буде зупинено допоки ви не запустите його знову.",
       "Daemon exited...": "Twister заверив роботу...",
       "Secret Key": "Секретний ключ",
       "Copy to clipboard": "Скопіювати до буферу",
@@ -904,13 +967,22 @@ if(preferredLanguage == "zh-CN"){
       "All users publicly followed by": "公开关注的所有用户，被",
       "Available": "可用", // username is available
       "Appearance": "外观",
-      "Apply": "Apply",
+      "Apply": "应用",
       "Block chain information": "区块链信息",
       "Block chain is up-to-date, twister is ready to use!": "区块链已经更新，Twister 已经可以使用！",
       "Block generation": "区块生成器",
       "busted_oh": "噢，阻挡！",
       "busted_avowal": "系统检测到此用户试图在这里注入恶意代码",
+      "btn_ok": "Okay",
       "Cancel": "取消",
+      "Confirm": "Confirm",
+      "сonfirm_group_leaving_header": "Confirm group leaving",
+      "сonfirm_group_leaving_body": "Are you sure want to leave %{alias} group?",
+      "confirm_switch_to_network":
+            "本地的后台进程没有连接到网络，或者区块链已经过时。\n" +
+            "如果你留在此页面你的操作将不会生效。\n" +
+            "你要跳转到[网络状态页](%{page})吗？",
+      "confirm_terminate_daemon": "你确定要退出后台进程？\nTwister 客户端将停止工作。",
       "Change user": "切换用户",
       "Checking...": "检查中...", // checking if username is available
       "Collapse": "折叠", // smaller view of a post
@@ -921,6 +993,9 @@ if(preferredLanguage == "zh-CN"){
       "Detailed information": "详细信息",
       "DHT network down.": "DHT网络中断。",
       "Direct Messages": "私信",
+      "Group Messages": "Group Messages",
+      "Group Messages — New Group Creation": "Group Messages — New Group Creation",
+      "Group Messages — Join Group": "Group Messages — Join Group",
       "direct_messages_with": "Direct messages with %{username}",
       "Disable": "关闭",
       "Display mentions to @": "显示@",
@@ -961,6 +1036,16 @@ if(preferredLanguage == "zh-CN"){
       "Network status": "网络状态",
       "New direct message...": "新私信...",
       "New Post...": "新推文...",
+      "New group": "New group",
+      "Group description": "Group description",
+      "Peers to invite": "Peers to invite",
+      "Join group": "Join group",
+      "Select group(s)": "Select group(s)",
+      "Create": "Create",
+      "Join": "加入",
+      "Invite": "Invite",
+      "Invite peers": "Invite peers",
+      "Leave group": "Leave group",
       "You got": "你收到",
       "in postboard": "在时间线里",
       "in search result": "在搜索结果里",
@@ -968,6 +1053,7 @@ if(preferredLanguage == "zh-CN"){
       "new_posts": "%{smart_count} 篇新推文",
       "new_mentions": "%{smart_count} 次新的提及",
       "new_direct_messages": "%{smart_count} 封新私信",
+      "new_group_messages": "%{smart_count} new group message |||| %{smart_count} new group messages",
       "nobody": "无名", // used to promote a post without attaching the user
       "Not available": "用户名不可用", // username is not available
       "notify_desktop_error": "Twister 无法发出桌面提醒：发生未知错误。",
@@ -1006,10 +1092,6 @@ if(preferredLanguage == "zh-CN"){
       "Sent Direct Message": "发送私信",
       "Sent Post to @": "发送推文 @",
       "Setup account": "设置账号",
-      "switch_to_network": "本地的后台进程没有连接到网络，或者\n" +
-        "区块链已经过时。如果你留在此页面\n" +
-        "你的操作将不会生效\n" +
-        "你要跳转到网络状态页吗？",
       "The File APIs are not fully supported in this browser.": "这个浏览器不能完全支持 File API。",
       "time_ago": "%{time} 之前", // 5 minutes ago
       "Time of the last block:": "最新区块的时间：",
@@ -1052,6 +1134,8 @@ if(preferredLanguage == "zh-CN"){
       "Terminate Daemon:": "终止后台进程：",
       "Exit": "退出",
       "Save Changes": "保存更改",
+      "profile_saved": "个人信息已经保存到 DHT。",
+      "profile_not_saved": "未保存个人信息。",
       "Secret key:": "私钥：",
       "You have to log in to post messages.": "你必须登录才能发送信息。",
       "You have to log in to post replies.": "你必须登录才能发送回复。",
@@ -1067,7 +1151,7 @@ if(preferredLanguage == "zh-CN"){
       "Switch to Normal posts": "切换到普通发送",
       "Use language": "界面语言",
       "Ignore": "忽略",
-      "Ignore and clear out": "Ignore and clear out",
+      "Ignore and clear out": "忽略并清除",
       "Theme": "主题",
       "Keys": "按键",
       "Notifications": "通知",
@@ -1078,11 +1162,11 @@ if(preferredLanguage == "zh-CN"){
       "Send key": "发送键",
       "Posts display": "推文显示",
       "Post editor": "信息编辑器",
-      "Post preview": "Post preview",
+      "Post preview": "推文预览",
       "Inline image preview": "内嵌图像预览",
       "Display": "显示",
-      "Line feeds": "Line feeds",
-      "Markout": "Markout markup",
+      "Line feeds": "换行",
+      "Markout": "Markout 标记语言",
       "Supported punctuations:": "支持的标点符号：",
       "Supported emotions:": "支持的表情符号：",
       "Supported signs:": "支持的标记符号：",
@@ -1157,9 +1241,9 @@ if(preferredLanguage == "zh-CN"){
       "Who's celebrating Twistday": "谁在庆祝自己的Twistday周年纪念日",
       "Today's luckies:": "今天的幸运用户：",
       "Upcoming ones:": "即将到来的幸运用户：",
-      "twisted again by": "转推由",
+      "post_rt_sign_prep": "转推由",
+      "post_rt_time_prep": "at",
       "undo": "撤销",
-      "Are you sure you want to exit the daemon?\nThe Twister client will stop working.": "你确定要退出后台进程？\nTwister 客户端将停止工作。",
       "Daemon exited...": "后台进程已退出...",
       "Secret Key": "私钥",
       "Copy to clipboard": "复制到剪贴板",
@@ -1210,7 +1294,16 @@ if(preferredLanguage == "nl"){
       "Block generation": "Block productie",
       "busted_oh": "oh noes!",
       "busted_avowal": "I\'m busted trying inject this suspicious stuff here",
+      "btn_ok": "Okay",
       "Cancel": "Annuleren",
+      "Confirm": "Confirm",
+      "сonfirm_group_leaving_header": "Confirm group leaving",
+      "сonfirm_group_leaving_body": "Are you sure want to leave %{alias} group?",
+      "confirm_switch_to_network":
+            "Local daemon is not connected to the network or block chain is outdated.\n" +
+            "If you stay in this page your actions may not work.\n" +
+            "Do you want to check [Network Status page](%{page}) instead?",
+      "confirm_terminate_daemon": "Are you sure you want to exit the daemon?\nThe Twister client will stop working.",
       "Change user": "Gebruiker wijzigen",
       "Checking...": "Controleren...", // checking if username is available
       "Collapse": "Uitklappen", // smaller view of a post
@@ -1221,6 +1314,9 @@ if(preferredLanguage == "nl"){
       "Detailed information": "Gedetailleerde informatie",
       "DHT network down.": "DHT netwerk down.",
       "Direct Messages": "Privéberichten",
+      "Group Messages": "Group Messages",
+      "Group Messages — New Group Creation": "Group Messages — New Group Creation",
+      "Group Messages — Join Group": "Group Messages — Join Group",
       "direct_messages_with": "Direct messages with %{username}",
       "Disable": "Uitschakelen",
       "Display mentions to @": "Toon vermeldingen voor @",
@@ -1261,6 +1357,16 @@ if(preferredLanguage == "nl"){
       "Network status": "Netwerkstatus",
       "New direct message...": "Nieuw privébericht...",
       "New Post...": "Nieuw bericht...",
+      "New group": "New group",
+      "Group description": "Group description",
+      "Peers to invite": "Peers to invite",
+      "Join group": "Join group",
+      "Select group(s)": "Select group(s)",
+      "Create": "Create",
+      "Join": "Join",
+      "Invite": "Invite",
+      "Invite peers": "Invite peers",
+      "Leave group": "Leave group",
       "You got": "You got",
       "in postboard": "in postboard",
       "in search result": "in search result",
@@ -1268,6 +1374,7 @@ if(preferredLanguage == "nl"){
       "new_posts": "%{smart_count} nieuw bericht |||| %{smart_count} nieuwe berichten",
       "new_mentions": "%{smart_count} new mention |||| %{smart_count} new mentions",
       "new_direct_messages": "%{smart_count} new direct message |||| %{smart_count} new direct messages",
+      "new_group_messages": "%{smart_count} new group message |||| %{smart_count} new group messages",
       "nobody": "nobody", // used to promote a post without attaching the user
       "Not available": "Niet beschikbaar", // username is not available
       "notify_desktop_error": "Twister cannot perform desktop notification: unknown error occured.",
@@ -1306,10 +1413,6 @@ if(preferredLanguage == "nl"){
       "Sent Direct Message": "Verstuur privébericht",
       "Sent Post to @": "Verstuur bericht naar @",
       "Setup account": "Account instellingen",
-      "switch_to_network": "Local daemon is not connected to the network or\n" +
-                "block chain is outdated. If you stay in this page\n" +
-                "your actions may not work.\n" +
-                "Do you want to check Network Status page instead?",
       "The File APIs are not fully supported in this browser.": "The File APIs are not fully supported in this browser.",
       "time_ago": "%{time} geleden", // 5 minutes ago
       "Time of the last block:": "Tijd van de laatste block: ",
@@ -1353,6 +1456,8 @@ if(preferredLanguage == "nl"){
       "Terminate Daemon:": "Daemon beëindigen",
       "Exit": "Beëindigen",
       "Save Changes": "Opslaan",
+      "profile_saved": "Profile data has been saved to DHT.",
+      "profile_not_saved": "Profile data has been not saved.",
       "Secret key:": "Geheime sleutel:",
       "You have to log in to post messages.": "You have to log in to post messages.",
       "You have to log in to post replies.": "You have to log in to post replies.",
@@ -1458,9 +1563,9 @@ if(preferredLanguage == "nl"){
       "Who's celebrating Twistday": "Who's celebrating Twistday",
       "Today's luckies:": "Today's luckies:",
       "Upcoming ones:": "Upcoming ones:",
-      "twisted again by": "twisted again by",
+      "post_rt_sign_prep": "twisted again by",
+      "post_rt_time_prep": "at",
       "undo": "undo",
-      "Are you sure you want to exit the daemon?\nThe Twister client will stop working.": "Are you sure you want to exit the daemon?\nThe Twister client will stop working.",
       "Daemon exited...": "Daemon exited...",
       "Secret Key": "Secret Key",
       "Copy to clipboard": "Copy to clipboard",
@@ -1494,7 +1599,16 @@ if(preferredLanguage == "it"){
       "Block generation": "Generatore di blocchi:",
       "busted_oh": "oh noes!",
       "busted_avowal": "I\'m busted trying inject this suspicious stuff here",
+      "btn_ok": "Okay",
       "Cancel": "Cancella",
+      "Confirm": "Confirm",
+      "сonfirm_group_leaving_header": "Confirm group leaving",
+      "сonfirm_group_leaving_body": "Are you sure want to leave %{alias} group?",
+      "confirm_switch_to_network":
+            "Il servizio locale non è connesso alla rete Twister o la catena di blocchi è vecchia.\n" +
+            "Se rimani su questa pagina, Twister potrebbe non funzionare.\n" +
+            "Vuoi controllare lo [stato della rete Twister](%{page}), invece?",
+      "confirm_terminate_daemon": "Are you sure you want to exit the daemon?\nThe Twister client will stop working.",
       "Change user": "Cambia utente",
       "Checking...": "Controllo in corso...", // checking if username is available
       "Collapse": "Chiudi", // smaller view of a post
@@ -1505,6 +1619,9 @@ if(preferredLanguage == "it"){
       "Detailed information": "Informazioni dettagliate",
       "DHT network down.": "DHT network inaccessibile.",
       "Direct Messages": "Messaggi Diretti",
+      "Group Messages": "Group Messages",
+      "Group Messages — New Group Creation": "Group Messages — New Group Creation",
+      "Group Messages — Join Group": "Group Messages — Join Group",
       "direct_messages_with": "Messaggi Diretti come %{username}",
       "Disable": "Disabilitato",
       "Display mentions to @": "Mostra le menzioni di @",
@@ -1545,6 +1662,16 @@ if(preferredLanguage == "it"){
       "Network status": "Status della rete",
       "New direct message...": "Nuovo messaggio diretto...",
       "New Post...": "Nuovo messaggio...",
+      "New group": "New group",
+      "Group description": "Group description",
+      "Peers to invite": "Peers to invite",
+      "Join group": "Join group",
+      "Select group(s)": "Select group(s)",
+      "Create": "Create",
+      "Join": "Join",
+      "Invite": "Invite",
+      "Invite peers": "Invite peers",
+      "Leave group": "Leave group",
       "You got": "You got",
       "in postboard": "in postboard",
       "in search result": "in search result",
@@ -1552,6 +1679,7 @@ if(preferredLanguage == "it"){
       "new_posts": "%{smart_count} nuovo messaggio |||| %{smart_count} nuovi messaggi",
       "new_mentions": "%{smart_count} new mention |||| %{smart_count} new mentions",
       "new_direct_messages": "%{smart_count} new direct message |||| %{smart_count} new direct messages",
+      "new_group_messages": "%{smart_count} new group message |||| %{smart_count} new group messages",
       "nobody": "nessuno", // used to promote a post without attaching the user
       "Not available": "Non disponibile", // username is not available
       "notify_desktop_error": "Twister cannot perform desktop notification: unknown error occured.",
@@ -1590,9 +1718,6 @@ if(preferredLanguage == "it"){
       "Sent Direct Message": "Messaggi Diretti inviati",
       "Sent Post to @": "Messaggi inviati a @",
       "Setup account": "Configurazione Utente",
-      "switch_to_network": "Il servizio locale non è connesso alla rete Twister o la catena di blocchi è vecchia.\n" +
-                "Se rimani su questa pagina, Twister potrebbe non funzionare.\n" +
-                "Vuoi controllare lo stato della rete Twister, invece?",
       "The File APIs are not fully supported in this browser.": "Le API File non sono interamente supportate da questo browser.",
       "time_ago": "%{time} fa", // 5 minutes ago
       "Time of the last block:": "Orario del blocco più recente: ",
@@ -1634,6 +1759,8 @@ if(preferredLanguage == "it"){
       "Terminate Daemon:": "Terminate Daemon:",
       "Exit": "Exit",
       "Save Changes": "Save Changes",
+      "profile_saved": "Profile data has been saved to DHT.",
+      "profile_not_saved": "Profile data has been not saved.",
       "Secret key:": "Secret key:",
       "You have to log in to post messages.": "You have to log in to post messages.",
       "You have to log in to post replies.": "You have to log in to post replies.",
@@ -1739,9 +1866,9 @@ if(preferredLanguage == "it"){
       "Who's celebrating Twistday": "Who's celebrating Twistday",
       "Today's luckies:": "Today's luckies:",
       "Upcoming ones:": "Upcoming ones:",
-      "twisted again by": "twisted again by",
+      "post_rt_sign_prep": "twisted again by",
+      "post_rt_time_prep": "at",
       "undo": "undo",
-      "Are you sure you want to exit the daemon?\nThe Twister client will stop working.": "Are you sure you want to exit the daemon?\nThe Twister client will stop working.",
       "Daemon exited...": "Daemon exited...",
       "Secret Key": "Secret Key",
       "Copy to clipboard": "Copy to clipboard",
@@ -1775,7 +1902,16 @@ if(preferredLanguage == "fr"){
       "Block generation": "Production de blocs",
       "busted_oh": "oh noes!",
       "busted_avowal": "I\'m busted trying inject this suspicious stuff here",
+      "btn_ok": "Okay",
       "Cancel": "Annuler",
+      "Confirm": "Confirm",
+      "сonfirm_group_leaving_header": "Confirm group leaving",
+      "сonfirm_group_leaving_body": "Are you sure want to leave %{alias} group?",
+      "confirm_switch_to_network":
+            "Le démon local n'est pas connecté au réseau ou la chaîne de blocs n'est pas à jour.\n" +
+            "Si vous restez dans cette page vos actions peuvent ne pas être prises en compte.\n" +
+            "Voulez-vous consulter la [page d'état du réseau](%{page}) à la place?",
+      "confirm_terminate_daemon": "Are you sure you want to exit the daemon?\nThe Twister client will stop working.",
       "Change user": "Changer d'utilisateur",
       "Checking...": "Vérification...", // checking if username is available
       "Collapse": "Fermer", // smaller view of a post
@@ -1786,6 +1922,9 @@ if(preferredLanguage == "fr"){
       "Detailed information": "Informations détaillées",
       "DHT network down.": "Panne du réseau DHT.",
       "Direct Messages": "Messages privés",
+      "Group Messages": "Group Messages",
+      "Group Messages — New Group Creation": "Group Messages — New Group Creation",
+      "Group Messages — Join Group": "Group Messages — Join Group",
       "direct_messages_with": "Messages privés avec %{username}",
       "Disable": "Désactiver",
       "Display mentions to @": "Afficher les mentions pour @",
@@ -1826,6 +1965,16 @@ if(preferredLanguage == "fr"){
       "Network status": "État du réseau",
       "New direct message...": "Nouveau message privé...",
       "New Post...": "Nouveau billets...",
+      "New group": "New group",
+      "Group description": "Group description",
+      "Peers to invite": "Peers to invite",
+      "Join group": "Join group",
+      "Select group(s)": "Select group(s)",
+      "Create": "Create",
+      "Join": "Join",
+      "Invite": "Invite",
+      "Invite peers": "Invite peers",
+      "Leave group": "Leave group",
       "You got": "Tu as",
       "in postboard": "sur le postboard",
       "in search result": "dans les résultats de recherche",
@@ -1833,6 +1982,7 @@ if(preferredLanguage == "fr"){
       "new_posts": "%{smart_count} nouveau billet |||| %{smart_count} nouveaux billets",
       "new_mentions": "%{smart_count} nouvelle mention |||| %{smart_count} nouvelles mentions",
       "new_direct_messages": "%{smart_count} nouveau message privé |||| %{smart_count} nouveaux messages privés",
+      "new_group_messages": "%{smart_count} new group message |||| %{smart_count} new group messages",
       "nobody": "nobody", // used to promote a post without attaching the user
       "Not available": "Non disponible", // username is not available
       "notify_desktop_error": "Impossible d'afficher les notifications: une erreur inconnue est survenue.",
@@ -1871,10 +2021,6 @@ if(preferredLanguage == "fr"){
       "Sent Direct Message": "Message privé envoyé",
       "Sent Post to @": "Envoyer un billet à @",
       "Setup account": "Configuration du compte",
-      "switch_to_network": "Le démon local n'est pas connecté au réseau ou\n" +
-                "la chaîne de blocs n'est pas à jour. Si vous restez dans cette page\n" +
-                "vos actions peuvent ne pas être prises en compte.\n" +
-                "Voulez-vous consulter la page d'état du réseau à la place ?",
       "The File APIs are not fully supported in this browser.": "L'API de fichier n'est pas entièrement pris en charge dans votre navigateur.",
       "time_ago": "Il y a %{time}", // 5 minutes ago
       "Time of the last block:": "Heure du dernier bloc: ",
@@ -1918,6 +2064,8 @@ if(preferredLanguage == "fr"){
       "Terminate Daemon:": "Tuer le démon:",
       "Exit": "Quitter",
       "Save Changes": "Sauvegarder les changements",
+      "profile_saved": "Profile data has been saved to DHT.",
+      "profile_not_saved": "Profile data has been not saved.",
       "Secret key:": "Clef secrète:",
       "You have to log in to post messages.": "You have to log in to post messages.",
       "You have to log in to post replies.": "You have to log in to post replies.",
@@ -2023,9 +2171,9 @@ if(preferredLanguage == "fr"){
       "Who's celebrating Twistday": "Who's celebrating Twistday",
       "Today's luckies:": "Today's luckies:",
       "Upcoming ones:": "Upcoming ones:",
-      "twisted again by": "twisted again by",
+      "post_rt_sign_prep": "twisted again by",
+      "post_rt_time_prep": "at",
       "undo": "undo",
-      "Are you sure you want to exit the daemon?\nThe Twister client will stop working.": "Are you sure you want to exit the daemon?\nThe Twister client will stop working.",
       "Daemon exited...": "Daemon exited...",
       "Secret Key": "Secret Key",
       "Copy to clipboard": "Copy to clipboard",
@@ -2061,7 +2209,16 @@ if(preferredLanguage == "ru"){
        "Block generation": "Майнинг блоков ",
        "busted_oh": "о нет!",
        "busted_avowal": "я пойман на попытке вставить этот подозрительный код здесь",
+       "btn_ok": "Лады́",
        "Cancel": "Отмена",
+       "Confirm": "Несомненно",
+       "сonfirm_group_leaving_header": "Подтверждение ухода из группы",
+       "сonfirm_group_leaving_body": "Воистину покинуть группу %{alias}?",
+       "confirm_switch_to_network":
+            "Локальный демон не подключен к сети или цепочка блоков устарела.\n" +
+            "Если вы останетесь на этой странице ваши действия могут быть не выполнены.\n" +
+            "Не хотите перейти на [страницу настройки сети](%{page})?",
+       "confirm_terminate_daemon": "Вы уверены, что хотите выключить демон?\nTwister клиент перестанет работать.",
        "Change user": "Сменить пользователя",
        "Checking...": "Проверка...",
        "Collapse": "Свернуть",
@@ -2072,6 +2229,9 @@ if(preferredLanguage == "ru"){
        "Detailed information": "Подробная информация",
        "DHT network down.": "Недоступна DHT сеть.",
        "Direct Messages": "Личные сообщения",
+       "Group Messages": "Групповые сообщения",
+       "Group Messages — New Group Creation": "Групповые сообщения — Создать новую группу",
+       "Group Messages — Join Group": "Групповые сообщения — Присоединиться к группе",
        "direct_messages_with": "Личная переписка с %{username}",
        "Disable": "Отключено",
        "Display mentions to @": "Показать ответы для @",
@@ -2112,6 +2272,16 @@ if(preferredLanguage == "ru"){
        "Network status": "Состояние сети",
        "New direct message...": "Новое личное сообщение...",
        "New Post...": "Новый пост...",
+       "New group": "Создать группу",
+       "Group description": "Описание группы",
+       "Peers to invite": "Кого пригласить",
+       "Join group": "Присоединиться",
+       "Select group(s)": "Выберите группу(ы)",
+       "Create": "Создать",
+       "Join": "Присоединиться",
+       "Invite": "Пригласить",
+       "Invite peers": "Пригласить кого",
+       "Leave group": "Покинуть группу",
        "You got": "У вас",
        "in postboard": "в ленте",
        "in search result": "в результатах поиска",
@@ -2119,6 +2289,7 @@ if(preferredLanguage == "ru"){
        "new_posts": "%{smart_count} новый пост |||| %{smart_count} новых постов",
        "new_mentions": "%{smart_count} новое упоминание |||| %{smart_count} новых упоминаний",
        "new_direct_messages": "%{smart_count} новое личное сообщение |||| %{smart_count} новых личных сообщений",
+       "new_group_messages": "%{smart_count} новое сообщение в группе |||| %{smart_count} новых групповых сообщений",
        "nobody": "Анонимно", // used to promote a post without attaching the user
        "Not available": "Недоступно",
        "notify_desktop_error": "Твистер не может выполнить уведомление: произошла неизвестная ошибка.",
@@ -2157,10 +2328,6 @@ if(preferredLanguage == "ru"){
        "Sent Direct Message": "Отправить личное сообщение",
        "Sent Post to @": "Отправить сообщение для @",
        "Setup account": "Настроить аккаунт",
-       "switch_to_network": "Локальный демон не подключен к сети или\n" +
-                 "цепочка блоков устарела. Если вы останетесь на этой странице\n" +
-                 "ваши действия могут быть не выполнены.\n" +
-                 "Не хотите перейти на страницу настройки сети?",
        "The File APIs are not fully supported in this browser.": "File APIs не полностью поддерживается этим браузером.",
        "time_ago": "%{time} назад", // 5 minutes ago
        "Time of the last block:": "Время последнего блока: ",
@@ -2204,6 +2371,8 @@ if(preferredLanguage == "ru"){
        "Terminate Daemon:": "Остановить twister:",
        "Exit": "Выход",
        "Save Changes": "Сохранить изменения",
+       "profile_saved": "Данные профайла сохранены в DHT.",
+       "profile_not_saved": "Данные профайла не сохранены.",
        "Secret key:": "Секретный ключ:",
        "You have to log in to post messages.": "Войдите, чтобы отправлять сообщения.",
        "You have to log in to post replies.": "Войдите, чтобы отвечать на сообщения.",
@@ -2309,10 +2478,9 @@ if(preferredLanguage == "ru"){
        "Who's celebrating Twistday": "Кто празднует Твистодень",
        "Today's luckies:": "Сегодняшные счастливчики", // няшные, ок?
        "Upcoming ones:": "Намечающиеся вскоре",
-       "twisted again by": "Перепостил",
+       "post_rt_sign_prep": "ретвистит",
+       "post_rt_time_prep": "в",
        "undo": "отменить",
-       "Are you sure you want to exit the daemon?\nThe Twister client will stop working.": "Вы уверены, что хотите "+
-                "выключить демон?\nTwister клиент перестанет работать.",
        "Daemon exited...": "Демон twister выключен...",
        "Secret Key": "Секретный ключ",
        "Copy to clipboard": "Копировать в буфер обмена",
@@ -2350,7 +2518,16 @@ if(preferredLanguage == "de"){
       "Block generation": "Block-Generierung ",
       "busted_oh": "Oh nein!",
       "busted_avowal": "Ich bin ertappt, habe versucht, hier Schadcode einzugeben!",
+      "btn_ok": "Okay",
       "Cancel": "Abbrechen",
+      "Confirm": "Confirm",
+      "сonfirm_group_leaving_header": "Confirm group leaving",
+      "сonfirm_group_leaving_body": "Are you sure want to leave %{alias} group?",
+      "confirm_switch_to_network":
+            "Lokaler daemon ist nicht mit dem Netzwerk verbunden oder Block-Chain ist veraltet.\n" +
+            "Wenn du auf dieser Seite bleibst können deine Handlungen nicht funktionieren.\n" +
+            "Möchtest du stattdessen den [Netzwerkstatus](%{page}) überprüfen?",
+      "confirm_terminate_daemon": "Are you sure you want to exit the daemon?\nThe Twister client will stop working.",
       "Change user": "Benutzer wechseln",
       "Checking...": "Überprüfe...", // checking if username is available
       "Collapse": "Einklappen", // smaller view of a post
@@ -2361,6 +2538,9 @@ if(preferredLanguage == "de"){
       "Detailed information": "Detaillierte Informationen",
       "DHT network down.": "DHT-Netzwerk nicht verfügbar.",
       "Direct Messages": "Direktnachrichten",
+      "Group Messages": "Gruppennachrichten",
+      "Group Messages — New Group Creation": "Gruppennachrichten — Neue Gruppe erstellen",
+      "Group Messages — Join Group": "Gruppennachrichten — Gruppe beitreten",
       "direct_messages_with": "Direktnachrichten mit %{username}",
       "Disable": "Deaktivieren",
       "Display mentions to @": "Zeige Erwähnungen von @", //Ist das richtig? Ich weiß nicht, in welchem Zusammenhang das benutzt wird.
@@ -2402,6 +2582,16 @@ if(preferredLanguage == "de"){
       "Network status": "Netzwerkstatus",
       "New direct message...": "Neue Direktnachricht...",
       "New Post...": "Neuer Post...",
+      "New group": "New group",
+      "Group description": "Group description",
+      "Peers to invite": "Peers to invite",
+      "Join group": "Join group",
+      "Select group(s)": "Select group(s)",
+      "Create": "Create",
+      "Join": "Join",
+      "Invite": "Invite",
+      "Invite peers": "Invite peers",
+      "Leave group": "Leave group",
       "You got": "Du hast",
       "in postboard": "in der Timeline",
       "in search result": "in den Suchergebnissen",
@@ -2409,6 +2599,7 @@ if(preferredLanguage == "de"){
       "new_posts": "%{smart_count} neuer Post |||| %{smart_count} neue Posts",
       "new_mentions": "%{smart_count} neue Erwähnung |||| %{smart_count} neue Erwähnungen",
       "new_direct_messages": "%{smart_count} neue Direktnachricht |||| %{smart_count} neue Direktnachrichten",
+      "new_group_messages": "%{smart_count} neue Gruppen-Nachricht |||| %{smart_count} neue Gruppen-Nachrichten",
       "nobody": "nobody", // used to promote a post without attaching the user
       "Not available": "Nicht verfügbar", // username is not available
       "notify_desktop_error": "Twister kann keine Desktop-Meldungen anzeigen: ein unbekannter Fehler trat auf.",
@@ -2447,10 +2638,6 @@ if(preferredLanguage == "de"){
       "Sent Direct Message": "Direktnachricht senden",
       "Sent Post to @": "Sende Post an @",
       "Setup account": "Accounteinstellungen",
-      "switch_to_network": "Lokaler daemon ist nicht mit dem Netzwerk verbunden oder\n" +
-                "Block-Chain ist veraltet. Wenn du auf dieser Seite bleibst\n" +
-                "können deine Handlungen nicht funktionieren.\n" +
-                "Möchtest du stattdessen den Netzwerkstatus überprüfen?",
       "The File APIs are not fully supported in this browser.": "Die File-API's werden von diesem Browser nicht vollständig unterstützt.",
       "time_ago": "vor %{time}", // 5 minutes ago
       "Time of the last block:": "Zeit des letzten Blocks: ",
@@ -2484,7 +2671,7 @@ if(preferredLanguage == "de"){
       "Create this nickname": "Nichnamen erstellen",
       "Type nickname here": "Nicknamen hier eingeben",
       "Import secret key": "Privaten Schlüssel hier importieren",
-      "52-characters secret": "52 Zeichen Geheimniss",
+      "52-characters secret": "52 Zeichen Geheimnis",
       "With nickname": "Mit Nicknamen",
       "Import key": "Schlüssel importieren",
       "Client Version:": "Client Version:",
@@ -2494,6 +2681,8 @@ if(preferredLanguage == "de"){
       "Terminate Daemon:": "Daemon beenden:",
       "Exit": "Beenden",
       "Save Changes": "Änderungen speichern",
+      "profile_saved": "Profile data has been saved to DHT.",
+      "profile_not_saved": "Profile data has been not saved.",
       "Secret key:": "Privater Schlüssel:",
       "You have to log in to post messages.": "You have to log in to post messages.",
       "You have to log in to post replies.": "You have to log in to post replies.",
@@ -2600,9 +2789,9 @@ if(preferredLanguage == "de"){
       "Who's celebrating Twistday": "Who's celebrating Twistday",
       "Today's luckies:": "Die Glücklichen von heute:",
       "Upcoming ones:": "Demnächst:",
-      "twisted again by": "twisted again by",
+      "post_rt_sign_prep": "twisted again by",
+      "post_rt_time_prep": "at",
       "undo": "undo",
-      "Are you sure you want to exit the daemon?\nThe Twister client will stop working.": "Are you sure you want to exit the daemon?\nThe Twister client will stop working.",
       "Daemon exited...": "Daemon exited...",
       "Secret Key": "Secret Key",
       "Copy to clipboard": "Copy to clipboard",
@@ -2636,7 +2825,16 @@ if(preferredLanguage == "ja"){
       "Block generation": "ブロック生成",
       "busted_oh": "oh noes!",
       "busted_avowal": "I\'m busted trying inject this suspicious stuff here",
+      "btn_ok": "Okay",
       "Cancel": "キャンセル",
+      "Confirm": "Confirm",
+      "сonfirm_group_leaving_header": "Confirm group leaving",
+      "сonfirm_group_leaving_body": "Are you sure want to leave %{alias} group?",
+      "confirm_switch_to_network":
+            "ローカルデーモンが切断しているか、ブロックチェーンが最新状態ではない。\n" +
+            "このページを使用しつづければ、あなたの変更が適用されないおそれがあります。\n" +
+            "[ネットワーク状態ペー](%{page})ジへ移動して確認しますか？",
+      "confirm_terminate_daemon": "Are you sure you want to exit the daemon?\nThe Twister client will stop working.",
       "Change user": "ユーザーを変更",
       "Checking...": "チェック...", // checking if username is available
       "Collapse": "閉じる", // smaller view of a post
@@ -2647,6 +2845,9 @@ if(preferredLanguage == "ja"){
       "Detailed information": "詳細",
       "DHT network down.": "DHTネットワークがダウンしています",
       "Direct Messages": "ダイレクトメッセージ",
+      "Group Messages": "Group Messages",
+      "Group Messages — New Group Creation": "Group Messages — New Group Creation",
+      "Group Messages — Join Group": "Group Messages — Join Group",
       "direct_messages_with": "Direct messages with %{username}",
       "Disable": "停止",
       "Display mentions to @": "メンションを表示する",
@@ -2687,6 +2888,16 @@ if(preferredLanguage == "ja"){
       "Network status": "ネットワークステータス",
       "New direct message...": "ダイレクトメッセージ...",
       "New Post...": "投稿する",
+      "New group": "New group",
+      "Group description": "Group description",
+      "Peers to invite": "Peers to invite",
+      "Join group": "Join group",
+      "Select group(s)": "Select group(s)",
+      "Create": "Create",
+      "Join": "Join",
+      "Invite": "Invite",
+      "Invite peers": "Invite peers",
+      "Leave group": "Leave group",
       "You got": "You got",
       "in postboard": "in postboard",
       "in search result": "in search result",
@@ -2694,6 +2905,7 @@ if(preferredLanguage == "ja"){
       "new_posts": "%{smart_count} 新投稿 |||| %{smart_count} 新投稿",
       "new_mentions": "%{smart_count} new mention |||| %{smart_count} new mentions",
       "new_direct_messages": "%{smart_count} new direct message |||| %{smart_count} new direct messages",
+      "new_group_messages": "%{smart_count} new group message |||| %{smart_count} new group messages",
       "nobody": "ナナシ", // used to promote a post without attaching the user
       "Not available": "使用中", // username is not available
       "notify_desktop_error": "Twister cannot perform desktop notification: unknown error occured.",
@@ -2732,10 +2944,6 @@ if(preferredLanguage == "ja"){
       "Sent Direct Message": "ダイレクトメッセージを送る",
       "Sent Post to @": "メンションを投稿する",
       "Setup account": "アカウント設定",
-      "switch_to_network": "ローカルデーモンが切断しているか、\n" +
-                "ブロックチェーンが最新状態ではない。このページを使用しつづければ、\n" +
-                "あなたの変更が適用されないおそれがあります。\n" +
-                "ネットワーク状態ページへ移動して確認しますか？",
       "The File APIs are not fully supported in this browser.": "ご使用のブラウザーは完全にファイルAPIに対応していません。",
       "time_ago": "%{time}前", // 5 minutes ago
       "Time of the last block:": "最新ブロックの生成日時: ",
@@ -2776,6 +2984,8 @@ if(preferredLanguage == "ja"){
       "Terminate Daemon:": "デーモンを終了する:",
       "Exit": "終了",
       "Save Changes": "変更を保存",
+      "profile_saved": "Profile data has been saved to DHT.",
+      "profile_not_saved": "Profile data has been not saved.",
       "Secret key:": "シークレットキー:",
       "You have to log in to post messages.": "You have to log in to post messages.",
       "You have to log in to post replies.": "You have to log in to post replies.",
@@ -2881,9 +3091,9 @@ if(preferredLanguage == "ja"){
       "Who's celebrating Twistday": "Who's celebrating Twistday",
       "Today's luckies:": "Today's luckies:",
       "Upcoming ones:": "Upcoming ones:",
-      "twisted again by": "twisted again by",
+      "post_rt_sign_prep": "twisted again by",
+      "post_rt_time_prep": "at",
       "undo": "undo",
-      "Are you sure you want to exit the daemon?\nThe Twister client will stop working.": "Are you sure you want to exit the daemon?\nThe Twister client will stop working.",
       "Daemon exited...": "Daemon exited...",
       "Secret Key": "Secret Key",
       "Copy to clipboard": "Copy to clipboard",
@@ -2918,7 +3128,16 @@ if(preferredLanguage == "pt-BR"){
       "Block generation": "Geração de blocos ",
       "busted_oh": "oh noes!",
       "busted_avowal": "I\'m busted trying inject this suspicious stuff here",
+      "btn_ok": "Okay",
       "Cancel": "Cancelar",
+      "Confirm": "Confirm",
+      "сonfirm_group_leaving_header": "Confirm group leaving",
+      "сonfirm_group_leaving_body": "Are you sure want to leave %{alias} group?",
+      "confirm_switch_to_network":
+            "O Cliente do Twister não está conectado à rede ou a cadeia de blocos está desatualizada.\n" +
+            "Se permanecer nesta página suas ações podem não ter efeito.\n" +
+            "Gostaria de verificar o [Estado da Rede](%{page}) ao invés disso?",
+      "confirm_terminate_daemon": "Are you sure you want to exit the daemon?\nThe Twister client will stop working.",
       "Change user": "Trocar usuário",
       "Checking...": "Verificando...", // checking if username is available
       "Collapse": "Recolher", // smaller view of a post
@@ -2929,6 +3148,9 @@ if(preferredLanguage == "pt-BR"){
       "Detailed information": "Informações detalhadas",
       "DHT network down.": "Falha na rede DHT",
       "Direct Messages": "Mensagens Diretas",
+      "Group Messages": "Group Messages",
+      "Group Messages — New Group Creation": "Group Messages — New Group Creation",
+      "Group Messages — Join Group": "Group Messages — Join Group",
       "direct_messages_with": "Mensagens Diretas com %{username}",
       "Disable": "Desabilitado",
       "Display mentions to @": "Exibir menções a @",
@@ -2969,6 +3191,16 @@ if(preferredLanguage == "pt-BR"){
       "Network status": "Estado da rede",
       "New direct message...": "Nova mensagem direta...",
       "New Post...": "Nova Postagem...",
+      "New group": "New group",
+      "Group description": "Group description",
+      "Peers to invite": "Peers to invite",
+      "Join group": "Join group",
+      "Select group(s)": "Select group(s)",
+      "Create": "Create",
+      "Join": "Join",
+      "Invite": "Invite",
+      "Invite peers": "Invite peers",
+      "Leave group": "Leave group",
       "You got": "You got",
       "in postboard": "in postboard",
       "in search result": "in search result",
@@ -2976,6 +3208,7 @@ if(preferredLanguage == "pt-BR"){
       "new_posts": "%{smart_count} nova postagem |||| %{smart_count} novas postagens",
       "new_mentions": "%{smart_count} new mention |||| %{smart_count} new mentions",
       "new_direct_messages": "%{smart_count} new direct message |||| %{smart_count} new direct messages",
+      "new_group_messages": "%{smart_count} new group message |||| %{smart_count} new group messages",
       "nobody": "nobody", // used to promote a post without attaching the user
       "Not available": "Indisponível", // username is not available
       "notify_desktop_error": "Twister cannot perform desktop notification: unknown error occured.",
@@ -3015,10 +3248,6 @@ if(preferredLanguage == "pt-BR"){
       "Sent Direct Message": "Mensagens Diretas trocadas",
       "Sent Post to @": "Postagens enviadas para @",
       "Setup account": "Configurar conta",
-      "switch_to_network": "O Cliente do Twister não está conectado à rede ou\n" +
-                "a cadeia de blocos está desatualizada. Se permanecer \n" +
-                "nesta página suas ações podem não ter efeito.\n" +
-                "Gostaria de verificar o Estado da Rede ao invés disso?",
       "The File APIs are not fully supported in this browser.": "O gerenciamento de arquivos não é completamente suportado neste navegador.",
       "time_ago": "%{time} atrás", // 5 minutes ago
       "Time of the last block:": "Horário do último bloco: ",
@@ -3062,6 +3291,8 @@ if(preferredLanguage == "pt-BR"){
       "Terminate Daemon:": "Encerrar a execução do Cliente do Twister",
       "Exit": "Sair",
       "Save Changes": "Salvar Alterações",
+      "profile_saved": "Profile data has been saved to DHT.",
+      "profile_not_saved": "Profile data has been not saved.",
       "Secret Key": "Chave Secreta", // não existia
       "Secret key:": "Chave secreta:",
       "You have to log in to post messages.": "You have to log in to post messages.",
@@ -3168,9 +3399,9 @@ if(preferredLanguage == "pt-BR"){
       "Who's celebrating Twistday": "Who's celebrating Twistday",
       "Today's luckies:": "Today's luckies:",
       "Upcoming ones:": "Upcoming ones:",
-      "twisted again by": "twisted again by",
+      "post_rt_sign_prep": "twisted again by",
+      "post_rt_time_prep": "at",
       "undo": "undo",
-      "Are you sure you want to exit the daemon?\nThe Twister client will stop working.": "Are you sure you want to exit the daemon?\nThe Twister client will stop working.",
       "Daemon exited...": "Daemon exited...",
       "Secret Key": "Secret Key",
       "Copy to clipboard": "Copy to clipboard",
@@ -3197,14 +3428,23 @@ if(preferredLanguage == "tr"){
       "ajax_error": "Ajax hatası: %{error}", // JavaScript error
       "All users publicly followed by": "Açık olarak takip edilen tüm kullanıcılar",
       "Available": "Kullanılabilir", // username is available
-      "Appearance": "Appearance",
-      "Apply": "Apply",
+      "Appearance": "Görünüm",
+      "Apply": "Uygula",
       "Block chain information": "Blok zincir bilgisi",
       "Block chain is up-to-date, twister is ready to use!": "Blok zinciri güncel, twister kullanıma hazır!",
       "Block generation": "Blok üretimi ",
-      "busted_oh": "oh noes!",
-      "busted_avowal": "I\'m busted trying inject this suspicious stuff here",
+      "busted_oh": "haydaaa!",
+      "busted_avowal": "Şüpheli bir şeyler iliştirmeye çalışırken enselendim.",
+      "btn_ok": "Tamam",
       "Cancel": "İptal",
+      "Confirm": "Onayla",
+      "сonfirm_group_leaving_header": "Gruptan ayrılmayı onayla",
+      "сonfirm_group_leaving_body": "%{alias} grubundan ayrılmak istiyor musun?",
+      "confirm_switch_to_network":
+            "Yerel servis ağa bağlı değil ya da blok zinciri güncel değil.\n" +
+            "Eğer bu sayfada kalırsanız eylemlerinizi işlemeyebilir.\n" +
+            "Bunun yerine [Ağ Durumu sayfasını](%{page}) kontrol etmek ister misiniz?",
+      "confirm_terminate_daemon": "Hizmeti sonlandırmak istiyor musun?\nTwister istemcisi çalışmayacak.",
       "Change user": "Kullanıcı değiştir",
       "Checking...": "Denetleniyor...", // checking if username is available
       "Collapse": "Kapat", // smaller view of a post
@@ -3215,6 +3455,9 @@ if(preferredLanguage == "tr"){
       "Detailed information": "Detaylı bilgi",
       "DHT network down.": "DHT ağı çalışmıyor.",
       "Direct Messages": "Direk Mesajlar",
+      "Group Messages": "Grup Mesajları",
+      "Group Messages — New Group Creation": "Grup Mesajları — Yeni Grup Oluştur",
+      "Group Messages — Join Group": "Grup Mesajları — Gruba katıl",
       "direct_messages_with": "%{username} ile Direk Mesajlar",
       "Disable": "Kullanılmaz",
       "Display mentions to @": "@ adının geçtiği gönderiler",
@@ -3232,8 +3475,8 @@ if(preferredLanguage == "tr"){
       "Favorite": "Favori",
       "File APIs not supported in this browser.": "Tarayıcınızda dosya API'si desteklenmiyor.",
       "Follow": "Takip et",
-      "Following config": "Following config",
-      "Which way do you want to follow": "Which way do you want to follow",
+      "Following config": "Takip ayarları",
+      "Which way do you want to follow": "Nasıl takip etmek istiyorsun",
       "Followed by": "Takip edenler",
       "followed_by": "%{username} tarafından takip edilenler",
       "Followers": "Takipçiler",
@@ -3255,22 +3498,33 @@ if(preferredLanguage == "tr"){
       "Network status": "Ağ durumu",
       "New direct message...": "Yeni direk mesaj...",
       "New Post...": "Yeni gönderi...",
-      "You got": "You got",
-      "in postboard": "in postboard",
-      "in search result": "in search result",
-      "in top trends": "in top trends",
+      "New group": "Yeni grup",
+      "Group description": "Grup açıklaması",
+      "Peers to invite": "Davet edilecek eşler",
+      "Join group": "Gruba katıl",
+      "Select group(s)": "Grup(ları) seç",
+      "Create": "Oluştur",
+      "Join": "Katıl",
+      "Invite": "Davet et",
+      "Invite peers": "Eşleri davet et",
+      "Leave group": "Gruptan ayrıl",
+      "You got": "Oldu",
+      "in postboard": "gönederilerde",
+      "in search result": "arama sonuçlarında",
+      "in top trends": "gündemde",
       "new_posts": "%{smart_count} yeni gönederi |||| %{smart_count} yeni gönderi",
-      "new_mentions": "%{smart_count} new mention |||| %{smart_count} new mentions",
-      "new_direct_messages": "%{smart_count} new direct message |||| %{smart_count} new direct messages",
+      "new_mentions": "%{smart_count} yeni bahseden |||| %{smart_count} yeni bahseden",
+      "new_direct_messages": "%{smart_count} yeni direk mesaj |||| %{smart_count} yeni direk mesaj",
+      "new_group_messages": "%{smart_count} yeni grup mesajı |||| %{smart_count} yeni grup mesajı",
       "nobody": "hiçkimse", // used to promote a post without attaching the user
       "Not available": "Kullanılamaz", // username is not available
-      "notify_desktop_error": "Twister cannot perform desktop notification: unknown error occured.",
-      "notify_desktop_perm_denied": "Twister cannot perform desktop notification: permission denied.\n\nIf you want to get notifications, allow them for %{this_domain} in settings of your browser.",
-      "notify_desktop_test": "All the twisters gonna twist.\nNow you are welcome too.",
-      "notify_desktop_title": "Watch out, it's twister over here!",
-      "post_preview_dummy": 'here is *bold*, ~italic~, -strike-trough- and _underlined_ text.\n'
-        + 'same but escaped: `*bold*, ~italic~, -strike-trough- and _underlined_`.\n'
-        + 'links to [our awesome logo](%{logo}) and our gorgeous site: %{site}.',
+      "notify_desktop_error": "Twister masaüstü uyarısını gösterimiyor: bilimeyen bir hata oluştu.",
+      "notify_desktop_perm_denied": "Twister masaüstü uyarısını gösteremiyor: yetkilendirme hatası.\n\nUyarıları almak istiyorsanız, tarayıcı ayarlarında %{this_domain} alan adı için izin veriniz.",
+      "notify_desktop_test": "Kasırga her yanı saracak\nBu karnavala hoşgeldin!",
+      "notify_desktop_title": "İyi bak, twister her yerde!",
+      "post_preview_dummy": 'işte *kalın*, ~yatık~, -üstü-çizik- ve _alt çizgili_ yazı.\n'
+        + 'düz hali: `*kalın*, ~yatık~, -üstü-çizik- ve _alt çizgili_`.\n'
+        + '[güzel logomuz](%{logo})\'un ve harika sitemizin: %{site} bağlantıları.',
       "Number of blocks in block chain:": "Blok zincirindeki blok sayısı: ",
       "Number of CPUs to use": "Kullanılacak CPU sayısı ",
       "Only alphanumeric and underscore allowed.": "Sadece harf ve alt çizgi kullanılabilir.",
@@ -3291,8 +3545,8 @@ if(preferredLanguage == "tr"){
       "Retransmit": "Tekar ilet",
       "Retransmits": "Tekrar iletenler",
       "Retransmitted by": "Tekrar ileten",
-      "Switch to Reply": "Switch to Reply",
-      "Switch to Retransmit": "Switch to Retransmit",
+      "Switch to Reply": "'Yanıt' ara yüzü...",
+      "Switch to Retransmit": "'Yeniden ilet' ara yüzü",
       "search": "ara",
       "seconds": "%{smart_count} saniye |||| %{smart_count} saniye",
       "send": "gönder",
@@ -3300,10 +3554,6 @@ if(preferredLanguage == "tr"){
       "Sent Direct Message": "Direk Mesaj Gönder",
       "Sent Post to @": "@ Kullanıcıya Gönder",
       "Setup account": "Hesap ayarları",
-      "switch_to_network": "Yerel servis ağa bağlı değil ya da\n" +
-                "blok zinciri güncel değil. Eğer bu sayfada kalırsanız\n" +
-                "eylemlerinizi işlemeyebilir.\n" +
-                "Bunun yerine Ağ Durumu sayfasını kontrol etmek ister misiniz?",
       "The File APIs are not fully supported in this browser.": "Dosya API'si tarayıcınızda tam olarak desteklenmiyor.",
       "time_ago": "%{time} önce", // 5 minutes ago
       "Time of the last block:": "Son blok saati: ",
@@ -3346,13 +3596,15 @@ if(preferredLanguage == "tr"){
       "Terminate Daemon:": "Servisi Durdur:",
       "Exit": "Çıkış",
       "Save Changes": "Değişiklikleri Kaydet",
+      "profile_saved": "Profile data has been saved to DHT.",
+      "profile_not_saved": "Profile data has been not saved.",
       "Secret key:": "Gizli anahtar:",
       "Options": "Ayarlar",
       "Switch to Promoted posts": "Destekli Mesajlara Geç",
       "Switch to Normal posts": "Normal Mesajlara Geç",
       "Use language": "Dil ayarla",
       "Ignore": "Görmezden gel",
-      "Ignore and clear out": "Ignore and clear out",
+      "Ignore and clear out": "Görmezden gel ve temizle",
       "Theme": "Tema",
       "Keys": "Tuşlar",
       "Notifications": "Uyarılar",
@@ -3429,7 +3681,7 @@ if(preferredLanguage == "tr"){
       "its this, blacklisted": "%{this}, engellendi",
       "its this, whitelisted": "%{this}, kabul edildi",
       "Most possible language: this": "Muhtemel dil: %{this}",
-      "Scope of usage": "Scope of usage",
+      "Scope of usage": "Kullanım alanı",
       "Show with every user name": "Tüm kullanıcı adlarının yanında göster",
       "Show at profile modal only": "Sadece profilinde göster",
       "Show if a user follows me": "Bir kullanıcının beni takip edip etmediğini göster",
@@ -3451,9 +3703,9 @@ if(preferredLanguage == "tr"){
       "Who's celebrating Twistday": "Twistgünü'nü kutlayanlar",
       "Today's luckies:": "Günün talihlileri:",
       "Upcoming ones:": "Yakında:",
-      "twisted again by": "yeniden ileten",
+      "post_rt_sign_prep": "yeniden ileten",
+      "post_rt_time_prep": "at",
       "undo": "geri al",
-      "Are you sure you want to exit the daemon?\nThe Twister client will stop working.": "Hizmeti sonlandırmak istiyor musun?\nTwister istemcisi çalışmayacak.",
       "Daemon exited...": "Hizmet sonlandırıldı...",
       "Secret Key": "Gizli Anahtar",
       "Copy to clipboard": "Panoya kopyala",
@@ -3487,7 +3739,16 @@ if(preferredLanguage == "cs"){
       "Block generation": "Generování bloků ",
       "busted_oh": "oh noes!",
       "busted_avowal": "I\'m busted trying inject this suspicious stuff here",
+      "btn_ok": "Okay",
       "Cancel": "Zrušit",
+      "Confirm": "Confirm",
+      "сonfirm_group_leaving_header": "Confirm group leaving",
+      "сonfirm_group_leaving_body": "Are you sure want to leave %{alias} group?",
+      "confirm_switch_to_network":
+            "Váš lokální server ještě není připojen k síti, nebo teprve stahuje aktuální blockchain.\n" +
+            "Pokud zůstanete na této stránce, vaše akce možná nebudou fungovat.\n" +
+            "Chcete se místo toho podívat na [stav sítě](%{page})?",
+      "confirm_terminate_daemon": "Skutečně chcete ukončit server?\nTwister tím vypnete.",
       "Change user": "Změnit uživatele",
       "Checking...": "Ověřuji...", // checking if username is available
       "Collapse": "Složit", // smaller view of a post
@@ -3498,6 +3759,9 @@ if(preferredLanguage == "cs"){
       "Detailed information": "Podrobné informace",
       "DHT network down.": "Síť DHT je nedostupná.",
       "Direct Messages": "Přímé zprávy",
+      "Group Messages": "Group Messages",
+      "Group Messages — New Group Creation": "Group Messages — New Group Creation",
+      "Group Messages — Join Group": "Group Messages — Join Group",
       "direct_messages_with": "Direct messages with %{username}",
       "Disable": "Vypnuto",
       "Display mentions to @": "Zobrazit zmínky o @",
@@ -3538,6 +3802,16 @@ if(preferredLanguage == "cs"){
       "Network status": "Stav sítě",
       "New direct message...": "Nová přímá zpráva...",
       "New Post...": "Nový příspěvek...",
+      "New group": "New group",
+      "Group description": "Group description",
+      "Peers to invite": "Peers to invite",
+      "Join group": "Join group",
+      "Select group(s)": "Select group(s)",
+      "Create": "Create",
+      "Join": "Join",
+      "Invite": "Invite",
+      "Invite peers": "Invite peers",
+      "Leave group": "Leave group",
       "You got": "Máte",
       "in postboard": "na nástěnce",
       "in search result": "ve výsledcích hledání",
@@ -3545,6 +3819,7 @@ if(preferredLanguage == "cs"){
       "new_posts": "%{smart_count} nový příspěvek |||| %{smart_count} nové příspěvky |||| %{smart_count} nových příspěvků",
       "new_mentions": "%{smart_count} novou zmínku |||| %{smart_count} nové zmínky |||| %{smart_count} nových zmínek",
       "new_direct_messages": "%{smart_count} novou přímou zprávu |||| %{smart_count} nové přímé zprávy |||| %{smart_count} nových přímých zpráv",
+      "new_group_messages": "%{smart_count} new group message |||| %{smart_count} new group messages",
       "nobody": "nikdo", // used to promote a post without attaching the user
       "Not available": "Tuto přezdívku již někdo používá", // username is not available
       "notify_desktop_error": "Twisteru se nepodařilo zobrazit upozornění na ploše: došlo k neznámé chybě.",
@@ -3584,9 +3859,6 @@ if(preferredLanguage == "cs"){
       "Sent Direct Message": "Poslat přímou zprávu",
       "Sent Post to @": "Poslat veřejný příspěvek pro @",
       "Setup account": "Upravit profil",
-      "switch_to_network": "Váš lokální server ještě není připojen k síti, nebo teprve stahuje\n" +
-                "aktuální blockchain. Pokud zůstanete na této stránce, vaše akce možná\n" +
-                "nebudou fungovat. Chcete se místo toho podívat na stav sítě?",
       "The File APIs are not fully supported in this browser.": "Upozornění: váš webový prohlížeč nepodporuje File API.",
       "time_ago": "před %{time}", // 5 minutes ago
       "Time of the last block:": "Čas posledního bloku: ",
@@ -3628,6 +3900,8 @@ if(preferredLanguage == "cs"){
       "Terminate Daemon:": "Ukončit server:",
       "Exit": "Konec",
       "Save Changes": "Uložit změny",
+      "profile_saved": "Profile data has been saved to DHT.",
+      "profile_not_saved": "Profile data has been not saved.",
       "Secret key:": "Tajný klíč:",
       "You have to log in to post messages.": "Pro vkládání příspěvků je třeba se přihlásit.",
       "You have to log in to post replies.": "Pro vkládání odpovědí je třeba se přihlásit.",
@@ -3733,9 +4007,9 @@ if(preferredLanguage == "cs"){
       "Who's celebrating Twistday": "Who's celebrating Twistday",
       "Today's luckies:": "Today's luckies:",
       "Upcoming ones:": "Upcoming ones:",
-      "twisted again by": "přeposlal(a)",
+      "post_rt_sign_prep": "přeposlal(a)",
+      "post_rt_time_prep": "at",
       "undo": "zpět",
-      "Are you sure you want to exit the daemon?\nThe Twister client will stop working.": "Skutečně chcete ukončit server?\nTwister tím vypnete.",
       "Daemon exited...": "Server ukončen...",
       "Secret Key": "Tajný klíč",
       "Copy to clipboard": "Kopírovat do clipboardu",

@@ -192,9 +192,6 @@ function updateTimeline(req, posts) {
 function attachPostsToStream(stream, posts, isPromoted) {
     //console.log('attachPostsToStream:');
     //console.log(posts);
-    function byTimeInDescendingOrder(a, b) {
-        return (a.time > b.time) ? -1 : 1;
-    }
 
     var streamItems = stream.children();
     var streamPosts = [];
@@ -203,7 +200,6 @@ function attachPostsToStream(stream, posts, isPromoted) {
         var streamItem = streamItems.eq(i);
         streamPosts.push({item: streamItem, time: parseInt(streamItem.attr('data-time'))});
     }
-    //streamPosts.sort(byTimeInDescendingOrder); // currently here is no reason to sort it, it should be ok
 
     for (var i = 0; i < posts.length; i++) {
         //console.log(posts[i]);
@@ -222,8 +218,7 @@ function attachPostsToStream(stream, posts, isPromoted) {
                 } else if (intrantPost.time > streamPosts[j].time) {
                     // this post in stream is older, so post must be inserted above
                     intrantPost.item.insertBefore(streamPosts[j].item).show();
-                    streamPosts.push(intrantPost);
-                    streamPosts.sort(byTimeInDescendingOrder);
+                    streamPosts.splice(j, 0, intrantPost);
                     isAttached = true;
                     break;
                 }
@@ -232,7 +227,6 @@ function attachPostsToStream(stream, posts, isPromoted) {
         if (!isAttached) {
             intrantPost.item.appendTo(stream).show();
             streamPosts.push(intrantPost);
-            streamPosts.sort(byTimeInDescendingOrder);
         }
     }
 }
@@ -353,6 +347,12 @@ function timelineChangedUser()
 }
 
 function willBeHidden(post){
+    // posts without 'msg' may be used for metadata like 'url'
+    // and are not meant to be displayed.
+    if (typeof(post['userpost']['msg']) === 'undefined' &&
+        typeof(post['userpost']['rt']) === 'undefined' )
+        return true;
+
     if (post['userpost']['n'] === defaultScreenName)
         return false;
 

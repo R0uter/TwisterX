@@ -29,6 +29,11 @@ function processMention(user, mentionTime, data) {
                 _newMentionsUpdated = true;
                 _lastMentionTime = Math.max(mentionTime, _lastMentionTime);
                 data.isNew = true;
+
+                var reqId = defaultScreenName + '@mention';
+                if (typeof _queryPendingPosts[reqId] !== 'object')
+                    _queryPendingPosts[reqId] = [];
+                _queryPendingPosts[reqId].push(data);
             }
             _knownMentions[key] = {mentionTime: mentionTime, data: data};
             purgeOldMentions();
@@ -103,8 +108,25 @@ function requestMentionsCount() {
         if (_newMentions) {
             $.MAL.soundNotifyMentions();
 
-            if ($.Options.showDesktopNotifMentions.val === 'enable')
-                $.MAL.showDesktopNotif(false, polyglot.t('You got')+' '+polyglot.t('new_mentions', _newMentions)+'.', false,'twister_notification_new_mentions', $.Options.showDesktopNotifMentionsTimer.val, function(){$.MAL.showMentions(defaultScreenName)}, false)
+            if (!$.hasOwnProperty('mobile') && $.Options.showDesktopNotifMentions.val === 'enable')
+                $.MAL.showDesktopNotification({
+                    body: polyglot.t('You got') + ' ' + polyglot.t('new_mentions', _newMentions) + '.',
+                    tag: 'twister_notification_new_mentions',
+                    timeout: $.Options.showDesktopNotifMentionsTimer.val,
+                    funcClick: function () {
+                        var postboardSelector =
+                            '.postboard-posts[data-request-id="' + defaultScreenName + '@mention"]';
+                        if (!focusModalWithElement(postboardSelector,
+                            function (req) {
+                                var postboard = $(req.postboardSelector);
+                                postboard.closest('.postboard').find('.postboard-news').hide();
+                                displayQueryPending(postboard);
+                                resetMentionsCount();
+                            }, {postboardSelector: postboardSelector}
+                        ))
+                            $.MAL.showMentions(defaultScreenName);
+                    }
+                });
         }
     }
 
@@ -117,8 +139,27 @@ function requestMentionsCount() {
         if (newDMs) {
             $.MAL.soundNotifyDM();
 
-            if ($.Options.showDesktopNotifDMs.val === 'enable')
-                $.MAL.showDesktopNotif(false, polyglot.t('You got')+' '+polyglot.t('new_direct_messages', newDMs)+'.', false, 'twister_notification_new_DMs', $.Options.showDesktopNotifDMsTimer.val, function(){$.MAL.showDMchat()}, false)
+            if (!$.hasOwnProperty('mobile') && $.Options.showDesktopNotifDMs.val === 'enable') {
+                $.MAL.showDesktopNotification({
+                    body: polyglot.t('You got') + ' ' + polyglot.t('new_direct_messages', newDMs) + '.',
+                    tag: 'twister_notification_new_DMs',
+                    timeout: $.Options.showDesktopNotifDMsTimer.val,
+                    funcClick: function () {$.MAL.showDMchat();}
+                });
+            }
+        }
+        var newDMs = getNewGroupDMsCount();
+        if (newDMs) {
+            $.MAL.soundNotifyDM();
+
+            if (!$.hasOwnProperty('mobile') && $.Options.showDesktopNotifDMs.val === 'enable') {
+                $.MAL.showDesktopNotification({
+                    body: polyglot.t('You got') + ' ' + polyglot.t('new_group_messages', newDMs) + '.',
+                    tag: 'twister_notification_new_DMs',
+                    timeout: $.Options.showDesktopNotifDMsTimer.val,
+                    funcClick: function () {$.MAL.showDMchat({group: true});}
+                });
+            }
         }
     }
 }
@@ -197,6 +238,7 @@ function requestDMsCount() {
             if (_newDMsUpdated) {
                 saveDMsToStorage();
                 $.MAL.updateNewDMsUI(getNewDMsCount());
+                $.MAL.updateNewGroupDMsUI(getNewGroupDMsCount());
             }
         }, null,
         function(req, ret) {console.warn('ajax error:' + ret);}, null
@@ -207,7 +249,18 @@ function getNewDMsCount() {
     var newDMs = 0;
 
     for (var user in _newDMsPerUser) {
-        if (_newDMsPerUser[user])
+        if (user[0] !== '*' && _newDMsPerUser[user])
+            newDMs += _newDMsPerUser[user];
+    }
+
+    return newDMs;
+}
+
+function getNewGroupDMsCount() {
+    var newDMs = 0;
+
+    for (var user in _newDMsPerUser) {
+        if (user[0] === '*' && _newDMsPerUser[user])
             newDMs += _newDMsPerUser[user];
     }
 
@@ -220,6 +273,7 @@ function resetNewDMsCountForUser(user, lastId) {
 
     saveDMsToStorage();
     $.MAL.updateNewDMsUI(getNewDMsCount());
+    $.MAL.updateNewGroupDMsUI(getNewGroupDMsCount());
 }
 
 function updateGroupList() {
@@ -232,6 +286,7 @@ function updateGroupList() {
 function initDMsCount() {
     loadDMsFromStorage();
     $.MAL.updateNewDMsUI(getNewDMsCount());
+    $.MAL.updateNewGroupDMsUI(getNewGroupDMsCount());
     //quick hack to obtain list of group chat aliases
     updateGroupList();
     setInterval(updateGroupList, 60000);

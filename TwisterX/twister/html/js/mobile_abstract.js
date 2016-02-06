@@ -27,7 +27,7 @@ var MAL = function()
 
             installPostboardClick();
         } else {
-            $(".postboard-loading").hide();
+            $(".postboard-loading").hide();  // FIXME need to decide which one we need to hide actually
         }
     }
 
@@ -47,7 +47,7 @@ var MAL = function()
             $dmChatList.listview('refresh');
             $.mobile.silentScroll( $(".dm-form").offset().top );
         } else {
-            var modalContent = dmConvo.parents(".modal-content");
+            var modalContent = dmConvo.closest(".modal-content");
             modalContent.scrollTop(modalContent[0].scrollHeight);
         }
     }
@@ -104,9 +104,15 @@ var MAL = function()
                 newTweetsBarMenu.addClass("show");
 
                 if ($.Options.showDesktopNotifPosts.val === 'enable') {
-                    this.showDesktopNotif(false, polyglot.t('You got')+' '+polyglot.t('new_posts', newPosts)+' '+polyglot.t('in postboard')+'.', false,'twister_notification_new_posts', $.Options.showDesktopNotifPostsTimer.val, (function() {
-                            requestTimelineUpdate('pending',this,followingUsers,promotedPostsOnly);
-                        }).bind(newPosts), false)
+                    this.showDesktopNotification({
+                        body: polyglot.t('You got') + ' ' + polyglot.t('new_posts', newPosts) + ' '
+                            + polyglot.t('in postboard') + '.',
+                        tag: 'twister_notification_new_posts',
+                        timeout: $.Options.showDesktopNotifPostsTimer.val,
+                        funcClick: (function() {
+                            requestTimelineUpdate('pending', this.postsCount, followingUsers, promotedPostsOnly);
+                        }).bind({postsCount: newPosts})
+                    });
                 }
             } else {
                 newTweetsBar.hide();
@@ -142,12 +148,15 @@ var MAL = function()
 
     // how do we map usernames into urls
     this.userUrl = function(username) {
-        if( $.hasOwnProperty("mobile") ) {
-            return "#profile?user=" + username;
-        } else {
-            return "#profile?user=" + username;
-        }
-    }
+        //if( $.hasOwnProperty("mobile") ) {
+        //    return "#profile?user=" + username;
+        //} else {
+            if (username[0] === '*')
+                return "#profile?group=" + username;
+            else
+                return "#profile?user=" + username;
+        //}
+    };
 
     // recover username from url (only for hash)
     this.urlToUser = function(url) {
@@ -184,13 +193,13 @@ var MAL = function()
         }
     }
 
-    this.dmchatUrl = function(username) {
-        if( $.hasOwnProperty("mobile") ) {
-            return "#dmchat?user=" + username;
+    this.dmchatUrl = function (alias) {
+        if ($.hasOwnProperty('mobile')) {
+            return '#dmchat?user=' + alias;
         } else {
-            return "#directmessages?user=" + username;
+            return '#directmessages?' + (alias[0] === '*' ? 'group' : 'user') + '=' + alias;
         }
-    }
+    };
 
     this.followingUrl = function(username) {
         if( $.hasOwnProperty("mobile") ) {
@@ -275,6 +284,18 @@ var MAL = function()
         }
     }
 
+    this.updateNewGroupDMsUI = function(newDMs) {
+        if( $.hasOwnProperty('mobile') ) {
+        } else {
+            var DMsCounter = $('.userMenu-groupmessages .messages-qtd');
+            if (newDMs) {
+                DMsCounter.text(newDMs).fadeIn();
+            } else {
+                DMsCounter.hide();
+            }
+        }
+    }
+
     this.updateMyOwnPostCount = function(numPosts) {
         if( $.hasOwnProperty("mobile") ) {
             console.log("FIXME: implement MAL_updateMyOwnPostCount");
@@ -327,29 +348,31 @@ var MAL = function()
         }
     }
 
-    this.showDMchat = function(username) {
-        if (username) {
-            if( $.hasOwnProperty("mobile") ) {
-                $.mobile.navigate( this.dmchatUrl(username) );
+    this.showDMchat = function(req) {
+        if (typeof req !== 'object')
+            req = {};
+        if (req.alias) {
+            if ($.hasOwnProperty('mobile')) {
+                $.mobile.navigate(this.dmchatUrl(req.alias));
             } else {
-                if ($(".postboard").length) {
-                    window.location.hash = this.dmchatUrl(username);
+                if ($('.postboard').length) {
+                    window.location.hash = this.dmchatUrl(req.alias);
                 } else {
-                    window.location.href = 'home.html'+this.dmchatUrl(username);
+                    window.location.href = 'home.html'+this.dmchatUrl(req.alias);
                 }
             }
         } else {
-            if( $.hasOwnProperty("mobile") ) {
-                $.mobile.navigate( '#directmsg' );
+            if ($.hasOwnProperty('mobile')) {
+                $.mobile.navigate('#' + (req.group ? '' : 'directmsg'));  // FIXME add group messages to tmobile
             } else {
-                if ($(".postboard").length) {
-                    window.location.hash = '#directmessages';
+                if ($('.postboard').length) {
+                    window.location.hash = '#' + (req.group ? 'groupmessages' : 'directmessages');
                 } else {
-                    window.location.href = 'home.html#directmessages';
+                    window.location.href = 'home.html#' + (req.group ? 'groupmessages' : 'directmessages');
                 }
             }
         }
-    }
+    };
 
     this.setNetworkStatusMsg = function(msg, statusGood) {
         if( $.hasOwnProperty("mobile") ) {
@@ -415,44 +438,36 @@ var MAL = function()
         }
     };
 
-    this.showDesktopNotif = function(notifyTitle, notifyBody, notifyIcon, notifyTag, notifyTimer, actionOnClick, actionOnPermDenied) {
-        function doNotification() {
-            if (!notifyTitle) {
-                notifyTitle = polyglot.t('notify_desktop_title');
-            }
-            if (!notifyIcon) {
-                notifyIcon = '../img/twister_mini.png';
-            }
-            if (!notifyTag) {
-                notifyTag = 'twister_notification';
-            }
-            if (!notifyTimer) {
-                notifyTimer = 3600 * 24 * 30; // one month
-            }
-            var doActionOnClick = false;
-            if (typeof actionOnClick === 'function') {
-                doActionOnClick = function() {
-                    actionOnClick();
-                    window.focus();
-                }
-            }
-
-            var desktopNotification = new Notify(notifyTitle, {
-                body: notifyBody,
-                icon: notifyIcon,
-                tag: notifyTag,
-                timeout: notifyTimer,
-                notifyClick: doActionOnClick,
-                notifyError: function() { alert(polyglot.t('notify_desktop_error')) }
-            });
-            desktopNotification.show();
-        }
-
+    this.showDesktopNotification = function(req) {
         if (Notify.needsPermission) {
-            Notify.requestPermission(false, actionOnPermDenied);
-        } else {
-            doNotification();
+            Notify.requestPermission(false, req.funcPermDenied);
+            return;
         }
+
+        if (!req.title)
+            req.title = polyglot.t('notify_desktop_title');
+        if (!req.icon)
+            req.icon = '../img/twister_mini.png';
+        if (!req.tag)
+            req.tag = 'twister_notification';
+        if (!req.timeout)
+            req.timeout = 2592000;  // 60 * 60 * 24 * 30, one month
+
+        if (typeof req.funcClick === 'function')
+            req.funcClick = (function() {window.focus(); this.funcClick();})
+                .bind({funcClick: req.funcClick});
+        else
+            req.funcClick = function() {window.focus();}
+
+        var desktopNotification = new Notify(req.title, {
+            body: req.body,
+            icon: req.icon,
+            tag: req.tag,
+            timeout: req.timeout,
+            notifyClick: req.funcClick,
+            notifyError: function() {alert(polyglot.t('notify_desktop_error'));}
+        });
+        desktopNotification.show();
     };
 
     this.reqRepAfterCB = function(postLi, postsFromJson) {
@@ -483,7 +498,7 @@ var MAL = function()
         if ($.hasOwnProperty('mobile')) {
             return postLi.siblings().length;
         } else {
-            return postLi.parents('.module.post.original.open').find('.post.related').length;
+            return postLi.closest('.module.post.original.open').find('.post.related').length;
         }
     };
 }

@@ -6,6 +6,8 @@
 // Post actions: submit, count characters
 
 var window_scrollY = 0;
+var _watchHashChangeRelaxDontDoIt = window.location.hash === '' ? true : false;
+var _minimizedModals = {};
 
 function openModal(modal) {
     if (!modal.classBase) {
@@ -47,12 +49,19 @@ function openModal(modal) {
 function closeModal() {
     closeModalHandler('.modal-wrapper');
 
-    window.location.hash = '#';
+    if (window.location.hash !== '') {
+        _watchHashChangeRelaxDontDoIt = true;
+        window.location.hash = '#';
+    }
     window.scroll(window.pageXOffset, window_scrollY);
     $('body').css({
         'overflow': 'auto',
         'margin-right': '0'
     });
+}
+
+function closePrompt() {
+    closeModalHandler('.prompt-wrapper');
 }
 
 function closeModalHandler(classBase) {
@@ -61,12 +70,199 @@ function closeModalHandler(classBase) {
     modalWindows.fadeOut('fast', function() {modalWindows.remove();});
 }
 
+function minimizeModal(modal, switchMode) {
+    function minimize(modal, scroll) {
+        modal.detach();
+
+        btnResume = $('<li>' + modal.find('.modal-header h3').text() + '</li>')
+            .on('click', {hashString: window.location.hash}, resumeModal)
+            .appendTo($('#modals-minimized'))
+        ;
+
+        _minimizedModals[window.location.hash] = {
+            self: modal,
+            scroll: scroll,
+            btnResume: btnResume
+        };
+    }
+
+    var scroll;  // MUST be setted before modal.detach(), modal.fadeOut() and so on
+    if (modal.is('.directMessages') || modal.is('.group-messages-new-group')
+        || modal.is('.group-messages-join-group')) {
+            scroll = {
+                targetSelector: '.modal-content',
+                top: modal.find('.modal-content').scrollTop()
+            };
+    } else if (modal.is('.profile-modal')) {
+        if (modal.find('.profile-card').attr('data-screen-name')[0] === '*')
+            scroll = {
+                targetSelector: '.modal-content .members',
+                top: modal.find('.modal-content .members').scrollTop()
+            };
+        else
+            scroll = {
+                targetSelector: '.modal-content .postboard-posts',
+                top: modal.find('.modal-content .postboard-posts').scrollTop()
+            };
+    }
+
+    if (switchMode)
+        minimize(modal, scroll);
+    else
+        modal.fadeOut('fast', function () {
+            minimize(modal, scroll);
+
+            _watchHashChangeRelaxDontDoIt = true;
+            window.location.hash = '#';
+            window.scroll(window.pageXOffset, window_scrollY);
+            $('body').css({
+                'overflow': 'auto',
+                'margin-right': '0'
+            });
+        });
+}
+
+function resumeModal(event) {
+    var elemEvent = $(event.target);
+    elemEvent.fadeOut('fast', function () {elemEvent.remove();});
+
+    var modalActive = $('.modal-wrapper:not(#templates *)');
+    if (modalActive.length)
+        minimizeModal(modalActive, true);
+    else {
+        window_scrollY = window.pageYOffset;
+        $('body').css('overflow', 'hidden');
+    }
+
+    var modal = _minimizedModals[event.data.hashString];
+    if (modal) {
+        _minimizedModals[event.data.hashString] = undefined;
+        if (window.location.hash !== event.data.hashString) {
+            _watchHashChangeRelaxDontDoIt = true;
+            window.location.hash = event.data.hashString;
+        }
+        modal.self.prependTo('body').fadeIn('fast', function () {
+            // TODO also need reset modal height here maybe and then compute new scroll
+            if (modal.scroll)
+                modal.self.find($(modal.scroll.targetSelector).scrollTop(modal.scroll.top));
+
+            if (modal.resume && typeof modal.resume.cbFunc === 'function')
+                modal.resume.cbFunc(modal.resume.cbArg);
+        });
+    }
+}
+
+function focusModalWithElement(elem, cbFunc, cbArg) {
+    if (elem.jquery ? elem.is('html *') : $(elem).is('html *')) {
+        if (typeof cbFunc === 'function')
+            cbFunc(cbArg);
+        return true;
+    }
+
+    var hash = getHashOfMinimizedModalWithElem(elem);
+    if (hash) {
+        _minimizedModals[hash].resume = {cbFunc: cbFunc, cbArg: cbArg};
+        _minimizedModals[hash].btnResume.click();
+        return true;
+    }
+
+    return false;
+}
+
+function getHashOfMinimizedModalWithElem(elem) {
+    for (var i in _minimizedModals)
+        if (_minimizedModals[i] && _minimizedModals[i].self.find(elem).length)
+            return i;
+
+    return '';
+}
+
+function isModalWithElemExists(elem) {
+    if (elem.jquery ? elem.is('html *') : $(elem).is('html *'))
+        return true;
+    else
+        return getHashOfMinimizedModalWithElem(elem) ? true : false;
+}
+
+function confirmPopup(event, req) {
+    if (event && event.stopPropagation) {
+        event.stopPropagation();
+
+        if (!req && event.data)
+            req = event.data;
+    }
+
+    var modal = openModal({
+        classBase: '.prompt-wrapper',
+        classAdd: 'confirm-popup',
+        content: $('#confirm-popup-template').children().clone(true),
+        title: req.titleTxt
+    });
+
+    if (req.messageTxt)
+        modal.content.find('.message').html(htmlFormatMsg(req.messageTxt, {markout: 'apply'}).html);
+
+    var btn = modal.content.find('.confirm');
+    if (req.removeConfirm)
+        btn.remove();
+    else {
+        if (req.confirmTxt)
+            btn.text(req.confirmTxt);
+        else
+            btn.text(polyglot.t('Confirm'));
+        if (req.confirmFunc) {
+            btn.on('click', function () {
+                closePrompt();
+                req.confirmFunc(req.confirmFuncArgs);
+            });
+        } else
+            btn.on('click', closePrompt);
+    }
+    var btn = modal.content.find('.cancel');
+    if (req.removeCancel)
+        btn.remove();
+    else {
+        if (req.cancelTxt)
+            btn.text(req.cancelTxt);
+        else
+            btn.text(polyglot.t('Cancel'));
+        if (req.cancelFunc) {
+            btn.on('click', function () {
+                closePrompt();
+                req.cancelFunc(req.cancelFuncArgs);
+            });
+        } else
+            btn.on('click', closePrompt);
+    }
+    var btn = modal.self.find('.prompt-close');
+    if (req.removeClose)
+        btn.remove();
+    else {
+        if (req.closeFunc) {
+            if (typeof req.closeFunc === 'string') {
+                if (req.closeFunc === 'confirmFunc') {
+                    req.closeFunc = req.confirmFunc;
+                    req.closeFuncArgs = req.confirmFuncArgs;
+                } else if (req.closeFunc === 'cancelFunc') {
+                    req.closeFunc = req.cancelFunc;
+                    req.closeFuncArgs = req.cancelFuncArgs;
+                }
+            }
+            btn.on('click', function () {
+                closePrompt();
+                req.closeFunc(req.closeFuncArgs);
+            });
+        }
+    }
+}
+
 function checkNetworkStatusAndAskRedirect(cbFunc, cbArg) {
     networkUpdate(function(args) {
         if (!twisterdConnectedAndUptodate) {
-            var redirect = window.confirm(polyglot.t('switch_to_network'));
-            if (redirect)
-                $.MAL.goNetwork();
+            confirmPopup(null, {
+                messageTxt: polyglot.t('confirm_switch_to_network', {page: '/network.html'}),
+                confirmFunc: $.MAL.goNetwork
+            });
         } else {
             if (args.cbFunc)
                 args.cbFunc(args.cbArg);
@@ -98,7 +294,48 @@ function timeSincePost(t) {
     return polyglot.t('time_ago', {time: expression});
 }
 
-function openProfileModalWithUsernameHandler(username) {
+function openGroupProfileModalWithNameHandler(groupAlias) {
+    var modal = openModal({
+        classAdd: 'profile-modal',
+        content: $('#group-profile-modal-template').children().clone(true),
+        title: polyglot.t('users_profile', {username: '<span>' + groupAlias + '</span>'})
+    });
+
+    modal.content.find('.profile-card').attr('data-screen-name', groupAlias);
+
+    groupMsgGetGroupInfo(groupAlias,
+        function(req, ret) {
+            if (ret) {
+                req.modal.content.find('.profile-bio .group-description')
+                    .val(ret.description)
+                    .attr('val-origin', ret.description)
+                ;
+
+                if (ret.members.indexOf(defaultScreenName) !== -1)
+                    req.modal.content.find('.group-messages-control').children('button').attr('disabled', false);
+
+                var membersList = req.modal.content.find('.members');
+                var memberTemplate = $('#group-profile-member-template').children();
+                for (var i = 0; i < ret.members.length; i++) {
+                    var item = memberTemplate.clone(true).appendTo(membersList);
+
+                    item.find('.twister-user-info').attr('data-screen-name', ret.members[i]);
+                    item.find('.twister-user-name').attr('href', $.MAL.userUrl(ret.members[i]));
+
+                    getAvatar(ret.members[i], item.find('.twister-user-photo'));
+                    getFullname(ret.members[i], item.find('.twister-user-full'));
+                    getBioToElem(ret.members[i], item.find('.bio'));
+                }
+
+                elemFitNextIntoParentHeight(req.modal.content.find('.profile-card'));
+            }
+        }, {modal: modal}
+    );
+
+    elemFitNextIntoParentHeight(modal.content.find('.profile-card'));
+}
+
+function openUserProfileModalWithNameHandler(username) {
     var content = $('#profile-modal-template').children().clone(true);
 
     updateProfileData(content, username);
@@ -121,13 +358,11 @@ function openProfileModalWithUsernameHandler(username) {
             button.on('click', userClickFollow);
     }
 
+    elemFitNextIntoParentHeight(modal.content.find('.profile-card'));
+
     var postboard = modal.content.find('.postboard');
-    var postboardHeight = modal.content.outerHeight() - modal.content.find('.profile-card').outerHeight();
-    if (postboardHeight > 0) {  // FIXME actually it's here to exclude nin theme
-        postboard.outerHeight(postboardHeight)
-            .find('ol').outerHeight(postboard.outerHeight() - postboard.find('h2').outerHeight() - 20);  // FIXME 20px for margin, need to fix CSS for it
-    } else
-        postboard.outerHeight(modal.content.outerHeight());
+    postboard.find('ol').outerHeight(postboard.actual('height')
+        - postboard.find('h2').actual('outerHeight', {includeMargin: true}));
 }
 
 function openHashtagModalFromSearchHandler(hashtag) {
@@ -137,29 +372,37 @@ function openHashtagModalFromSearchHandler(hashtag) {
         title: '#' + hashtag
     });
 
-    clearHashtagProcessed();
-    updateHashtagModal(modal.content.find('.postboard-posts'), hashtag, 'hashtag');
+    setupQueryModalUpdating(modal.content.find('.postboard-posts'), hashtag, 'hashtag');
 }
 
-function updateHashtagModal(postboard, hashtag, resource, timeoutArgs) {
-    if (postboard.is('html *')) {
-        requestHashtag(postboard, hashtag, resource, timeoutArgs);
+function setupQueryModalUpdating(postboard, query, resource) {
+    var req = {
+        postboard: postboard,
+        query: query,
+        resource: resource,
+        id: query + '@' + resource
+    };
 
-        if (_hashtagPendingPostsUpdated) {
-            if (resource !== 'mention' && $.Options.showDesktopNotifPostsModal.val === 'enable') {
-                $.MAL.showDesktopNotif (false, polyglot.t('You got')+' '+polyglot.t('new_posts', _hashtagPendingPostsUpdated)+' '+polyglot.t('in search result')+'.', false,'twister_notification_new_posts_modal', $.Options.showDesktopNotifPostsModalTimer.val, function() {
-                        $('.postboard-news').hide();
-                        displayHashtagPending($('.hashtag-modal .postboard-posts'));
-                    }, false)
-            }
-            _hashtagPendingPostsUpdated = 0;
-        }
+    postboard.attr('data-request-id', req.id);
 
-        // use extended timeout parameters on modal refresh (requires twister_core >= 0.9.14).
-        // our first query above should be faster (with default timeoutArgs of twisterd),
-        // then we may possibly collect more posts on our second try by waiting more.
-        setTimeout(updateHashtagModal, 5000, postboard, hashtag, resource, [10000,2000,3]);
+    requestQuery(req);
+
+    // use extended timeout parameters on modal refresh (requires twister_core >= 0.9.14).
+    // our first query above should be faster (with default timeoutArgs of twisterd),
+    // then we may possibly collect more posts on our second try by waiting more.
+    req.timeoutArgs = [10000, 2000, 3];
+
+    postboard.attr('data-request-interval', setInterval(updateQueryModal, 5000, req));  // FIXME
+}
+
+function updateQueryModal(req) {
+    if (!isModalWithElemExists(req.postboard)) {
+        clearInterval(req.postboard.attr('data-request-interval'));
+        clearQueryProcessed(req.id);
+        return;
     }
+
+    requestQuery(req);
 }
 
 function openMentionsModal(e) {
@@ -188,12 +431,16 @@ function openMentionsModalHandler(username) {
         title: polyglot.t('users_mentions', {username: username})
     });
 
-    clearHashtagProcessed();
-    updateHashtagModal(modal.content.find('.postboard-posts'), username, 'mention');
+    setupQueryModalUpdating(modal.content.find('.postboard-posts'), username, 'mention');
 
     if (username === defaultScreenName) {
         // obtain already cached mention posts from twister_newmsgs.js
-        processHashtag(modal.content.find('.postboard-posts'), defaultScreenName, getMentionsData());
+        processQuery({
+            postboard: modal.content.find('.postboard-posts'),
+            query: defaultScreenName,
+            resource: 'mention',
+            posts: getMentionsData()
+        });
         resetMentionsCount();
     }
 }
@@ -231,7 +478,7 @@ function fillWhoToFollowModal(list, hlist, start) {
 
                     getAvatar(utf, item.find('.twister-user-photo'));
                     getFullname(utf, item.find('.twister-user-full'));
-                    getBio(utf, item.find('.bio'));
+                    getBioToElem(utf, item.find('.bio'));
                     getFullname(followingUsers[i], item.find('.followed-by').text(followingUsers[i]));
 
                     item.find('.twister-user-remove').remove();
@@ -279,13 +526,8 @@ function newConversationModal(username, resource) {
             var postLi = postboard.children().first()
                 .css('display', 'none');
             getTopPostOfConversation(postLi, null, postboard);
-        }, {content:content}
+        }, {content: content}
     );
-
-    content.find('.postboard-news').on('click', function () {
-        $(this).hide();
-        displayHashtagPending($('.conversation-modal .postboard-posts'));
-    });
 
     return content;
 }
@@ -300,7 +542,7 @@ function openConversationClick(e) {
         ':post' + postData.attr('data-id');
 }
 
-function openConversationModal(username,resource) {
+function openConversationModal(username, resource) {
     openModal({
         classAdd: 'conversation-modal',
         content: newConversationModal(username, resource),
@@ -313,6 +555,7 @@ function watchHashChange(e) {
         var prevurlsplit = e.oldURL.split('#');
         var prevhashstring = prevurlsplit[1];
 
+        // FIXME need to move back button handling to special function and call it in openModal() and resumeModal()
         var notFirstModalView = (prevhashstring !== undefined && prevhashstring.length > 0);
         var notNavigatedBackToFirstModalView = (window.history.state == null ||
             (window.history.state != null && window.history.state.showCloseButton !== false));
@@ -320,31 +563,54 @@ function watchHashChange(e) {
         if (notFirstModalView && notNavigatedBackToFirstModalView) {
             $('.modal-back').css('display', 'inline');
         } else {
-            window.history.pushState({showCloseButton: false}, null, null);
+            window.history.replaceState({showCloseButton: false}, '', window.location.pathname + window.location.hash);
             $('.modal-back').css('display', 'none');
         }
     }
 
-    loadModalFromHash();
+    if (_watchHashChangeRelaxDontDoIt)
+        _watchHashChangeRelaxDontDoIt = false;
+    else
+        loadModalFromHash();
 }
 
 function loadModalFromHash() {
+    if (_minimizedModals[window.location.hash]) {
+        // need to remove active modal before btnResume.click() or it will be minimized in resumeModal()
+        // e.g. for case when you click on profile link in some modal having this profile's modal minimized already
+        $('.modal-wrapper:not(#templates *)').remove();
+        _minimizedModals[window.location.hash].btnResume.click();
+        return;
+    }
+
     var hashstring = decodeURIComponent(window.location.hash);
+    if (hashstring === '') {
+        closeModal();
+        return;
+    }
     var hashdata = hashstring.split(':');
 
     if (hashdata[0] !== '#web+twister')
-        hashdata = hashstring.match(/(hashtag|profile|mentions|directmessages|following|conversation)\?(?:user|hashtag|post)=(.+)/);
+        hashdata = hashstring.match(/(hashtag|profile|mentions|directmessages|following|conversation)\?(?:group|user|hashtag|post)=(.+)/);  // need to rework hash scheme to use group|user|hashtag|post or drop it
 
     if (hashdata && hashdata[1] !== undefined && hashdata[2] !== undefined) {
         if (hashdata[1] === 'profile')
-            openProfileModalWithUsernameHandler(hashdata[2]);
+            if (hashdata[2][0] === '*')
+                openGroupProfileModalWithNameHandler(hashdata[2]);
+            else
+                openUserProfileModalWithNameHandler(hashdata[2]);
+
         else if (hashdata[1] === 'hashtag')
             openHashtagModalFromSearchHandler(hashdata[2]);
         else if (hashdata[1] === 'mentions')
             openMentionsModalHandler(hashdata[2]);
-        else if (hashdata[1] === 'directmessages')
-            openDmWithUserModal(hashdata[2]);
-        else if (hashdata[1] === 'following')
+        else if (hashdata[1] === 'directmessages') {
+            if (hashdata[2][0] === '*')
+                openGroupMessagesModal(hashdata[2]);
+            else
+                openDmWithUserModal(hashdata[2]);
+
+        } else if (hashdata[1] === 'following')
             openFollowingModal(hashdata[2]);
         else if (hashdata[1] === 'conversation') {
             splithashdata2 = hashdata[2].split(':');
@@ -352,6 +618,12 @@ function loadModalFromHash() {
         }
     } else if (hashstring === '#directmessages')
         directMessagesPopup();
+    else if (hashstring === '#groupmessages')
+        openGroupMessagesModal();
+    else if (hashstring === '#groupmessages+newgroup')
+        openGroupMessagesNewGroupModal();
+    else if (hashstring === '#groupmessages+joingroup')
+        openGroupMessagesJoinGroupModal();
     else if (hashstring === '#whotofollow')
         openWhoToFollowModal();
 }
@@ -382,7 +654,7 @@ function reTwistPopup(event, post, textArea) {
     }
 
     if (typeof post === 'undefined')
-        post = $.evalJSON($(event.target).parents('.post-data').attr('data-userpost'));
+        post = $.evalJSON($(event.target).closest('.post-data').attr('data-userpost'));
 
     var modal = openModal({
         classBase: '.prompt-wrapper',
@@ -398,7 +670,7 @@ function reTwistPopup(event, post, textArea) {
     modal.content.find('.switch-mode')
         .text(polyglot.t('Switch to Reply'))
         .on('click', (function(event) {replyInitPopup(event, post,
-            $(event.target).parents('form').find('textarea').detach());}).bind(post))
+            $(event.target).closest('form').find('textarea').detach());}).bind(post))
     ;
 
     var replyArea = modal.content.find('.post-area .post-area-new');
@@ -436,7 +708,7 @@ function replyInitPopup(e, post, textArea) {
     modal.content.find('.switch-mode')
         .text(polyglot.t('Switch to Retransmit'))
         .on('click', (function(event) {reTwistPopup(event, post,
-            $(event.target).parents('form').find('textarea').detach())}).bind(post))
+            $(event.target).closest('form').find('textarea').detach())}).bind(post))
     ;
 
     var replyArea = modal.content.find('.post-area .post-area-new').addClass('open');
@@ -564,7 +836,7 @@ function postReplyClick(e) {
     if (!post.hasClass('original'))
         replyInitPopup(e, $.evalJSON(post.find('.post-data').attr('data-userpost')));
     else {
-        if (!post.parents('.post.open').length)
+        if (!post.closest('.post.open').length)
             postExpandFunction(e, post);
         composeNewPost(e, post.find('.post-area-new'));
     }
@@ -627,7 +899,7 @@ function posPostPreview(event) {
     if (textArea[0].value.length)
         postPreview.html(htmlFormatMsg(textArea[0].value).html).show();
     else
-        postPreview.slideUp('fast');
+        postPreview.hide();
     textArea.before(postPreview);
 }
 
@@ -646,12 +918,12 @@ var usePostSpliting = false;
 
 function replyTextInput(event) {
     var textArea = $(event.target);
-    var textAreaForm = textArea.parents('form');
+    var textAreaForm = textArea.closest('form');
     if (textAreaForm.length) {
         if ($.Options.unicodeConversion.val !== 'disable')
             textArea.val(convert2Unicodes(textArea.val(), textArea));
 
-        if (usePostSpliting && !textArea.parents('.directMessages').length) {
+        if (usePostSpliting && !textArea.closest('.directMessages').length) {
             var caretPos = textArea.caret();
             var reply_to = textArea.attr('data-reply-to');
             var tas = textAreaForm.find('textarea');
@@ -706,7 +978,7 @@ function replyTextInput(event) {
                             $(tas[i]).caret(caretPos);
                             replyTextUpdateRemaining(tas[i]);
                             if ($.fn.textcomplete)
-                                setTextcompleteOnElement(tas[i]);
+                                setTextcompleteOnElement(tas[i], getMentionsForAutoComplete());
                         }
                     }
                 } else if (tas.length > 1 && tas[i].value.length === 0) {
@@ -778,12 +1050,12 @@ function replyTextUpdateRemaining(ta) {
         ta = ta.target;
     if (ta === document.activeElement) {
         var textArea = $(ta);
-        var textAreaForm = textArea.parents('form');
+        var textAreaForm = textArea.closest('form');
         if (textAreaForm.length) {
             var remainingCount = textAreaForm.find('.post-area-remaining');
             var c = replyTextCountRemaining(ta);
 
-            if (usePostSpliting && !textArea.parents('.directMessages').length && splitedPostsCount > 1)
+            if (usePostSpliting && !textArea.closest('.directMessages').length && splitedPostsCount > 1)
                 remainingCount.text((textAreaForm.find('textarea').index(ta) + 1).toString()
                     + '/' + splitedPostsCount.toString() + ': ' + c.toString());
             else
@@ -816,8 +1088,8 @@ function replyTextCountRemaining(ta) {
     var textArea = $(ta);
     var c;
 
-    if (usePostSpliting && !textArea.parents('.directMessages').length && splitedPostsCount > 1) {
-        c = 140 - ta.value.length - (textArea.parents('form').find('textarea').index(ta) + 1).toString().length - splitedPostsCount.toString().length - 4;
+    if (usePostSpliting && !textArea.closest('.directMessages').length && splitedPostsCount > 1) {
+        c = 140 - ta.value.length - (textArea.closest('form').find('textarea').index(ta) + 1).toString().length - splitedPostsCount.toString().length - 4;
         var reply_to = textArea.attr('data-reply-to');
         if (typeof reply_to !== 'undefined' &&
             !checkPostForMentions(ta.value, reply_to, 140 -c -reply_to.length))
@@ -834,7 +1106,7 @@ function replyTextKeySend(event) {
                 $('.dropdown-menu').css('display') === 'none')
             || ((event.metaKey || event.ctrlKey) && $.Options.keysSend.val === 'ctrlenter')) {
                 var textArea = $(event.target);
-                var textAreaForm = textArea.parents('form');
+                var textAreaForm = textArea.closest('form');
                 var buttonSend = textAreaForm.find('.post-submit');
                 if (!buttonSend.length)
                     buttonSend = textAreaForm.find('.dm-submit');
@@ -1309,20 +1581,17 @@ function postSubmit(e, oldLastPostId) {
 
         $(textArea[0]).remove();
 
-        oldLastPostId = lastPostId;
         doSubmitPost(postText, postData);
-        setTimeout(postSubmit, 1000, btnPostSubmit, oldLastPostId);
+        setTimeout(postSubmit, 1000, btnPostSubmit, lastPostId);
 
         return;
     }
 
-    if (btnPostSubmit.parents('.prompt-wrapper').length)
-        closeModalHandler('.prompt-wrapper');
+    if (btnPostSubmit.closest('.prompt-wrapper').length)
+        closePrompt();
     else {
         textArea.val('').attr('placeholder', polyglot.t('Your message was sent!'));
-        var tweetForm = btnPostSubmit.parents('form');
-        var remainingCount = tweetForm.find('.post-area-remaining');
-        remainingCount.text(140);
+        btnPostSubmit.closest('form').find('.post-area-remaining').text('140');
 
         if (btnPostSubmit.closest('.post-area,.post-reply-content')) {
             $('.post-area-new').removeClass('open').find('textarea').blur();
@@ -1338,7 +1607,7 @@ function retweetSubmit(e) {
 
     newRtMsg($(this).closest('.prompt-wrapper').find('.post-data'));
 
-    closeModalHandler('.prompt-wrapper');
+    closePrompt();
 }
 
 function changeStyle() {
@@ -1400,16 +1669,18 @@ function replaceDashboards() {
         $('.userMenu').addClass('w1200');
         $('.module.who-to-follow').detach().appendTo($('.dashboard.right'));
         $('.module.twistday-reminder').detach().appendTo($('.dashboard.right'));
+        $('#modals-minimized').addClass('w1200');
     } else if (width < 1200 && wrapper.hasClass('w1200')) {
         wrapper.removeClass('w1200');
         $('.userMenu').removeClass('w1200');
         $('.module.who-to-follow').detach().insertAfter($('.module.mini-profile'));
         $('.module.twistday-reminder').detach().insertAfter($('.module.toptrends'));
+        $('#modals-minimized').removeClass('w1200');
     }
 }
 
 function initInterfaceCommon() {
-    $('.cancel').on('click', function() {
+    $('.modal-close, .modal-blackout').not('.prompt-close').on('click', function() {
         if ($('.modal-content').attr('style') != undefined)
             $('.modal-content').removeAttr('style');
         $('.modal-back').css('display', 'none');
@@ -1417,12 +1688,13 @@ function initInterfaceCommon() {
         closeModal();
     });
 
+    $('.minimize-modal').on('click', function (event) {
+        minimizeModal($(event.target).closest('.modal-wrapper'));
+    });
+
     $('.modal-back').on('click', function() {history.back();});
 
-    $('.prompt-close').on('click', function(e) {
-        e.stopPropagation();
-        closeModalHandler('.prompt-wrapper');
-    });
+    $('.prompt-close').on('click', closePrompt);
 
     /*
     $('.modal-back').on('click', function() {
@@ -1470,20 +1742,53 @@ function initInterfaceCommon() {
 
     $('#hashtag-modal-template .postboard-news').on('click', function () {
         $(this).hide();
-        displayHashtagPending($('.hashtag-modal .postboard-posts'));
+        displayQueryPending($('.hashtag-modal .postboard-posts'));
     });
 
     replaceDashboards();
     $(window).resize(replaceDashboards);
 
+    $('.profile-card .profile-bio .group-description')
+        .on('focus', function (event) {
+            $(event.target)
+                .siblings('.save').show()
+                .siblings('.cancel').show()
+            ;
+        })
+        .on('input',
+            {parentSelector: '.profile-bio', enterSelector: '.save'}, inputEnterActivator)
+        .siblings('.save').on('click', function (event) {
+            var elemEvent = $(event.target);
+            var descElem = elemEvent.siblings('.group-description');
+
+            groupMsgSetGroupDescription(elemEvent.closest('.profile-card').attr('data-screen-name'),
+                descElem.val().trim(),
+                function(req) {
+                    req.descElem.attr('val-origin', req.descElem.val().trim())
+                        .siblings('.save').hide()
+                        .siblings('.cancel').hide()
+                    ;
+                }, {descElem: descElem}
+            );
+        })
+        .siblings('.cancel').on('click', function (event) {  // FIXME it would be nice to bind some 'clickoutside' event instead and remove cancel button, but current implementation of that doesn't unbind events when element dies
+            var descElem = $(event.target).hide()
+                .siblings('.save').hide()
+                .siblings('.group-description')
+            ;
+
+            descElem.val(descElem.attr('val-origin'));
+        })
+    ;
+
     $('.tox-ctc').on('click', promptCopyAttrData);
     $('.bitmessage-ctc').on('click', promptCopyAttrData);
 
     if ($.fn.textcomplete) {
-        $('textarea').on({
-            'focus': setTextcompleteOnEventTarget,
-            'focusout': function () {$(this).textcomplete('destroy');}
-        });
+        $('.post-area-new textarea')
+            .on('focus', {req: getMentionsForAutoComplete}, setTextcompleteOnEventTarget)
+            .on('focusout', unsetTextcompleteOnEventTarget)
+        ;
     }
 }
 
@@ -1499,17 +1804,39 @@ function killInterfaceModule(module) {
     $('.module.'+module).empty().hide();
 }
 
-function setTextcompleteOnEventTarget(event) {
-    // cursor has not set yet and we need to wait 100ms to skip global click event
-    setTimeout(setTextcompleteOnElement, 100, event.target);
+function elemFitNextIntoParentHeight(elem) {
+    var parent = elem.parent();
+    var elemNext = elem.nextAll();
+    var elemNextHeight = parent.actual('height') - elem.actual('outerHeight', {includeMargin: true});
+
+    if (elemNextHeight > 0)  // FIXME actually it's here because of nin theme's two vertical columns layout of profile modal
+        elemNext.outerHeight(elemNextHeight);
+    else
+        elemNext.outerHeight(parent.actual('outerHeight'));
 }
 
-function setTextcompleteOnElement(elem) {
+function inputEnterActivator(event) {
+    var elemEvent = $(event.target);
+    elemEvent.closest(event.data.parentSelector).find(event.data.enterSelector)
+        .attr('disabled', elemEvent.val().trim() === '');
+}
+
+function setTextcompleteOnEventTarget(event) {
+    // cursor has not set yet and we need to wait 100ms to skip global click event
+    setTimeout(setTextcompleteOnElement, 100, event.target,
+        typeof event.data.req === 'function' ? event.data.req() : event.data.req);
+}
+
+function setTextcompleteOnElement(elem, req) {
     elem = $(elem);
-    elem.textcomplete(getMentionsForAutoComplete(), {
-        appendTo: (elem.parents('.dashboard').length) ? elem.parent() : $('body'),
+    elem.textcomplete(req, {
+        appendTo: (elem.closest('.dashboard').length) ? elem.parent() : $('body'),
         listPosition: setTextcompleteDropdownListPos
     });
+}
+
+function unsetTextcompleteOnEventTarget(event) {
+    $(event.target).textcomplete('destroy');
 }
 
 // following workaround function is for calls from $.fn.textcomplete only
@@ -1517,7 +1844,7 @@ function setTextcompleteOnElement(elem) {
 function setTextcompleteDropdownListPos(position) {
     position = this._applyPlacement(position);
 
-    if (this.option.appendTo.parents('.dashboard').length > 0) {
+    if (this.option.appendTo.closest('.dashboard').length > 0) {
         position.position = 'fixed';
         position.top = (parseFloat(position.top) - window.pageYOffset).toString() + 'px';
     } else
@@ -1534,6 +1861,7 @@ $(document).ready(function()
     var page = path.split("/").pop();
     if (page.indexOf("following.html") === 0) {
         initInterfaceFollowing();
+        initHashWatching();
     } else if (page.indexOf("login.html") === 0) {
         initInterfaceLogin();
     } else if (page.indexOf("network.html") === 0) {

@@ -69,6 +69,7 @@ var InterfaceFunctions = function() {
             $miniProfile.find(".mini-profile-name").text(defaultScreenName);
             getFullname( defaultScreenName, $miniProfile.find(".mini-profile-name") );
             getAvatar( defaultScreenName, $miniProfile.find(".mini-profile-photo").find("img") );
+            getAvatar(defaultScreenName, $('.userMenu-config .mini-profile-photo img'));
             // add avatar in postboard-top
             getAvatar( defaultScreenName, $("#postboard-top").find("img") );
             getPostsCount( defaultScreenName,  $miniProfile.find(".posts-count") );
@@ -106,9 +107,10 @@ var InterfaceFunctions = function() {
                     $('.mini-profile .following-count').text(followingUsers.length - 1);
                     $('.wrapper .postboard .post').each( function() {
                         var elem = $(this);
-                        if ((elem.find('[data-screen-name="' + user + '"]').length && !elem.find(".post-retransmited-by").text())
-                        || elem.find(".post-retransmited-by").text() === '@'+user)
-                            elem.remove();
+                        if ((elem.find('[data-screen-name="' + user + '"]').length
+                            && !elem.find(".post-rt-by .open-profile-modal").text())
+                            || elem.find(".post-rt-by .open-profile-modal").text() === '@' + user)
+                                elem.remove();
                     });
                 });
 

@@ -98,6 +98,13 @@ h3
     font-size: 14px;
     color: rgba( 0, 0, 0, .5 );
 }
+
+samp {
+    background-color: #EEE;
+    padding-left: 2px;
+    padding-right: 2px;
+}
+
 .isFollowing:after {
     color: #1a1;
     content: '\2714';
@@ -107,28 +114,24 @@ h3
 ************** BUTTONS ***************
 **************************************/
 
-button
-{
+button {
+    color: rgba(255, 255, 255, .8);
     background: #45474d;
-    color: rgba( 255, 255, 255, .8 );
     border: none;
     padding: 5px 10px;
     cursor: pointer;
 }
 
-button:hover
-{
+button:hover {
     color: #fff;
 }
 
-button.disabled
-{
+button:disabled, button.disabled {
     opacity: .4;
 }
 
-button.disabled:hover
-{
-    color: rgba( 255, 255, 255, .8 );
+button:disabled:hover, button.disabled:hover {
+    color: rgba(255, 255, 255, .8);
 }
 
 button.follow, button.unfollow, .following-list button.private {
@@ -172,11 +175,62 @@ button.unfollow:hover {
     margin-right: 10px;
 }
 
+.a-button {
+    color: whitesmoke;
+    background-color: #6d83bd;
+    border: none;
+    font-size: 12px;
+    text-align: center;
+    width: auto;
+    padding: 4px 12px;
+    vertical-align: middle;
+    transition: all .1s linear;
+}
+
+.a-button:hover {
+    color: #FFF;
+    background: #B2D67B;
+}
+
+.a-button:disabled {
+    opacity: .7;
+}
+
+.a-button:disabled:hover {
+    color: #fff;
+}
+
+.b-buttons {
+    text-align: right;
+    padding: 4px;
+}
+
+.b-buttons {
+    text-align: right;
+    padding: 4px;
+}
+
+.b-buttons button {
+    color: rgba(0, 0, 0, .7);
+    background-color: rgba(0, 0, 0, .08);
+    border: none;
+    font-size: 12px;
+    text-align: center;
+    width: auto;
+    padding: 4px 12px;
+    transition: all .1s linear;
+}
+
+.b-buttons button:hover {
+    color: #FFF;
+    background: #B2D67B;
+}
+
 /*************************************
-**************************** MENU *****
+**************** MENU ****************
 **************************************/
-.userMenu
-{
+
+.userMenu {
     width: 900px;
     position: fixed;
     left: 50%;
@@ -185,11 +239,13 @@ button.unfollow:hover {
     background: #43464d;
     z-index: 2;
 }
+
 .userMenu.w1200 {
     width: 1200px;
     margin-left: -600px;
 }
-.userMenu:after{
+
+.userMenu:after {
     position: absolute;
     content: '';
     width: 9999px;
@@ -197,7 +253,8 @@ button.unfollow:hover {
     background: #43464d;
     z-index: -999;
 }
-.userMenu:before{
+
+.userMenu:before {
     position: absolute;
     content: '';
     width: 9999px;
@@ -206,16 +263,14 @@ button.unfollow:hover {
     background: #43464d;
     z-index: -999;
 }
-.userMenu > ul
-{
-}
-.userMenu > ul > li
-{
+
+.userMenu > ul > li {
     float: left;
+    height: 40px;
     margin: 0;
 }
-.userMenu > ul > li > a
-{
+
+.userMenu > ul > li > a {
     line-height: 40px;
     height: 40px;
     padding: 0 20px 0 45px;
@@ -227,119 +282,87 @@ button.unfollow:hover {
     transition: all .2s linear;
     position: relative;
 }
-.userMenu li > a:hover
-{
+
+.userMenu li:hover, .userMenu li:active {
+    background-color: rgba(0, 0, 0 , .4);
+}
+
+.userMenu li:hover > a, .userMenu li:active > a {
     text-decoration: none;
     opacity: 1;
 }
-.userMenu li.current > a
-{
+
+.userMenu li.current {
+    background-color: #768FCE;
+}
+
+.userMenu li.current > a {
     color: #fff;
     opacity: 1;
 }
-.userMenu li.userMenu-home > a
-{
+
+.userMenu li.userMenu-home > a {
     background: url(../img/home.png) no-repeat center center;
     padding-left: 40px;
 }
-.userMenu li.userMenu-home:hover > a
-{
-    background: url(../img/home.png) no-repeat center center rgba( 0, 0, 0 , .4 );
-}
-.userMenu li.userMenu-home.current > a
-{
-    background: url(../img/home.png) no-repeat center center #768fce;
-}
-.userMenu li.userMenu-connections > a
-{
+
+.userMenu li.userMenu-connections > a {
     background: url(../img/connections.png) no-repeat center center;
     opacity: 1;
 }
-.userMenu li.userMenu-connections:hover > a
-{
-    background: url(../img/connections.png) no-repeat center center rgba( 0, 0, 0 , .4 );
-}
-.userMenu li.userMenu-connections.current > a
-{
-    background: url(../img/connections.png) no-repeat 5px center #b43e34;
-}
-.userMenu li.userMenu-network > a
-{
+
+.userMenu li.userMenu-network > a {
     background: url(../img/network.png) no-repeat 5px center;
     padding-left: 60px;
 }
-.userMenu li.userMenu-network:hover > a
-{
-    background: url(../img/network.png) no-repeat 5px center rgba( 0, 0, 0 , .4 );
-}
-.userMenu li.userMenu-network.current > a
-{
-    background: url(../img/network.png) no-repeat 5px center #768fce;
-}
 
-.userMenu li.userMenu-following > a
-{
+.userMenu li.userMenu-following > a {
     background: url(../img/following.png) no-repeat 5px center;
     padding-left: 50px;
 }
-.userMenu li.userMenu-following:hover > a
-{
-    background: url(../img/following.png) no-repeat 5px center rgba( 0, 0, 0 , .4 );
-}
-.userMenu li.userMenu-following.current > a
-{
-    background: url(../img/following.png) no-repeat 5px center #768fce;
-}
-.userMenu li.userMenu-options > a
-{
+
+.userMenu li.userMenu-options > a {
     background: url(../img/switch.png) no-repeat 5px center;
     padding-left: 50px;
 }
-.userMenu li.userMenu-options:hover > a
-{
-    background: url(../img/switch.png) no-repeat 5px center rgba( 0, 0, 0 , .4 );
-}
-.userMenu li.userMenu-options.current > a
-{
-    background: url(../img/switch.png) no-repeat 5px center #768fce;
-}
-.userMenu li.userMenu-messages > a
-{
+
+.userMenu li.userMenu-messages > a {
     background: url(../img/messages.png) no-repeat center center;
     padding: 0 25px 0 35px;
     opacity: 1;
 }
-.userMenu li.userMenu-messages:hover > a
-{
-    background: url(../img/messages.png) no-repeat center center rgba( 0, 0, 0 , .4 );
+
+.userMenu li.userMenu-messages > a:empty {
+    padding: 0 20px 0 30px;
+    opacity: .7;
 }
-.userMenu li.userMenu-messages.current > a
-{
-    background: url(../img/messages.png) no-repeat center center #b43e34;
+
+.userMenu li.userMenu-groupmessages > a {
+    background: url(../img/groupmessages.png) no-repeat center center;
+    background-size: 22px 22px;
+    padding: 0 24px;
+    opacity: 0.9;
 }
-.userMenu li.userMenu-profile > a
-{
+
+.userMenu li.userMenu-profile > a {
     background: url(../img/profile.png) no-repeat 5px center;
     padding-left: 35px;
 }
-.userMenu li.userMenu-profile:hover > a
-{
-    background: url(../img/profile.png) no-repeat 5px center rgba( 0, 0, 0 , .4 );
-}
-.userMenu li.userMenu-profile.current > a
-{
-    background: url(../img/profile.png) no-repeat 5px center #768fce;
-}
-.userMenu li.userMenu-config
-{
+
+.userMenu li.userMenu-config {
     float: right;
     position: relative;
 }
-.userMenu li.userMenu-search
-{
+
+.userMenu li.userMenu-search {
     float: right;
     position: relative;
 }
+
+.userMenu li.userMenu-search:hover {
+    background-color: transparent;
+}
+
 input.userMenu-search-field::-webkit-input-placeholder {
     color: #4d4d4d;
     font-style: italic;
@@ -368,24 +391,20 @@ input.userMenu-search-field:focus::-moz-placeholder {
 input.userMenu-search-field:focus::-ms-input-placeholder {
     color: #fff;
 }
-.userMenu li.userMenu-config > a
-{
+
+.userMenu li.userMenu-config > a {
     background: url(../img/config.png) no-repeat 5px center;
     padding: 0 30px 0 45px;
 }
-.userMenu li.userMenu-config > a:after
-{
+
+.userMenu li.userMenu-config > a:after {
     content: "▼";
     position: absolute;
     font-size: 10px;
     transition: all .2 linear;
     margin-left: 8px;
 }
-.userMenu li.userMenu-config:hover > a,
-.userMenu li.userMenu-config:active > a
-{
-    background: url(../img/config.png) no-repeat 5px center rgba( 0, 0, 0 , .4 );
-}
+
 .userMenu li.userMenu-dhtindicator {
     background: #000;
     width: 70px;
@@ -402,6 +421,7 @@ input.userMenu-search-field:focus::-ms-input-placeholder {
     transition: all 200ms;
     border-radius: 10px;
 }
+
 .userMenu li.userMenu-dhtindicator a {
     display: inline-block;
     font: 12px/25px "Open Sans", sans-serif;
@@ -410,6 +430,7 @@ input.userMenu-search-field:focus::-ms-input-placeholder {
     height: 25px;
     opacity: .9;
 }
+
 .userMenu li.userMenu-dhtindicator a:before {
     content: 'DHT:';
     display: inline-block;
@@ -418,19 +439,15 @@ input.userMenu-search-field:focus::-ms-input-placeholder {
     width: 70px;
     height: 25px;
 }
+
 .userMenu li.userMenu-dhtindicator:hover {
     opacity: 1;
     -webkit-box-shadow: inset 0 0 15px #000;
     -moz-box-shadow: inset 0 0 15px #000;
     box-shadow: inset 0 0 15px #000;
 }
-.userMenu li.userMenu-messages > a:empty
-{
-    padding: 0 20px 0 30px;
-    opacity: .7;
-}
-.wrapper
-{
+
+.wrapper {
     width: 900px;
     margin: 0 auto;
     background: #e0e6f5;
@@ -439,15 +456,18 @@ input.userMenu-search-field:focus::-ms-input-placeholder {
     z-index: 1;
     min-height: 100%;
 }
+
 .wrapper.w1200 {
     width: 1200px;
     padding: 55px 7px 15px 7px;
 }
+
 .dashboard.left {
     width: 320px;
     position: fixed;
     top: 55px;
 }
+
 .dashboard.right {
     width: 320px;
     position: fixed;
@@ -455,18 +475,18 @@ input.userMenu-search-field:focus::-ms-input-placeholder {
     margin-left: 864px;
 }
 
-.module
-{
+.module {
     border: solid 1px rgba( 69, 71, 77, .1 );
     background: #f3f5fb;
 
 }
+
 .dashboard .module {
     margin: 0 0 3%;
     border-radius: 6px;
 }
-.messages-qtd
-{
+
+.messages-qtd {
     position: absolute;
     background: #ef0807;
     color: #fff;
@@ -475,10 +495,44 @@ input.userMenu-search-field:focus::-ms-input-placeholder {
     font-size: 8px;
     margin-top: 4px;
 }
-.userMenu-connections .messages-qtd
-{
+
+.userMenu-connections .messages-qtd {
     margin: 4px 0 0 -5px;
 }
+
+#modals-minimized {
+    background-color: rgba(0, 0, 0, 0);
+    z-index: 9000;
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    width: 900px;
+    height: 24px;
+    overflow: auto;
+    margin-left: -450px;
+    padding: 0 4%;
+}
+
+#modals-minimized.w1200 {
+    width: 1200px;
+    margin-left: -600px;
+}
+
+#modals-minimized li {
+    display: inline-block;
+    opacity: .88;
+    font-size: 10px;
+    color: #FFF;
+    background-color: #7691CE;
+    margin: 0 2px;
+    padding: 4px 8px;
+}
+
+#modals-minimized li:hover {
+    opacity: 1;
+    cursor: pointer;
+}
+
 /*******************************************************
 ****************** CONFIG SUBMENU & SEARCH RESULTS *****
 *******************************************************/
@@ -510,30 +564,26 @@ input.userMenu-search-field:focus::-ms-input-placeholder {
     right: auto;
     left: 80px;
 }
-.direct-messages,
-.dropdown-menu-item
-{
+
+.dropdown-menu-item {
     display: block;
     padding: 10px;
     font-size: 12px;
     border-top: solid 1px rgba( 69, 71, 77, .1 );
     color: rgba( 0, 0, 0, .7 );
 }
+
 .dropdown-menu-item, .dropdown-menu-item:hover {
     text-decoration: none;
 }
-.dropdown-menu-item:hover {
-    background: #45474d;
-    color: #fff;
+
+.dropdown-menu-item:hover,
+.userMenu-search-sugestions a:hover,
+.userMenu-search-profiles li:hover a {
+    background: #45474D;
+    color: #FFF;
 }
 
-.direct-messages:hover,
-.userMenu-search-sugestions a:hover,
-.userMenu-search-profiles li:hover a
-{
-    background: #45474d;
-    color: #fff;
-}
 .userMenu-search-profiles li:hover span
 {
     color: #fff;
@@ -945,6 +995,23 @@ textarea.splited-post {
 {
     vertical-align: top;
 }
+
+.twister-user .bio a {
+    font: italic 13px "Open Sans", sans-serif;
+    text-decoration: none;
+    color: #b46e67;
+    -webkit-transition: all 200ms;
+    -moz-transition: all 200ms;
+    -ms-transition: all 200ms;
+    -o-transition: all 200ms;
+    transition: all 200ms;
+}
+
+.twister-user .bio a:hover {
+    color: #e18881;
+    opacity: .8;
+}
+
 .followers
 {
     font-size: 12px;
@@ -1156,6 +1223,11 @@ textarea.splited-post {
     transition: background .1s linear;
     -moz-transition: background .1s linear;
 }
+
+.post.new {
+    background-color: #FFFFED;
+}
+
 .post.open
 {
     margin: 10px 0;
@@ -1197,10 +1269,8 @@ textarea.splited-post {
 {
     background: #fff;
 }
-.post-photo,
-.mini-profile-photo
-{
-    margin: 5px;
+
+.post-photo, .mini-profile-photo {
     display: inline-block;
     float: left;
     vertical-align: middle;
@@ -1209,13 +1279,14 @@ textarea.splited-post {
     overflow: hidden;
     border-radius: 20%;
     /*transform: rotate( 45deg );*/
+    margin: 6px;
 }
-.post-photo img,
-.mini-profile-photo img
-{
+
+.post-photo img, .mini-profile-photo img {
     width: 48px;
-    height: 48px;
+    height: auto;
 }
+
 .post-info span
 {
     vertical-align: top;
@@ -1238,14 +1309,15 @@ textarea.splited-post {
     display: inline-block;
     letter-spacing: 0px;
 }
-.post-info-time
-{
+
+.post-info-time {
     float: right;
     font-size: 12px;
-    margin-right: 5px;
+    margin: 4px 8px 0;
     opacity: .5;
     text-decoration: none;
 }
+
 .post-info-time:hover {
     text-decoration: none;
     color: #43464d;
@@ -1253,21 +1325,15 @@ textarea.splited-post {
 
 .post-text {
     font-size: 13px;
-    margin: 2px 10px 4px 60px;
+    margin: 2px 16px 4px 60px;
     word-wrap: break-word;
 }
 
-.post-text samp {
-    background: #EEE;
-    padding-left: 2px;
-    padding-right: 2px;
+.post-context {
+    font-size: 11px;
+    margin: 2px 16px 4px 60px;
 }
 
-.post-context
-{
-    font-size: 11px;
-    margin: 2px 10px 4px 60px;
-}
 .post-text a,
 .post-context a,
 .mini-screen-name
@@ -1276,6 +1342,7 @@ textarea.splited-post {
 }
 
 /* external http links */
+.confirm-popup .message a,
 .post-text a {
     font: italic 13px "Open Sans", sans-serif;
     text-decoration: none;
@@ -1287,11 +1354,13 @@ textarea.splited-post {
     transition: all 200ms;
 }
 
+.confirm-popup .message a:hover,
 .post-text a:hover {
     color: #e18881;
     opacity: .8;
 }
 
+.confirm-popup .message a[href^="http"]:after,
 .post-text a[href^="http"]:after {
     content: '';
     display: inline-block;
@@ -1310,10 +1379,12 @@ textarea.splited-post {
     transition: all 200ms;
 }
 
+.confirm-popup .message a[href^="http"]:hover:after,
 .post-text a[href^="http"]:hover:after {
     opacity: .8;
 }
 
+.confirm-popup .message a[href^="#profile"],
 .post-text a[href^="#profile"], .follow-suggestions a[href^="#profile"] {
     color: #5e8da4;
     text-decoration: none;
@@ -1324,6 +1395,7 @@ textarea.splited-post {
     transition: all 200ms;
 }
 
+.confirm-popup .message a[href^="#profile"]:hover,
 .post-text a[href^="#profile"]:hover, .follow-suggestions a[href^="#profile"]:hover {
     color: #76b2ce;
 }
@@ -1332,6 +1404,7 @@ textarea.splited-post {
     font-size: 11px;
 }
 
+.confirm-popup .message a[href^="#hashtag"],
 .toptrends-list a[href^="#hashtag"], .post-text a[href^="#hashtag"] {
     color: #5e72a4;
     text-decoration: none;
@@ -1342,11 +1415,12 @@ textarea.splited-post {
     transition: all 200ms;
 }
 
+.confirm-popup .message a[href^="#hashtag"]:hover,
 .toptrends-list a[href^="#hashtag"]:hover, .post-text a[href^="#hashtag"]:hover {
     color: #768fce;
 }
 
-.post-info a[href^="#profile"], .followers a[href^="#profile"],  a[href^="#profile"].post-retransmited-by{
+.post-info a[href^="#profile"], .followers a[href^="#profile"], .post-rt-sign a {
     color: #43464d;
     -webkit-transition: all 200ms;
     -moz-transition: all 200ms;
@@ -1355,7 +1429,7 @@ textarea.splited-post {
     transition: all 200ms;
 }
 
-.post-info a[href^="#profile"]:hover, .followers a[href^="#profile"]:hover,  a[href^="#profile"].post-retransmited-by:hover {
+.post-info a[href^="#profile"]:hover, .followers a[href^="#profile"]:hover, .post-rt-sign a:hover {
     color: #5e8da4;
     text-decoration: none;
 }
@@ -1436,7 +1510,16 @@ textarea.splited-post {
     top: 40px;
 }
 
-.post-retransmited-icon {
+.post-rt-by div {
+    display: inline;
+}
+
+.post-rt-by .prep:before,
+.post-rt-by .prep:after {
+    content: ' ';
+}
+
+.post-rt-icon {
     display: inline-block;
     width: 25px;
     height: 25px;
@@ -1822,7 +1905,7 @@ textarea.splited-post {
     height: 100%;
 }
 
-.modal-close {
+.modal-close, .minimize-modal {
     position: absolute;
     right: 0;
     top: 0;
@@ -1834,15 +1917,19 @@ textarea.splited-post {
     transition: all .1s linear;
 }
 
-.modal-close:hover {
+.modal-close:hover, .minimize-modal:hover {
     color: #fff;
     background: rgba( 0, 0, 0, .1 );
+}
+
+.minimize-modal {
+    right: 30px;
 }
 
 .modal-back,
 .mark-all-as-read {
     position: absolute;
-    right: 30px;
+    right: 60px;
     top: 0;
     padding: 1px 10px;
     cursor: pointer;
@@ -1857,6 +1944,14 @@ textarea.splited-post {
 .mark-all-as-read:hover {
     color: #fff;
     background: rgba( 0, 0, 0, .1 );
+}
+
+.mark-all-as-read {
+    right: 90px;
+}
+
+.mark-all-as-read:before {
+    content: '\2714';
 }
 
 .modal-wrapper.reply .post {
@@ -1880,6 +1975,13 @@ textarea.splited-post {
     top: 50%;
     margin: -6px 0 0 0;
     color: rgba( 0, 0, 0, .4 );
+}
+
+.direct-messages-list .post .messages-qtd {
+    display: none;
+    top: 8px;
+    left: 16px;
+    line-height: 8px;
 }
 
 .direct-messages-thread {
@@ -1908,7 +2010,7 @@ textarea.splited-post {
 }
 
 .direct-messages-thread .post-text {
-    margin: 2px 10px 4px 4px;
+    margin: 2px 16px 4px 4px;
     word-wrap: break-word;
 }
 
@@ -1931,8 +2033,26 @@ textarea.splited-post {
     left: auto;
 }
 
+.direct-messages-thread .post.sent .post-info {
+    text-align: right;
+}
+
+.direct-messages-thread .post.sent .post-info-name {
+    margin-right: 2px;
+}
+
+.direct-messages-thread .post.sent .post-info-time {
+    float: left;
+}
+
+.direct-messages-thread .post.sent .post-info-time .post-info-sent {
+    float: right;
+    margin-left: 2px;
+}
+
 .direct-messages-thread .post.sent .post-text {
-    margin: 2px 10px 4px 4px;
+    margin: 2px 4px 4px 16px;
+    text-align: right;
 }
 
 .direct-messages-thread .post.sent .post-photo {
@@ -1949,12 +2069,98 @@ textarea.splited-post {
     background: none;
 }
 
-.mark-all-as-read {
-    right: 60px;
+/*************************************
+****** GM NEW GROUP SETUP MODAL ******
+**************************************/
+
+.group-messages-new-group.modal-wrapper {
+    height: auto; /*about 320px*/
+    margin-top: -160px;
 }
 
-.mark-all-as-read:before {
-    content: '\2714';
+.group-messages-new-group .modal-content .module {
+    margin: 4px;
+}
+
+.group-messages-new-group .modal-content div div {
+    width: 100%;
+    margin: 4px 0;
+    padding: 4px 12px;
+}
+
+.group-messages-new-group .modal-content div div:last-child {
+    text-align: right;
+}
+
+.group-messages-new-group .modal-content div div:last-child button {
+    margin: 8px 4px;
+}
+
+.group-messages-new-group .modal-content textarea {
+    border: solid 1px rgba(0, 0, 0, .3);
+    border-radius: 3px;
+    width: 500px;
+    height: 56px;
+    resize: none;
+    margin: 12px 16px;
+    padding: 2px 4px;
+}
+
+.group-messages-new-group .modal-content textarea:focus {
+    border: solid 1px rgba(118, 145, 206, .8);
+    box-shadow: 0 0 10px rgba(0, 0, 0, .3);
+}
+
+/*************************************
+****** GM JOIN GROUP SETUP MODAL *****
+**************************************/
+
+.group-messages-join-group.modal-wrapper {
+    height: auto; /*about 360px*/
+    margin-top: -240px;
+}
+
+.group-messages-join-group .modal-content .module {
+    margin: 4px;
+}
+
+.group-messages-join-group .modal-content div div {
+    width: 100%;
+    margin: 4px 0;
+    padding: 4px 12px;
+}
+
+.group-messages-join-group .modal-content div div:last-child {
+    text-align: right;
+}
+
+.group-messages-join-group .modal-content div div:last-child button {
+    margin: 8px 4px;
+}
+
+.group-messages-join-group .modal-content input {
+    border: solid 1px rgba(0, 0, 0, .3);
+    border-radius: 3px;
+    width: 500px;
+    margin: 12px 16px;
+    padding: 2px 4px;
+}
+
+.group-messages-join-group .modal-content input:focus {
+    border: solid 1px rgba(118, 145, 206, .8);
+    box-shadow: 0 0 10px rgba(0, 0, 0, .3);
+}
+
+.group-messages-join-group .modal-content input[type='checkbox'] {
+    display: inline;
+    width: auto;
+    margin: 2px;
+}
+
+.group-messages-join-group .modal-content .groups-list {
+    height: 120px;
+    overflow-y: auto;
+    margin: 8px 8px 0;
 }
 
 /*************************************
@@ -2082,6 +2288,7 @@ textarea.splited-post {
 
 .prompt-wrapper {
     background: rgba(255,255,255, 1.0);
+    font-size: 13px;
     z-index: 5;
     position: fixed;
     top: 50%;
@@ -2100,6 +2307,24 @@ textarea.splited-post {
     display: inline-block;
     float: left;
     margin: 4px;
+}
+
+/*************************************
+*********** CONFIRM POPUP ************
+**************************************/
+
+.confirm-popup.prompt-wrapper {
+    margin-top: -80px;
+}
+
+.confirm-popup .message {
+    text-align: center;
+    margin: 12px;
+}
+
+.confirm-popup .modal-buttons {
+    text-align: center;
+    padding: 4px;
 }
 
 /*************************************
@@ -2523,6 +2748,7 @@ p.post-text img {
 .post-rt-reference .post-photo {
     width: 24px;
     height: 24px;
+    margin: 4px;
 }
 
 .post-rt-reference .post-photo img {
@@ -2532,11 +2758,12 @@ p.post-text img {
 
 .post-rt-reference .post-info-name {
     font-size: 11px;
+    padding: 0;
 }
 
 .post-rt-reference .post-text {
     font-size: 11px;
-    margin: 2px 10px 4px 10px;
+    margin: 2px 8px 4px 34px;
 }
 
 .post-rt-reference .post-text a {
@@ -2546,4 +2773,5 @@ p.post-text img {
 .post-rt-reference .post-info-time {
     font-size: 9px;
     color: #000;
+    margin: 2px 4px 0;
 }
