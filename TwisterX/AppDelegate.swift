@@ -14,9 +14,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         flag: Bool) -> Bool {
             if !flag{
                 for window in sender.windows{
-                    if let w = window as? NSWindow{
-                        w.makeKeyAndOrderFront(self)
-                    }
+                    
+                        window.makeKeyAndOrderFront(self)
+                    
                 }
             }
             return true

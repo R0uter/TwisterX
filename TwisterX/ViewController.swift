@@ -8,23 +8,16 @@
 //next move : track twisterd pid
 
 
-
+import SwiftyJSON
 import Cocoa
-
-
-
 
 class ViewController: NSViewController {
     var twisterd:Twisterd!
-    var twisterRpc:Twisterd!
     var backgroundQueue = NSOperationQueue()
     
     let twisterDir:String = NSBundle.mainBundle().bundlePath + "/Contents/Resources/twister"  //Dir for twister
-    var twisterdDir = String()
-    var htmldir = String()
-    var configPath = String() //config file path for args
-    var configFilePath = String() //config file path
-    var configDict = Dictionary<String,String>()
+    var configSet:ConfigSet!
+    
     var args:[String] = []
     
     var shell = String() {
@@ -57,7 +50,7 @@ class ViewController: NSViewController {
             sender.title = "Twister Server: 🌍"
         } else  {
             spinning.startAnimation(self)
-            shellField.stringValue += "Stoping Twisterd...\n"
+            shellField.stringValue += "Stoping Twisterd...\nThis will take some times...\n"
             twisterd.killTwisterd()
             spinning.stopAnimation(self)
             sender.title = "Twister Server: 🔴"
@@ -72,43 +65,25 @@ class ViewController: NSViewController {
            }
 
     @IBAction func test(sender: NSButton) {
-        twisterRpc = Twisterd(launchPath: twisterdDir)
-        var data = NSData()
-        
-        backgroundQueue.addOperationWithBlock {
-        
-        data = self.twisterRpc.getJson(arguments: ["dhtget","adm1n","profile","s"])
-            let json = JSON(data:data)
-            let str = json[0,"p","target","n"].string
-            NSLog(str!)
+       let json = JSON(["method":"getinfo","id":"1"])
+        Twisterd.RPC(json) { (succeeded, msg, data) -> () in
+            print(data)
         }
         
+ 
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        //-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0
-        //init this dir
-        twisterdDir = twisterDir + "/twisterd"
-        htmldir = "-htmldir=" + twisterDir + "/html"
-        configPath = "-conf=" + twisterDir + "/twister.conf"
-        configFilePath = twisterDir + "/twister.conf"
-        //-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0
-        
+
+        configSet = ConfigSet(twisterDir: twisterDir)
         
         versionField.stringValue = getTwisterdVersion()
-        do {
-            try getConfig()
-        } catch {
-            let alert = NSAlert()
-            alert.addButtonWithTitle("ok")
-            alert.runModal()
-        }
-
+       
         
-        usernameField.stringValue = configDict["rpcuser"] ?? "error!"
-        passwordField.stringValue = configDict["rpcpassword"] ?? "error!"
-        rpcPortField.stringValue = configDict["rpcport"] ?? "error!"
-        proxyIP.stringValue = configDict["proxy"] ?? ""
+        usernameField.stringValue = configSet.config["rpcuser"] ?? "error!"
+        passwordField.stringValue = configSet.config["rpcpassword"] ?? "error!"
+        rpcPortField.stringValue = configSet.config["rpcport"] ?? "error!"
+        proxyIP.stringValue = configSet.config["proxy"] ?? ""
         
         // Do any additional setup after loading the view.
         
@@ -124,38 +99,25 @@ class ViewController: NSViewController {
     
     func go () {
 
-        args = [htmldir,configPath]
-        twisterd = Twisterd(launchPath: twisterdDir, arguments: args )
+        args = ["-conf=" + configSet.configFilePath]
+        twisterd = Twisterd(launchPath: twisterDir, arguments: args )
     }
     
      func setConfig() {
         
-        configDict.updateValue(usernameField.stringValue, forKey: "rpcuser")
-        configDict.updateValue(passwordField.stringValue, forKey: "rpcpassword")
-        configDict.updateValue(rpcPortField.stringValue, forKey: "rpcport")
+        configSet.updateConfig(usernameField.stringValue, key: "rpcuser")
+        configSet.updateConfig(passwordField.stringValue, key: "rpcpassword")
+        configSet.updateConfig(rpcPortField.stringValue, key: "rpcport")
         if proxyIP.stringValue.isEmpty {
-            configDict["proxy"] = nil
+            configSet.removeConfig(forKey: "proxy")
         } else {
-        configDict.updateValue(proxyIP.stringValue, forKey: "proxy")
+        configSet.updateConfig(proxyIP.stringValue, key: "proxy")
         }
-        var str = ""
-        var content:[String] = []
-        for (cmd,value) in configDict {
-            let row = cmd + "=" + value
-            content.append(row)
-        }
-        str = content.joinWithSeparator("\n")
-        
-        do {
-            try str.writeToFile(configFilePath, atomically: true, encoding: NSUTF8StringEncoding)
-        } catch {
-            NSLog("save error~")
-        }
-        
+        configSet.writeConfig()
     }
     
     func getTwisterdVersion()->String {
-        let version = Twisterd(launchPath: twisterdDir, arguments: ["--help"])
+        let version = Twisterd(launchPath: twisterDir, arguments: ["--help"])
         let a = version.runTwisterd()
         let ver = a.characters.split(){$0 == "\n"}.map{String($0)}
         return ver[0]
@@ -181,24 +143,6 @@ class ViewController: NSViewController {
    
     }
     
-    func getConfig() throws {
-        let rowConfigFile = try String(contentsOfFile: configFilePath)
-        let config = rowConfigFile.characters.split { (char) -> Bool in
-            if char == "\n" {
-                return true
-            }
-            return false
-        }
-        for str in config {
-            let result = str.split{$0 == "="}
-            
-            let cmd = String(result[0])
-            
-            let value = String(result[1])
-            
-            configDict.updateValue(value, forKey: cmd)
-        }
-    }
     enum LockStat {
         case on,off
     }
