@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="9532"/>
+        <plugIn identifier="com.apple.WebKitIBPlugin" version="9532"/>
         <capability name="box content view" minToolsVersion="7.0"/>
     </dependencies>
     <scenes>
@@ -816,7 +817,7 @@
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <box verticalHuggingPriority="750" fixedFrame="YES" title="Box" boxType="separator" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="c3f-Wy-vAn">
-                                            <rect key="frame" x="10" y="222" width="450" height="5"/>
+                                            <rect key="frame" x="10" y="222" width="450" height="4"/>
                                             <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                                             <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <font key="titleFont" metaFont="system"/>
@@ -869,16 +870,6 @@
                                                 <action selector="toggle:" target="XfG-lQ-9wD" id="2So-JC-Bas"/>
                                             </connections>
                                         </button>
-                                        <button horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eIN-jb-cET">
-                                            <rect key="frame" x="14" y="13" width="123" height="32"/>
-                                            <buttonCell key="cell" type="push" title="Open Twister!" bezelStyle="rounded" alignment="center" enabled="NO" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="I6i-WE-m5E">
-                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                <font key="font" metaFont="system"/>
-                                            </buttonCell>
-                                            <connections>
-                                                <action selector="open:" target="XfG-lQ-9wD" id="Fhd-gy-dYE"/>
-                                            </connections>
-                                        </button>
                                         <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6Ep-75-HkR">
                                             <rect key="frame" x="230" y="167" width="70" height="22"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="center" title="user" placeholderString="" drawsBackground="YES" usesSingleLineMode="YES" id="AWr-4a-bI2">
@@ -914,9 +905,9 @@
                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
-                                        <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0aN-4n-g7V">
+                                        <button hidden="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0aN-4n-g7V">
                                             <rect key="frame" x="40" y="60" width="40" height="19"/>
-                                            <buttonCell key="cell" type="roundRect" title="test!" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" transparent="YES" imageScaling="proportionallyDown" inset="2" id="Xzb-9s-aqD">
+                                            <buttonCell key="cell" type="roundRect" title="test!" bezelStyle="roundedRect" alignment="center" enabled="NO" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Xzb-9s-aqD">
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                 <font key="font" metaFont="cellTitle"/>
                                             </buttonCell>
@@ -924,9 +915,6 @@
                                                 <action selector="test:" target="XfG-lQ-9wD" id="gcw-EK-kCm"/>
                                             </connections>
                                         </button>
-                                        <progressIndicator wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="xDX-VF-aUL">
-                                            <rect key="frame" x="128" y="232" width="16" height="16"/>
-                                        </progressIndicator>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Dlb-TR-YeZ">
                                             <rect key="frame" x="152" y="22" width="109" height="17"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Use Socks proxy!" id="4f2-10-oeJ">
@@ -951,6 +939,20 @@
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
+                                        <progressIndicator wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="xDX-VF-aUL">
+                                            <rect key="frame" x="159" y="233" width="16" height="16"/>
+                                        </progressIndicator>
+                                        <button horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3LR-6D-hIi">
+                                            <rect key="frame" x="14" y="15" width="123" height="32"/>
+                                            <buttonCell key="cell" type="push" title="Open Twister!" bezelStyle="rounded" alignment="center" enabled="NO" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="pI8-46-Zu1">
+                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                            </buttonCell>
+                                            <connections>
+                                                <action selector="open:" target="XfG-lQ-9wD" id="6uf-g1-ILe"/>
+                                                <segue destination="G9g-A2-fE1" kind="show" id="pzq-b1-Aug"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
                                 </view>
                                 <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
@@ -959,12 +961,13 @@
                         </subviews>
                     </view>
                     <connections>
-                        <outlet property="openTwister" destination="eIN-jb-cET" id="fnP-DY-XNo"/>
+                        <outlet property="openTwister" destination="3LR-6D-hIi" id="b7O-su-zrF"/>
                         <outlet property="passwordField" destination="Ar2-WP-NWy" id="vpC-6F-cIX"/>
                         <outlet property="proxyIP" destination="hW1-o1-aYC" id="h2q-mc-3gZ"/>
                         <outlet property="rpcPortField" destination="T3h-8A-ud5" id="2YJ-SM-kTi"/>
                         <outlet property="shellField" destination="rnd-3G-cJG" id="QtT-Ox-HeR"/>
                         <outlet property="spinning" destination="xDX-VF-aUL" id="kOh-BZ-jyw"/>
+                        <outlet property="toggle" destination="xwD-ZM-xlM" id="of6-3N-SkB"/>
                         <outlet property="usernameField" destination="6Ep-75-HkR" id="he8-Gw-piT"/>
                         <outlet property="versionField" destination="mGD-rb-3er" id="eil-98-O5V"/>
                     </connections>
@@ -972,6 +975,48 @@
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="75" y="655"/>
+        </scene>
+        <!--Window Controller-->
+        <scene sceneID="gQq-as-6yF">
+            <objects>
+                <windowController id="G9g-A2-fE1" sceneMemberID="viewController">
+                    <window key="window" title="TwisterX" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="Fac-nN-CNY">
+                        <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
+                        <windowPositionMask key="initialPositionMask" leftStrut="YES" topStrut="YES"/>
+                        <rect key="contentRect" x="53" y="559" width="200" height="200"/>
+                        <rect key="screenRect" x="0.0" y="0.0" width="1280" height="777"/>
+                    </window>
+                    <connections>
+                        <segue destination="QOP-Pd-c1I" kind="relationship" relationship="window.shadowedContentViewController" id="eeB-ew-XS1"/>
+                    </connections>
+                </windowController>
+                <customObject id="8F5-ve-Tkm" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="235" y="1284"/>
+        </scene>
+        <!--TwisterX-->
+        <scene sceneID="hvy-cL-PdF">
+            <objects>
+                <viewController id="QOP-Pd-c1I" customClass="TwisterX" customModule="TwisterX" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" placeholderIntrinsicWidth="1024" placeholderIntrinsicHeight="768" id="zAc-72-BLn">
+                        <rect key="frame" x="0.0" y="0.0" width="900" height="700"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <webView fixedFrame="YES" placeholderIntrinsicWidth="480" placeholderIntrinsicHeight="270" translatesAutoresizingMaskIntoConstraints="NO" id="9JS-B5-khG">
+                                <rect key="frame" x="0.0" y="0.0" width="900" height="700"/>
+                                <webPreferences key="preferences" defaultFontSize="16" defaultFixedFontSize="13" minimumFontSize="0">
+                                    <nil key="identifier"/>
+                                </webPreferences>
+                            </webView>
+                        </subviews>
+                    </view>
+                    <connections>
+                        <outlet property="content" destination="9JS-B5-khG" id="0xE-mr-Ong"/>
+                    </connections>
+                </viewController>
+                <customObject id="EhD-Ie-1zI" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1106" y="1172"/>
         </scene>
     </scenes>
     <resources>

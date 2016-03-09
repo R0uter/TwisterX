@@ -80,6 +80,7 @@ class ConfigSet {
         } catch {
             NSLog("save error~")
         }
+//        readConfig()
         
     }
 

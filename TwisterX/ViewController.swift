@@ -22,8 +22,13 @@ class ViewController: NSViewController {
     
     var shell = String() {
         didSet { //there is a lockdown for twisterd thread.
-            shellField.stringValue += shell
-            lockStatTo(.off)
+            
+            NSOperationQueue.mainQueue().addOperationWithBlock() {
+                self.shellField.stringValue += self.shell
+                self.spinning.stopAnimation(self)
+                self.toggle.enabled = true
+                self.lockStatTo(.off)
+            }
         }
     }
 
@@ -37,8 +42,11 @@ class ViewController: NSViewController {
     @IBOutlet weak var versionField: NSTextField!
     @IBOutlet weak var shellField: NSTextField!
 
+    @IBOutlet weak var toggle: NSButton!
     @IBAction func toggle (sender: NSButton) {
+        //spinning.usesThreadedAnimation = true
         if sender.title == "Twister Server: 🔴" {
+            
             spinning.startAnimation(self)
             shellField.stringValue = "Starting Twisterd...\n"
             setConfig()
@@ -50,17 +58,16 @@ class ViewController: NSViewController {
             sender.title = "Twister Server: 🌍"
         } else  {
             spinning.startAnimation(self)
-            shellField.stringValue += "Stoping Twisterd...\nThis will take some times...\n"
+            shellField.stringValue += "Stoping Twisterd...\n"
             twisterd.killTwisterd()
-            spinning.stopAnimation(self)
             sender.title = "Twister Server: 🔴"
+            sender.enabled = false
         }
         
     }
     @IBAction func open(sender: AnyObject) {
-        let url = "http://localhost:" + rpcPortField.stringValue
-        
-        NSWorkspace.sharedWorkspace().openURL(NSURL( string:url)!)
+        let window = view.window!
+        window.close()
        
            }
 
